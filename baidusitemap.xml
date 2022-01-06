@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hammerzer.github.io/2020/08/18/The-Starting-Point-of-Blogs/</loc>
+    <lastmod>2022-01-06</lastmod>
+  </url>
+  <url>
     <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
     <lastmod>2022-01-05</lastmod>
   </url>
@@ -29,11 +33,11 @@
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2020/12/07/vue-performance-optimization/</loc>
+    <loc>https://hammerzer.github.io/2020/11/25/gitignore-Question/</loc>
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2020/11/25/gitignore-Question/</loc>
+    <loc>https://hammerzer.github.io/2020/12/07/vue-performance-optimization/</loc>
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
@@ -62,10 +66,6 @@
   </url>
   <url>
     <loc>https://hammerzer.github.io/2020/11/06/UI-frames/</loc>
-    <lastmod>2021-10-11</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2020/08/18/The-Starting-Point-of-Blogs/</loc>
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
