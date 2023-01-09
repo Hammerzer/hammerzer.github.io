@@ -787,84 +787,6 @@
       </tags>
   </entry>
   <entry>
-    <title>H5离线缓存</title>
-    <url>/2021/01/08/H5-application-cache/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
-<p>关于H5离线缓存的技术有点陌生，记一点笔记！</p>
-<p>参考原文<a href="https://www.cnblogs.com/PeterSpeaking/p/5912221.html">传送门</a></p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="H5离线缓存技术"><a href="#H5离线缓存技术" class="headerlink" title="H5离线缓存技术"></a>H5离线缓存技术</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>HTML5</strong>提供了很多新的功能以及相应的接口，离线存储就是其中的一个，离线存储可以将站点的一些文件存储在本地，在没有网络的时候还是可以访问到以缓存的对应的站点页面，其中这些文件可以包括html，js，css，img等等文件，但其实即使在有网络的时候，浏览器也会优先使用已离线存储的文件，返回一个200（from cache）头。这跟HTTP的缓存使用策略是不同的。</p>
-<p><strong>它</strong>是浏览器自己的一种机制，随着移动互联网时代的到来，网络可靠性降低，如果我们已经将需要的文件缓存下下来，一旦网络无法访问，也能继续访问。</p>
-<p>而且做好相应资源的缓存可以带来更好的用户体验，当用户使用自己的流量上网时，本地缓存不仅可以提高用户访问速度，而且大大节约用户的使用流量。</p>
-<h3 id="什么是Manifest"><a href="#什么是Manifest" class="headerlink" title="什么是Manifest"></a>什么是Manifest</h3><p>其实 <code>Manifest</code> 是一个简单的 文本文件，它的扩展名是任意的，定义需要缓存的文件、资源，当第一次打开时，浏览器会自动缓存相应的资源。</p>
-<p><strong>Manifest 的特点：</strong></p>
-<ul>
-<li>离线浏览：即当网络断开时，可以继续访问你的页面。</li>
-<li>访问速度快：将文件缓存到本地，不需每次都从网络上请求。</li>
-<li>稳定性：做了 <code>Manifest</code> 缓存，遇到突发网络故障或者服务器故障，继续访问本地缓存。</li>
-</ul>
-<p><img src="./structure.png"></p>
-<h3 id="Manifest的使用"><a href="#Manifest的使用" class="headerlink" title="Manifest的使用"></a>Manifest的使用</h3><p><code>HTML</code> 新增了一个 <code>manifest</code> 属性，可以用来指定当前页面的 <code>manifest</code> 文件。</p>
-<p>创建一个和 <code>html</code> 同名的 <code>manifest</code> 文件，比如页面为 <code>index.html</code> ，那么可以建一个 <code>index.manifest</code> 的文件，然后给 <code>index.html</code> 的 <code>html</code> 标签添加如下属性即可：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span> <span class="attr">manifest</span>=<span class="string">&quot;index.manifest&quot;</span>&gt;</span> 或</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">&quot;http://www.example.com/index.manifest&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>1、<code>manifest</code>  的引入可以使绝对路径也可以是相对路径，如果你使用的是绝对路径，你的manifest文件必须和你的站点挂在同一个域名下</p>
-<p>2、<code>manifest</code> 文件你可以保存为任意的扩展名，但 <code>mine-type</code> 必须是 <code>text/cache-manifest</code>。</p>
-<p><code>&lt;html lang=&quot;en&quot; manifest=&quot;index.manifest&quot;&gt;</code>  或  <code>&lt;html lang=&quot;en&quot; manifest=&quot;index.cache&quot;&gt;</code> 在服务器上部署时需要在服务器上添加相应的 <code>mie-type</code></p>
-<p><img src="./h5-cache-2.png"></p>
-<p>3、<code>manifest</code> 标签应该包含到你需要缓存资源的页面，当第一次打开该页面时，浏览器会解析该页面中的mainfest，并缓存里面列举的资源，同时该页面也会自动会被浏览器缓存，即使该页面没有在 <code>Manifest</code>中 列出。</p>
-<p>注意： “<code>/page-url/</code>“, “<code>/page-url/?something</code>“, “<code>/page-url/?something-else</code>“   <code>Manifest</code> 会当成不同的页面，如果 <code>page-url</code> 页面中包含了 <code>Manifest</code> 属性则浏览器会将该页面中列举出来的资源分别保存，所以 <code>Manifest</code> 最好使用在SPA（单页应用）项目中。</p>
-<p>在Chrome中，可以使用 <code>chrome://appcache-internals/</code> 查看你缓存在本地的资源文件。</p>
-<h3 id="Manifest文件结构"><a href="#Manifest文件结构" class="headerlink" title="Manifest文件结构"></a>Manifest文件结构</h3><p>接下来详细说说manifest的细节，一个典型的manifest文件代码结构像下面这样：</p>
-<p><img src="./h5-cache-3.png"></p>
-<p><code>manifest</code> 文件，基本格式为三段： <code>CACHE</code>， <code>NETWORK</code>，与 <code>FALLBACK</code>，其中 <code>NETWORK</code> 和 <code>FALLBACK</code> 为可选项。</p>
-<p>而第一行 <code>CACHE MANIFEST</code> 为固定格式，必须写在前面。</p>
-<p>以#号开头的是注释，可以是版本号，时间戳等等。</p>
-<p>一般会在这写个版本号，用来在缓存的文件更新时，更改manifest的作用：浏览器已经缓存下来的缓存，只有当 <code>manifest</code> 文件发生了改变才会更新本地缓存，即使你的代码发生了更新，本地浏览器也是不知道的，所以每次发布代码时你可以更改下#后面的信息比如版本号或者时间，告诉浏览器相应的更新本地缓存。</p>
-<blockquote>
-<p>1、第一行是CACHE MANIFEST 这是必须需要的。</p>
-<p>2、CACHE（必须） 标识出哪些文件需要缓存，可以是相对路径也可以是绝对路径。这里列举出来的文件，当第一次加载下来时，会被浏览器缓存在本地。</p>
-<p>3、NETWORk  这一部分是要绕过缓存直接读取的文件，可以使用通配符 *，大多数网站使用 * 。 当使用* 时 表示出 CACHE指定文件外，其它所有页面都需要联网访问。</p>
-<p>4、FALLBACK  （可选） 当资源无法访问时，浏览器使用后备资源去替代。第二个表示后备页面。两个 URI 都必须使用相对路径并且与清单文件同源。可以使用通配符。</p>
-</blockquote>
-<p>下面的例子中，如果无法建立因特网连接，则用 “<code>404.html</code>” 替代 <code>/html5/</code> 目录中的所有文件。</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">FALLBACK:</span><br><span class="line">/html5/ /<span class="number">404.</span>html</span><br></pre></td></tr></table></figure>
-
-<p>下面的例子中，当任何页面无法访问时跳转到 “<code>404.html</code>”页。</p>
-<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">FALLBACK:</span><br><span class="line">*<span class="string">.html</span> <span class="string">/404.html</span></span><br></pre></td></tr></table></figure>
-
-<p>注意：</p>
-<blockquote>
-<p>1 必须在第一行，2、3、4 直接的顺序是随意的，并且在同一个 <code>manifest</code> 文件中可以出现多次，多次和一次效果一样。</p>
-<p>添加 <code>manifest</code>　 属性的页面会自动被浏览器缓存，不需要再 <code>CACHE</code> 节点中再次添加。</p>
-</blockquote>
-<h3 id="如何更新缓存"><a href="#如何更新缓存" class="headerlink" title="如何更新缓存"></a>如何更新缓存</h3><p>如下三种方式，可以更新缓存：</p>
-<ul>
-<li>更新manifest文件</li>
-<li>通过javascript操作</li>
-<li>清除浏览器缓存</li>
-</ul>
-<p>给 <code>manifest</code> 添加或删除文件，都可更新缓存，如果我们更改了 <code>js</code> ，而没有新增或删除，前面例子中注释中的版本号，可以很好的用来更新 <code>manifest</code> 文件。</p>
-<p><code>html5</code> 中引入了js操作离线缓存的方法，下面的js可以手动更新本地缓存。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.applicationCache.update();</span><br></pre></td></tr></table></figure>
-
-<p>如果用户清除了浏览器缓存（手动或用其他一些工具）都会重新下载文件。</p>
-<br>
-
-<p>我们可以使用代码手动更新manifest缓存，一旦webapp源码更新，会自动更新本地manifest缓存，使用户始终访问到最新的源码。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.applicationCache.addEventListener(<span class="string">&#x27;updateready&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.applicationCache.status == <span class="built_in">window</span>.applicationCache.UPDATEREADY) &#123;</span><br><span class="line">     <span class="built_in">window</span>.applicationCache .swapCache();</span><br><span class="line">      <span class="keyword">if</span> (confirm(<span class="string">&#x27;A new version of this site is available. Load it?&#x27;</span>)) &#123;</span><br><span class="line">        <span class="built_in">window</span>.location.reload();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Manifest didn&#x27;t changed. Nothing new to server.</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Front End</category>
-      </categories>
-      <tags>
-        <tag>Web新技术</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git Problems</title>
     <url>/2020/09/08/git-problems/</url>
     <content><![CDATA[<h2 id="CONTENT-OUTlINE"><a href="#CONTENT-OUTlINE" class="headerlink" title="CONTENT OUTlINE"></a>CONTENT OUTlINE</h2><blockquote>
@@ -1064,6 +986,84 @@
       </categories>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>H5离线缓存</title>
+    <url>/2021/01/08/H5-application-cache/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
+<p>关于H5离线缓存的技术有点陌生，记一点笔记！</p>
+<p>参考原文<a href="https://www.cnblogs.com/PeterSpeaking/p/5912221.html">传送门</a></p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="H5离线缓存技术"><a href="#H5离线缓存技术" class="headerlink" title="H5离线缓存技术"></a>H5离线缓存技术</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>HTML5</strong>提供了很多新的功能以及相应的接口，离线存储就是其中的一个，离线存储可以将站点的一些文件存储在本地，在没有网络的时候还是可以访问到以缓存的对应的站点页面，其中这些文件可以包括html，js，css，img等等文件，但其实即使在有网络的时候，浏览器也会优先使用已离线存储的文件，返回一个200（from cache）头。这跟HTTP的缓存使用策略是不同的。</p>
+<p><strong>它</strong>是浏览器自己的一种机制，随着移动互联网时代的到来，网络可靠性降低，如果我们已经将需要的文件缓存下下来，一旦网络无法访问，也能继续访问。</p>
+<p>而且做好相应资源的缓存可以带来更好的用户体验，当用户使用自己的流量上网时，本地缓存不仅可以提高用户访问速度，而且大大节约用户的使用流量。</p>
+<h3 id="什么是Manifest"><a href="#什么是Manifest" class="headerlink" title="什么是Manifest"></a>什么是Manifest</h3><p>其实 <code>Manifest</code> 是一个简单的 文本文件，它的扩展名是任意的，定义需要缓存的文件、资源，当第一次打开时，浏览器会自动缓存相应的资源。</p>
+<p><strong>Manifest 的特点：</strong></p>
+<ul>
+<li>离线浏览：即当网络断开时，可以继续访问你的页面。</li>
+<li>访问速度快：将文件缓存到本地，不需每次都从网络上请求。</li>
+<li>稳定性：做了 <code>Manifest</code> 缓存，遇到突发网络故障或者服务器故障，继续访问本地缓存。</li>
+</ul>
+<p><img src="./structure.png"></p>
+<h3 id="Manifest的使用"><a href="#Manifest的使用" class="headerlink" title="Manifest的使用"></a>Manifest的使用</h3><p><code>HTML</code> 新增了一个 <code>manifest</code> 属性，可以用来指定当前页面的 <code>manifest</code> 文件。</p>
+<p>创建一个和 <code>html</code> 同名的 <code>manifest</code> 文件，比如页面为 <code>index.html</code> ，那么可以建一个 <code>index.manifest</code> 的文件，然后给 <code>index.html</code> 的 <code>html</code> 标签添加如下属性即可：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span> <span class="attr">manifest</span>=<span class="string">&quot;index.manifest&quot;</span>&gt;</span> 或</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">&quot;http://www.example.com/index.manifest&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>1、<code>manifest</code>  的引入可以使绝对路径也可以是相对路径，如果你使用的是绝对路径，你的manifest文件必须和你的站点挂在同一个域名下</p>
+<p>2、<code>manifest</code> 文件你可以保存为任意的扩展名，但 <code>mine-type</code> 必须是 <code>text/cache-manifest</code>。</p>
+<p><code>&lt;html lang=&quot;en&quot; manifest=&quot;index.manifest&quot;&gt;</code>  或  <code>&lt;html lang=&quot;en&quot; manifest=&quot;index.cache&quot;&gt;</code> 在服务器上部署时需要在服务器上添加相应的 <code>mie-type</code></p>
+<p><img src="./h5-cache-2.png"></p>
+<p>3、<code>manifest</code> 标签应该包含到你需要缓存资源的页面，当第一次打开该页面时，浏览器会解析该页面中的mainfest，并缓存里面列举的资源，同时该页面也会自动会被浏览器缓存，即使该页面没有在 <code>Manifest</code>中 列出。</p>
+<p>注意： “<code>/page-url/</code>“, “<code>/page-url/?something</code>“, “<code>/page-url/?something-else</code>“   <code>Manifest</code> 会当成不同的页面，如果 <code>page-url</code> 页面中包含了 <code>Manifest</code> 属性则浏览器会将该页面中列举出来的资源分别保存，所以 <code>Manifest</code> 最好使用在SPA（单页应用）项目中。</p>
+<p>在Chrome中，可以使用 <code>chrome://appcache-internals/</code> 查看你缓存在本地的资源文件。</p>
+<h3 id="Manifest文件结构"><a href="#Manifest文件结构" class="headerlink" title="Manifest文件结构"></a>Manifest文件结构</h3><p>接下来详细说说manifest的细节，一个典型的manifest文件代码结构像下面这样：</p>
+<p><img src="./h5-cache-3.png"></p>
+<p><code>manifest</code> 文件，基本格式为三段： <code>CACHE</code>， <code>NETWORK</code>，与 <code>FALLBACK</code>，其中 <code>NETWORK</code> 和 <code>FALLBACK</code> 为可选项。</p>
+<p>而第一行 <code>CACHE MANIFEST</code> 为固定格式，必须写在前面。</p>
+<p>以#号开头的是注释，可以是版本号，时间戳等等。</p>
+<p>一般会在这写个版本号，用来在缓存的文件更新时，更改manifest的作用：浏览器已经缓存下来的缓存，只有当 <code>manifest</code> 文件发生了改变才会更新本地缓存，即使你的代码发生了更新，本地浏览器也是不知道的，所以每次发布代码时你可以更改下#后面的信息比如版本号或者时间，告诉浏览器相应的更新本地缓存。</p>
+<blockquote>
+<p>1、第一行是CACHE MANIFEST 这是必须需要的。</p>
+<p>2、CACHE（必须） 标识出哪些文件需要缓存，可以是相对路径也可以是绝对路径。这里列举出来的文件，当第一次加载下来时，会被浏览器缓存在本地。</p>
+<p>3、NETWORk  这一部分是要绕过缓存直接读取的文件，可以使用通配符 *，大多数网站使用 * 。 当使用* 时 表示出 CACHE指定文件外，其它所有页面都需要联网访问。</p>
+<p>4、FALLBACK  （可选） 当资源无法访问时，浏览器使用后备资源去替代。第二个表示后备页面。两个 URI 都必须使用相对路径并且与清单文件同源。可以使用通配符。</p>
+</blockquote>
+<p>下面的例子中，如果无法建立因特网连接，则用 “<code>404.html</code>” 替代 <code>/html5/</code> 目录中的所有文件。</p>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">FALLBACK:</span><br><span class="line">/html5/ /<span class="number">404.</span>html</span><br></pre></td></tr></table></figure>
+
+<p>下面的例子中，当任何页面无法访问时跳转到 “<code>404.html</code>”页。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">FALLBACK:</span><br><span class="line">*<span class="string">.html</span> <span class="string">/404.html</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<blockquote>
+<p>1 必须在第一行，2、3、4 直接的顺序是随意的，并且在同一个 <code>manifest</code> 文件中可以出现多次，多次和一次效果一样。</p>
+<p>添加 <code>manifest</code>　 属性的页面会自动被浏览器缓存，不需要再 <code>CACHE</code> 节点中再次添加。</p>
+</blockquote>
+<h3 id="如何更新缓存"><a href="#如何更新缓存" class="headerlink" title="如何更新缓存"></a>如何更新缓存</h3><p>如下三种方式，可以更新缓存：</p>
+<ul>
+<li>更新manifest文件</li>
+<li>通过javascript操作</li>
+<li>清除浏览器缓存</li>
+</ul>
+<p>给 <code>manifest</code> 添加或删除文件，都可更新缓存，如果我们更改了 <code>js</code> ，而没有新增或删除，前面例子中注释中的版本号，可以很好的用来更新 <code>manifest</code> 文件。</p>
+<p><code>html5</code> 中引入了js操作离线缓存的方法，下面的js可以手动更新本地缓存。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.applicationCache.update();</span><br></pre></td></tr></table></figure>
+
+<p>如果用户清除了浏览器缓存（手动或用其他一些工具）都会重新下载文件。</p>
+<br>
+
+<p>我们可以使用代码手动更新manifest缓存，一旦webapp源码更新，会自动更新本地manifest缓存，使用户始终访问到最新的源码。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.applicationCache.addEventListener(<span class="string">&#x27;updateready&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.applicationCache.status == <span class="built_in">window</span>.applicationCache.UPDATEREADY) &#123;</span><br><span class="line">     <span class="built_in">window</span>.applicationCache .swapCache();</span><br><span class="line">      <span class="keyword">if</span> (confirm(<span class="string">&#x27;A new version of this site is available. Load it?&#x27;</span>)) &#123;</span><br><span class="line">        <span class="built_in">window</span>.location.reload();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Manifest didn&#x27;t changed. Nothing new to server.</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Front End</category>
+      </categories>
+      <tags>
+        <tag>Web新技术</tag>
       </tags>
   </entry>
   <entry>
@@ -1333,6 +1333,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Java基础语法及常见问题一</title>
+    <url>/2023/01/09/java-base-1/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
+<ul>
+<li>安装JDK&amp;编写HelloWorld案例&amp;数据类型等 </li>
+<li>运算符、分支结构 </li>
+<li>循环结构</li>
+<li>IDEA开发工具&amp;数组</li>
+<li>方法</li>
+<li>案例练习</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="一、JDK-JRE-JVM"><a href="#一、JDK-JRE-JVM" class="headerlink" title="一、JDK/JRE/JVM"></a>一、JDK/JRE/JVM</h2><p><img src="./java-pic-1.png"></p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Back End</category>
+      </categories>
+      <tags>
+        <tag>Java基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>The Second Birthday</title>
     <url>/2020/10/10/the-second-birthday/</url>
     <content><![CDATA[<hr>
@@ -1492,6 +1516,63 @@
       <tags>
         <tag>开发与调试</tag>
         <tag>开发工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue-路由Router进阶</title>
+    <url>/2020/12/21/vue-router-plus/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
+<p>总结接触到的有关于 <code>Vue-Router</code> 的知识点，基于最基本的使用之上的进阶内容。</p>
+<p><a href="https://router.vuejs.org/zh/installation.html">官方文档传送</a></p>
+<p>–  在新窗口打开页面</p>
+<p>–  导航守卫</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="一、在新窗口打开页面"><a href="#一、在新窗口打开页面" class="headerlink" title="一、在新窗口打开页面"></a>一、在新窗口打开页面</h2><p><strong>方法一：</strong><code>&lt;router-link&gt;</code>标签实现新窗口打开</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;router-link target&#x3D;&quot;_blank&quot; :to&#x3D;&quot;&#123;path:&#39;&#x2F;home&#39;,query:&#123;id:&#39;1&#39;&#125;&#125;&quot;&gt;</span><br><span class="line">    新页面打开home页</span><br><span class="line">&lt;&#x2F;router-link&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法二：</strong>编程式导航：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">print_schedule() &#123;</span><br><span class="line">    <span class="keyword">let</span> id = <span class="built_in">this</span>.id;</span><br><span class="line">    <span class="keyword">const</span> &#123; href &#125; = <span class="built_in">this</span>.$router.resolve(&#123;</span><br><span class="line">        name: <span class="string">`print_schedule`</span>,</span><br><span class="line">        params: &#123;</span><br><span class="line">            id: id</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">window</span>.open(href, <span class="string">&quot;_blank&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、导航守卫"><a href="#二、导航守卫" class="headerlink" title="二、导航守卫"></a>二、<a href="https://router.vuejs.org/zh/guide/advanced/navigation-guards.html">导航守卫</a></h2><p>正如其名，<code>vue-router</code> 提供的导航守卫主要用来通过跳转或取消的方式守卫导航。有多种机会植入路由导航过程中：全局的, 单个路由独享的, 或者组件    级的。</p>
+<p>记住<strong>参数或查询的改变并不会触发进入/离开的导航守卫</strong>。你可以通过<a href="https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E5%93%8D%E5%BA%94%E8%B7%AF%E7%94%B1%E5%8F%82%E6%95%B0%E7%9A%84%E5%8F%98%E5%8C%96">观察 <code>$route</code> 对象</a>来应对这些变化，或使用 <code>beforeRouteUpdate</code> 的组件内守卫。</p>
+<h3 id="1、全局前置守卫"><a href="#1、全局前置守卫" class="headerlink" title="1、全局前置守卫"></a>1、全局前置守卫</h3><p>你可以使用 <code>router.beforeEach</code> 注册一个全局前置守卫：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123; ... &#125;)</span><br><span class="line"></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>当一个导航触发时，全局前置守卫按照创建顺序调用。守卫是异步解析执行，此时导航在所有守卫 resolve 完之前一直处于 <strong>等待中</strong>。</p>
+<p>每个守卫方法接收三个参数：</p>
+<ul>
+<li><strong><code>to: Route</code></strong>: 即将要进入的目标 <a href="https://router.vuejs.org/zh/api/#%E8%B7%AF%E7%94%B1%E5%AF%B9%E8%B1%A1">路由对象</a></li>
+<li><strong><code>from: Route</code></strong>: 当前导航正要离开的路由</li>
+<li><strong><code>next: Function</code></strong>: 一定要调用该方法来 <strong>resolve</strong> 这个钩子。执行效果依赖 <code>next</code> 方法的调用参数。<ul>
+<li><strong><code>next()</code></strong>: 进行管道中的下一个钩子。如果全部钩子执行完了，则导航的状态就是 <strong>confirmed</strong> (确认的)。</li>
+<li><strong><code>next(false)</code></strong>: 中断当前的导航。如果浏览器的 URL 改变了 (可能是用户手动或者浏览器后退按钮)，那么 URL 地址会重置到 <code>from</code> 路由对应的地址。</li>
+<li><strong><code>next(&#39;/&#39;)</code> 或者 <code>next(&#123; path: &#39;/&#39; &#125;)</code></strong>: 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。你可以向 <code>next</code> 传递任意位置对象，且允许设置诸如 <code>replace: true</code>、<code>name: &#39;home&#39;</code> 之类的选项以及任何用在 <a href="https://router.vuejs.org/zh/api/#to"><code>router-link</code> 的 <code>to</code> prop</a> 或 <a href="https://router.vuejs.org/zh/api/#router-push"><code>router.push</code></a> 中的选项。</li>
+<li><strong><code>next(error)</code></strong>: (2.4.0+) 如果传入 <code>next</code> 的参数是一个 <code>Error</code> 实例，则导航会被终止且该错误会被传递给 <a href="https://router.vuejs.org/zh/api/#router-onerror"><code>router.onError()</code></a> 注册过的回调。</li>
+</ul>
+</li>
+</ul>
+<p><strong>确保 <code>next</code> 函数在任何给定的导航守卫中都被严格调用一次。它可以出现多于一次，但是只能在所有的逻辑路径都不重叠的情况下，否则钩子永远都不会被解析或报错。</strong>这里有一个在用户未能验证身份时重定向到 <code>/login</code> 的示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// BAD</span></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (to.name !== <span class="string">&#x27;Login&#x27;</span> &amp;&amp; !isAuthenticated) next(&#123; <span class="attr">name</span>: <span class="string">&#x27;Login&#x27;</span> &#125;)</span><br><span class="line">  <span class="comment">// 如果用户未能验证身份，则 `next` 会被调用两次</span></span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// GOOD</span></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (to.name !== <span class="string">&#x27;Login&#x27;</span> &amp;&amp; !isAuthenticated) next(&#123; <span class="attr">name</span>: <span class="string">&#x27;Login&#x27;</span> &#125;)</span><br><span class="line">  <span class="keyword">else</span> next()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加守卫之后的报错"><a href="#添加守卫之后的报错" class="headerlink" title="添加守卫之后的报错"></a>添加守卫之后的报错</h4><p><img src="./bug-router.png"></p>
+<blockquote>
+<p>原因：<code>vue-router</code> 路由版本更新产生的问题,导致路由跳转失败抛出该错误，但并不影响程序功能</p>
+</blockquote>
+<p><strong>解决方案一：</strong></p>
+<p>使用编程式导航跳转时，每次使用，后面都跟上.catch方法，捕获错误信息</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.$router.push(<span class="string">&#x27;/location&#x27;</span>).catch(<span class="function"><span class="params">err</span> =&gt;</span> ())</span><br></pre></td></tr></table></figure>
+
+<p><strong>解决方案二：</strong></p>
+<p>全局解决：替换路由的 <code>Push</code> 和 <code>replace</code> 方法，放在 <code>src/router/index.js</code> 中：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> originalPush = Router.prototype.push</span><br><span class="line">Router.prototype.push = <span class="function"><span class="keyword">function</span> <span class="title">push</span>(<span class="params">location, onResolve, onReject</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (onResolve || onReject) <span class="keyword">return</span> originalPush.call(<span class="built_in">this</span>, location, onResolve, onReject)</span><br><span class="line">  <span class="keyword">return</span> originalPush.call(<span class="built_in">this</span>, location).catch(<span class="function"><span class="params">err</span> =&gt;</span> err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Front End</category>
+      </categories>
+      <tags>
+        <tag>框架与工具</tag>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -1709,63 +1790,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Vue-路由Router进阶</title>
-    <url>/2020/12/21/vue-router-plus/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
-<p>总结接触到的有关于 <code>Vue-Router</code> 的知识点，基于最基本的使用之上的进阶内容。</p>
-<p><a href="https://router.vuejs.org/zh/installation.html">官方文档传送</a></p>
-<p>–  在新窗口打开页面</p>
-<p>–  导航守卫</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="一、在新窗口打开页面"><a href="#一、在新窗口打开页面" class="headerlink" title="一、在新窗口打开页面"></a>一、在新窗口打开页面</h2><p><strong>方法一：</strong><code>&lt;router-link&gt;</code>标签实现新窗口打开</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;router-link target&#x3D;&quot;_blank&quot; :to&#x3D;&quot;&#123;path:&#39;&#x2F;home&#39;,query:&#123;id:&#39;1&#39;&#125;&#125;&quot;&gt;</span><br><span class="line">    新页面打开home页</span><br><span class="line">&lt;&#x2F;router-link&gt;</span><br></pre></td></tr></table></figure>
-
-<p><strong>方法二：</strong>编程式导航：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">print_schedule() &#123;</span><br><span class="line">    <span class="keyword">let</span> id = <span class="built_in">this</span>.id;</span><br><span class="line">    <span class="keyword">const</span> &#123; href &#125; = <span class="built_in">this</span>.$router.resolve(&#123;</span><br><span class="line">        name: <span class="string">`print_schedule`</span>,</span><br><span class="line">        params: &#123;</span><br><span class="line">            id: id</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">window</span>.open(href, <span class="string">&quot;_blank&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="二、导航守卫"><a href="#二、导航守卫" class="headerlink" title="二、导航守卫"></a>二、<a href="https://router.vuejs.org/zh/guide/advanced/navigation-guards.html">导航守卫</a></h2><p>正如其名，<code>vue-router</code> 提供的导航守卫主要用来通过跳转或取消的方式守卫导航。有多种机会植入路由导航过程中：全局的, 单个路由独享的, 或者组件    级的。</p>
-<p>记住<strong>参数或查询的改变并不会触发进入/离开的导航守卫</strong>。你可以通过<a href="https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E5%93%8D%E5%BA%94%E8%B7%AF%E7%94%B1%E5%8F%82%E6%95%B0%E7%9A%84%E5%8F%98%E5%8C%96">观察 <code>$route</code> 对象</a>来应对这些变化，或使用 <code>beforeRouteUpdate</code> 的组件内守卫。</p>
-<h3 id="1、全局前置守卫"><a href="#1、全局前置守卫" class="headerlink" title="1、全局前置守卫"></a>1、全局前置守卫</h3><p>你可以使用 <code>router.beforeEach</code> 注册一个全局前置守卫：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123; ... &#125;)</span><br><span class="line"></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>当一个导航触发时，全局前置守卫按照创建顺序调用。守卫是异步解析执行，此时导航在所有守卫 resolve 完之前一直处于 <strong>等待中</strong>。</p>
-<p>每个守卫方法接收三个参数：</p>
-<ul>
-<li><strong><code>to: Route</code></strong>: 即将要进入的目标 <a href="https://router.vuejs.org/zh/api/#%E8%B7%AF%E7%94%B1%E5%AF%B9%E8%B1%A1">路由对象</a></li>
-<li><strong><code>from: Route</code></strong>: 当前导航正要离开的路由</li>
-<li><strong><code>next: Function</code></strong>: 一定要调用该方法来 <strong>resolve</strong> 这个钩子。执行效果依赖 <code>next</code> 方法的调用参数。<ul>
-<li><strong><code>next()</code></strong>: 进行管道中的下一个钩子。如果全部钩子执行完了，则导航的状态就是 <strong>confirmed</strong> (确认的)。</li>
-<li><strong><code>next(false)</code></strong>: 中断当前的导航。如果浏览器的 URL 改变了 (可能是用户手动或者浏览器后退按钮)，那么 URL 地址会重置到 <code>from</code> 路由对应的地址。</li>
-<li><strong><code>next(&#39;/&#39;)</code> 或者 <code>next(&#123; path: &#39;/&#39; &#125;)</code></strong>: 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。你可以向 <code>next</code> 传递任意位置对象，且允许设置诸如 <code>replace: true</code>、<code>name: &#39;home&#39;</code> 之类的选项以及任何用在 <a href="https://router.vuejs.org/zh/api/#to"><code>router-link</code> 的 <code>to</code> prop</a> 或 <a href="https://router.vuejs.org/zh/api/#router-push"><code>router.push</code></a> 中的选项。</li>
-<li><strong><code>next(error)</code></strong>: (2.4.0+) 如果传入 <code>next</code> 的参数是一个 <code>Error</code> 实例，则导航会被终止且该错误会被传递给 <a href="https://router.vuejs.org/zh/api/#router-onerror"><code>router.onError()</code></a> 注册过的回调。</li>
-</ul>
-</li>
-</ul>
-<p><strong>确保 <code>next</code> 函数在任何给定的导航守卫中都被严格调用一次。它可以出现多于一次，但是只能在所有的逻辑路径都不重叠的情况下，否则钩子永远都不会被解析或报错。</strong>这里有一个在用户未能验证身份时重定向到 <code>/login</code> 的示例：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// BAD</span></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (to.name !== <span class="string">&#x27;Login&#x27;</span> &amp;&amp; !isAuthenticated) next(&#123; <span class="attr">name</span>: <span class="string">&#x27;Login&#x27;</span> &#125;)</span><br><span class="line">  <span class="comment">// 如果用户未能验证身份，则 `next` 会被调用两次</span></span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// GOOD</span></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (to.name !== <span class="string">&#x27;Login&#x27;</span> &amp;&amp; !isAuthenticated) next(&#123; <span class="attr">name</span>: <span class="string">&#x27;Login&#x27;</span> &#125;)</span><br><span class="line">  <span class="keyword">else</span> next()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="添加守卫之后的报错"><a href="#添加守卫之后的报错" class="headerlink" title="添加守卫之后的报错"></a>添加守卫之后的报错</h4><p><img src="./bug-router.png"></p>
-<blockquote>
-<p>原因：<code>vue-router</code> 路由版本更新产生的问题,导致路由跳转失败抛出该错误，但并不影响程序功能</p>
-</blockquote>
-<p><strong>解决方案一：</strong></p>
-<p>使用编程式导航跳转时，每次使用，后面都跟上.catch方法，捕获错误信息</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.$router.push(<span class="string">&#x27;/location&#x27;</span>).catch(<span class="function"><span class="params">err</span> =&gt;</span> ())</span><br></pre></td></tr></table></figure>
-
-<p><strong>解决方案二：</strong></p>
-<p>全局解决：替换路由的 <code>Push</code> 和 <code>replace</code> 方法，放在 <code>src/router/index.js</code> 中：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> originalPush = Router.prototype.push</span><br><span class="line">Router.prototype.push = <span class="function"><span class="keyword">function</span> <span class="title">push</span>(<span class="params">location, onResolve, onReject</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (onResolve || onReject) <span class="keyword">return</span> originalPush.call(<span class="built_in">this</span>, location, onResolve, onReject)</span><br><span class="line">  <span class="keyword">return</span> originalPush.call(<span class="built_in">this</span>, location).catch(<span class="function"><span class="params">err</span> =&gt;</span> err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Front End</category>
-      </categories>
-      <tags>
-        <tag>框架与工具</tag>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>gitignore-Question</title>
     <url>/2020/11/25/gitignore-Question/</url>
     <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
@@ -1874,28 +1898,6 @@
       </tags>
   </entry>
   <entry>
-    <title>工程化-Webpack</title>
-    <url>/2020/11/25/webpack/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
-<p>前端工程化包括 <strong>打包工具</strong> 和 <strong>转译工具</strong></p>
-<p>转译工具即 <code>Babel</code>， 打包工具包括 <code>Webpack</code>、<code>parcel</code>、<code>Gulp</code>、<code>Browserify</code></p>
-<p>这篇文章汇总关于 <code>Webpack</code> 学习资料</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="参考自"><a href="#参考自" class="headerlink" title="参考自"></a>参考自</h2><p><a href="https://www.bilibili.com/video/BV1e7411j7T5?p=2">b站尚硅谷Webpack讲解</a></p>
-<p><a href="https://webpack.docschina.org/guides/getting-started/">Webpack 官方文档</a></p>
-<h2 id="基本生产环境的配置"><a href="#基本生产环境的配置" class="headerlink" title="基本生产环境的配置"></a>基本生产环境的配置</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; resolve &#125; = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> OptimizeCssAssetsWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;optimize-css-assets-webpack-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义nodejs环境变量：决定使用browserslist的哪个环境</span></span><br><span class="line">process.env.NODE_ENV = <span class="string">&#x27;production&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 复用loader</span></span><br><span class="line"><span class="keyword">const</span> commonCssLoader = [</span><br><span class="line">  MiniCssExtractPlugin.loader,</span><br><span class="line">  <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 还需要在package.json中定义browserslist</span></span><br><span class="line">    loader: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">    options: &#123;</span><br><span class="line">      ident: <span class="string">&#x27;postcss&#x27;</span>,</span><br><span class="line">      plugins: <span class="function">() =&gt;</span> [<span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)()]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">&#x27;./src/js/index.js&#x27;</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">&#x27;js/built.js&#x27;</span>,</span><br><span class="line">    path: resolve(__dirname, <span class="string">&#x27;build&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        use: [...commonCssLoader]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">        use: [...commonCssLoader, <span class="string">&#x27;less-loader&#x27;</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">        正常来讲，一个文件只能被一个loader处理。</span></span><br><span class="line"><span class="comment">        当一个文件要被多个loader处理，那么一定要指定loader执行的先后顺序：</span></span><br><span class="line"><span class="comment">          先执行eslint 在执行babel</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// 在package.json中eslintConfig --&gt; airbnb</span></span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        <span class="comment">// 优先执行</span></span><br><span class="line">        enforce: <span class="string">&#x27;pre&#x27;</span>,</span><br><span class="line">        loader: <span class="string">&#x27;eslint-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          fix: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          presets: [</span><br><span class="line">            [</span><br><span class="line">              <span class="string">&#x27;@babel/preset-env&#x27;</span>,</span><br><span class="line">              &#123;</span><br><span class="line">                useBuiltIns: <span class="string">&#x27;usage&#x27;</span>,</span><br><span class="line">                corejs: &#123;<span class="attr">version</span>: <span class="number">3</span>&#125;,</span><br><span class="line">                targets: &#123;</span><br><span class="line">                  chrome: <span class="string">&#x27;60&#x27;</span>,</span><br><span class="line">                  firefox: <span class="string">&#x27;50&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.(jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;url-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          limit: <span class="number">8</span> * <span class="number">1024</span>,</span><br><span class="line">          name: <span class="string">&#x27;[hash:10].[ext]&#x27;</span>,</span><br><span class="line">          outputPath: <span class="string">&#x27;imgs&#x27;</span>,</span><br><span class="line">          esModule: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.html$/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;html-loader&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        exclude: <span class="regexp">/\.(js|css|less|html|jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          outputPath: <span class="string">&#x27;media&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">      filename: <span class="string">&#x27;css/built.css&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> OptimizeCssAssetsWebpackPlugin(),</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      template: <span class="string">&#x27;./src/index.html&#x27;</span>,</span><br><span class="line">      minify: &#123;</span><br><span class="line">        collapseWhitespace: <span class="literal">true</span>,</span><br><span class="line">        removeComments: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  mode: <span class="string">&#x27;production&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Front End</category>
-      </categories>
-      <tags>
-        <tag>工程化</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>在Vue-Swiper里踩过的坑</title>
     <url>/2020/09/05/about-Swiper/</url>
     <content><![CDATA[<h2 id="问题缘起"><a href="#问题缘起" class="headerlink" title="问题缘起"></a>问题缘起</h2><blockquote>
@@ -1988,6 +1990,28 @@
         <tag>框架与工具</tag>
         <tag>Vue</tag>
         <tag>Vue Problems</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>工程化-Webpack</title>
+    <url>/2020/11/25/webpack/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
+<p>前端工程化包括 <strong>打包工具</strong> 和 <strong>转译工具</strong></p>
+<p>转译工具即 <code>Babel</code>， 打包工具包括 <code>Webpack</code>、<code>parcel</code>、<code>Gulp</code>、<code>Browserify</code></p>
+<p>这篇文章汇总关于 <code>Webpack</code> 学习资料</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="参考自"><a href="#参考自" class="headerlink" title="参考自"></a>参考自</h2><p><a href="https://www.bilibili.com/video/BV1e7411j7T5?p=2">b站尚硅谷Webpack讲解</a></p>
+<p><a href="https://webpack.docschina.org/guides/getting-started/">Webpack 官方文档</a></p>
+<h2 id="基本生产环境的配置"><a href="#基本生产环境的配置" class="headerlink" title="基本生产环境的配置"></a>基本生产环境的配置</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; resolve &#125; = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> OptimizeCssAssetsWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;optimize-css-assets-webpack-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义nodejs环境变量：决定使用browserslist的哪个环境</span></span><br><span class="line">process.env.NODE_ENV = <span class="string">&#x27;production&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 复用loader</span></span><br><span class="line"><span class="keyword">const</span> commonCssLoader = [</span><br><span class="line">  MiniCssExtractPlugin.loader,</span><br><span class="line">  <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 还需要在package.json中定义browserslist</span></span><br><span class="line">    loader: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">    options: &#123;</span><br><span class="line">      ident: <span class="string">&#x27;postcss&#x27;</span>,</span><br><span class="line">      plugins: <span class="function">() =&gt;</span> [<span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)()]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">&#x27;./src/js/index.js&#x27;</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">&#x27;js/built.js&#x27;</span>,</span><br><span class="line">    path: resolve(__dirname, <span class="string">&#x27;build&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        use: [...commonCssLoader]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">        use: [...commonCssLoader, <span class="string">&#x27;less-loader&#x27;</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">        正常来讲，一个文件只能被一个loader处理。</span></span><br><span class="line"><span class="comment">        当一个文件要被多个loader处理，那么一定要指定loader执行的先后顺序：</span></span><br><span class="line"><span class="comment">          先执行eslint 在执行babel</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// 在package.json中eslintConfig --&gt; airbnb</span></span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        <span class="comment">// 优先执行</span></span><br><span class="line">        enforce: <span class="string">&#x27;pre&#x27;</span>,</span><br><span class="line">        loader: <span class="string">&#x27;eslint-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          fix: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          presets: [</span><br><span class="line">            [</span><br><span class="line">              <span class="string">&#x27;@babel/preset-env&#x27;</span>,</span><br><span class="line">              &#123;</span><br><span class="line">                useBuiltIns: <span class="string">&#x27;usage&#x27;</span>,</span><br><span class="line">                corejs: &#123;<span class="attr">version</span>: <span class="number">3</span>&#125;,</span><br><span class="line">                targets: &#123;</span><br><span class="line">                  chrome: <span class="string">&#x27;60&#x27;</span>,</span><br><span class="line">                  firefox: <span class="string">&#x27;50&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.(jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;url-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          limit: <span class="number">8</span> * <span class="number">1024</span>,</span><br><span class="line">          name: <span class="string">&#x27;[hash:10].[ext]&#x27;</span>,</span><br><span class="line">          outputPath: <span class="string">&#x27;imgs&#x27;</span>,</span><br><span class="line">          esModule: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.html$/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;html-loader&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        exclude: <span class="regexp">/\.(js|css|less|html|jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          outputPath: <span class="string">&#x27;media&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">      filename: <span class="string">&#x27;css/built.css&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> OptimizeCssAssetsWebpackPlugin(),</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      template: <span class="string">&#x27;./src/index.html&#x27;</span>,</span><br><span class="line">      minify: &#123;</span><br><span class="line">        collapseWhitespace: <span class="literal">true</span>,</span><br><span class="line">        removeComments: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  mode: <span class="string">&#x27;production&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Front End</category>
+      </categories>
+      <tags>
+        <tag>工程化</tag>
       </tags>
   </entry>
   <entry>
@@ -4194,295 +4218,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HTML标签</title>
-    <url>/2020/08/31/HTML-tags/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
-<p>总结了一下关于HTML标签的内容</p>
-<p>–  <code>HTML5</code>废弃标签</p>
-<p>–  <code>HTML5</code>新增语义化标签</p>
-<p>–  <code>&lt;a&gt;</code>标签</p>
-<p>–  <code>&lt;table&gt;</code>标签</p>
-<p>–  <code>HTML</code>语义化</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="一、Html5废弃标签"><a href="#一、Html5废弃标签" class="headerlink" title="一、Html5废弃标签"></a>一、Html5废弃标签</h2><h3 id="第一类：表现性元素"><a href="#第一类：表现性元素" class="headerlink" title="第一类：表现性元素"></a>第一类：表现性元素</h3><ul>
-<li>basefont</li>
-<li>big</li>
-<li>center</li>
-<li>font</li>
-<li>s</li>
-<li>strike</li>
-<li>tt</li>
-<li>u</li>
-</ul>
-<p>建议用语义正确的元素代替他们，并使用CSS来确保渲染后的效果</p>
-<h3 id="第二类：框架类元素"><a href="#第二类：框架类元素" class="headerlink" title="第二类：框架类元素"></a>第二类：框架类元素</h3><p>因框架有很多可用性及可访问性问题，HTML5规范将以下元素移除。</p>
-<ul>
-<li>frame</li>
-<li>frameset</li>
-<li>noframes</li>
-</ul>
-<p>但html5支持iframe。</p>
-<h3 id="第三类：属性类"><a href="#第三类：属性类" class="headerlink" title="第三类：属性类"></a>第三类：属性类</h3><p>很多表现性的属性也被新规范移除，如下：</p>
-<ul>
-<li>align</li>
-<li>body标签上的link、vlink、alink、text属性</li>
-<li>bgcolor</li>
-<li>height和width</li>
-<li>iframe元素上的scrolling属性</li>
-<li>valign</li>
-<li>hspace和vspace</li>
-<li>table标签上的cellpadding、cellspacing和border属性</li>
-<li>header标签上的profile属性</li>
-<li>链接标签a上的target属性</li>
-<li>img和iframe元素的longdesc属性</li>
-</ul>
-<h3 id="第四类：其他"><a href="#第四类：其他" class="headerlink" title="第四类：其他"></a>第四类：其他</h3><ul>
-<li>abbr取代acronym（用于表示缩写）</li>
-<li>object取代了applet</li>
-<li>ul取代了dir</li>
-</ul>
-<blockquote>
-<p>另附上直观的：<a href="http://demo.yanue.net/HTML5element/">html5元素周期表</a></p>
-</blockquote>
-<h2 id="二、HTML5新增的语义化标签"><a href="#二、HTML5新增的语义化标签" class="headerlink" title="二、HTML5新增的语义化标签"></a>二、HTML5新增的语义化标签</h2><p>主要有：<code> &lt;article&gt;、&lt;section&gt;、&lt;nav&gt;、&lt;aside&gt;、&lt;header&gt;、&lt;footer&gt;、&lt;time&gt;</code>等等…</p>
-<p><img src="./pic1.png"></p>
-<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ul>
-<li>为了在没有CSS的情况下，页面也能呈现出很好地内容结构、代码结构</li>
-<li>比<code>&lt;div&gt;</code>标签有更加丰富的含义，方便开发与维护</li>
-<li>方便搜索引擎能识别页面结构，有利于<code>SEO</code></li>
-<li>方便其他设备解析（如移动设备、盲人阅读器等）</li>
-<li>有利于合作，遵守W3C标准</li>
-</ul>
-<h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><ul>
-<li>尽可能少的使用无语义的标签div和span</li>
-<li>在语义不明显时，既可以使用div或者p时，尽量用p，因为p在默认情况下有上下间距，对兼容特殊终端有利</li>
-<li>不要使用纯样式标签，如：b、font、u等，改用css设置</li>
-<li>需要强调的文本，可以包含在strong或者em标签中</li>
-<li>使用表格时，标题要用caption，表头用thead，主体部分用tbody包围，尾部用tfoot包围。表头和一般单元格要区分开，表头用th，单元格用td</li>
-<li>表单域要用fieldset标签包起来，并用legend标签说明表单的用途</li>
-<li>每个input标签对应的说明文本都需要使用label标签，并且通过为input设置id属性</li>
-</ul>
-<h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><h4 id="1-header与hgroup"><a href="#1-header与hgroup" class="headerlink" title="1. header与hgroup"></a>1. <code>header</code>与<code>hgroup</code></h4><p>放在页面或布局的顶部，一般放置导航栏或标题，如：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>**信息科技有限公司<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>一个文档中可以包含一对或者一对以上的<code>&lt;header&gt;</code>标签。<br> 标签的位置是次要的，不一定非要显示在页面的上方，我们可以为任何需要的区块标签添加<code>&lt;header&gt;</code>元素，例如下面将要讲解的<code>&lt;article&gt;</code>、<code>&lt;section&gt;</code>等标签。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">hgroup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是一篇介绍HTML 5语义化标签和更简洁的结构<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>HTML 5<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">hgroup</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>如果有连续多个h1-h6标签就用hgroup</li>
-<li>如果有连续多个标题和其他文章数据，h1-h6标签就用hgroup包住，和其他文章元数据一起放入header标签</li>
-</ul>
-<h4 id="2-nav"><a href="#2-nav" class="headerlink" title="2. nav"></a>2. nav</h4><p>表示页面的导航，也可以在<code>&lt;header&gt;</code>标签中使用，还可以显示在侧边栏中。一个页面之中可以有多个<code>&lt;nav&gt;</code>标签。<br> 为了方便搜索引擎解析，最好是将主要的链接放在nav中。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h1</span>&gt;</span>**信息科技有限公司<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;example.html&quot;</span>&gt;</span>客户案例<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;service_one.html&quot;</span>&gt;</span>技术服务<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span>          </span><br><span class="line">       <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;aboutus_one.html&quot;</span>&gt;</span>关于我们<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;connection.html&quot;</span>&gt;</span>联系我们<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-aside"><a href="#3-aside" class="headerlink" title="3. aside"></a>3. aside</h4><p>所包含的内容不是页面的主要内容、具有独立性，是对页面的补充。<br><code> &lt;aside&gt;</code>一般使用在页面、文章的侧边栏、广告、友情链接等区域。</p>
-<h4 id="4-footer"><a href="#4-footer" class="headerlink" title="4. footer"></a>4. footer</h4><p>一般被放置在页面或者页面中某个区块的底部，包含版权信息、联系方式等信息。一个页面也可以有多个footer</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">small</span>&gt;</span></span><br><span class="line">        版权所有 © 2016-2017 **信息科技有限公司</span><br><span class="line">    <span class="tag">&lt;/<span class="name">small</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="5-article"><a href="#5-article" class="headerlink" title="5. article"></a>5. article</h4><p><code>&lt;article&gt;</code>元素应该使用在相对比较独立、完整的的内容区块，所以我们可以在一篇博客、一个论坛帖子、一篇新闻报道或者一个用户评论中使用<code>&lt;article&gt;</code>元素。article可以互相嵌套。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h1</span>&gt;</span>HTML5学习之语义化标签<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">p</span>&gt;</span>....正文.....<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">footer</span>&gt;</span>版权所有*伪版必究<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="6-section"><a href="#6-section" class="headerlink" title="6. section"></a>6. section</h4><p>一组或者一节内容。</p>
-<p><strong><code>&lt;div&gt;</code>、<code>&lt;section&gt;</code>、<code>&lt;article&gt;</code>三者的比较：</strong></p>
-<p><code>&lt;div&gt;</code>：应用广泛，任意一个区域<br><code>&lt;section&gt;</code>：包含的内容是一个明确的主题，通常有标题区域<br><code>&lt;article&gt;</code>：如果我们的页面中需要一个单独的模块来实现一个单独的功能，就用<code>&lt;article&gt;</code>，其他的时候都用<code>&lt;section&gt;</code></p>
-<h4 id="7-time"><a href="#7-time" class="headerlink" title="7. time"></a>7. time</h4><p>可以带格式的时间标签</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">time</span> <span class="attr">datetime</span>=<span class="string">&quot;2017-07-03&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="8-mark"><a href="#8-mark" class="headerlink" title="8. mark"></a>8. mark</h4><p>高亮</p>
-<h4 id="9-address"><a href="#9-address" class="headerlink" title="9. address"></a>9. address</h4><p>address代表区块容器，必须是作为联系信息出现，邮编地址、邮件地址等等,一般出现在footer。</p>
-<h2 id="三、-lt-a-gt-标签"><a href="#三、-lt-a-gt-标签" class="headerlink" title="三、&lt;a&gt;标签"></a>三、<code>&lt;a&gt;</code>标签</h2><figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:void(0)&quot;</span> <span class="attr">click</span>=<span class="string">&quot;function()</span></span></span><span class="template-variable">&#123;&#125;</span><span class="xml"><span class="tag"><span class="string">&quot;</span> /&gt;</span>=</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="1-a-标签样式"><a href="#1-a-标签样式" class="headerlink" title="1. a 标签样式"></a>1. a 标签样式</h3><p> 一组专门的预定义的类称为伪类用于处理超链接的状态，超链接的文字的状态可以通过伪类选择器+样式类进行控制  <code>&lt;a class=&quot;mycls&quot; &gt;&lt;/a&gt;</code></p>
-<ul>
-<li><p>所有状态下的链接 <code>.mycls&#123;color:red&#125;</code></p>
-</li>
-<li><p><code>a:link</code> 未访问的连接<code> .mycls a:link&#123;color:blue&#125;</code></p>
-</li>
-<li><p><code>a:visited</code> 已访问的链接<code>.mycls a:visited&#123;color: visited&#125;</code></p>
-</li>
-<li><p><code>a:active</code>  激活时（链接获取焦点）链接的颜色<code> .mycls a:active&#123;color:blue&#125;</code></p>
-</li>
-</ul>
-<p>一般情况下 a:hiver和a:visited的颜色是一种的，这4个状态的过程是： <code>a:link -&gt;a:hover-&gt;a:active-&gt;a:visited</code><br>另外，a：active不能设置有无下划线（总是有的）</p>
-<pre><code> &lt;style&gt;
-    a &#123;font-size:16px&#125; 
-    a:link &#123;color: blue; text-decoration:none;&#125; //未访问：蓝色、无下划线 
-    a:active:&#123;color: red; &#125; //激活：红色 
-    a:visited &#123;color:purple;text-decoration:none;&#125; //已访问：purple、无下划线 
-    a:hover &#123;color: red; text-decoration:underline;&#125; //鼠标移近：红色、下划线 
-  &lt;/style&gt;</code></pre>
-<h3 id="2-target的属性"><a href="#2-target的属性" class="headerlink" title="2. target的属性"></a>2. target的属性</h3><p><code>&lt;a&gt;</code>标签的target属性规定在何处打开链接文档<br>如下面这行表示在新的窗口中打开文档<br><code> &lt;a href=&quot;http://www.baidu.com&quot; target=&quot;_blank&quot;&gt; visit w3school &lt;/a&gt;</code></p>
-<p>可选值：<code>_blank</code>、<code>_parent</code>、<code>_self</code>、<code>_top</code>、<code>*framename*</code></p>
-<p><strong>_blank</strong>        浏览器总在一个新打开，未命名的窗口中载入目标文档 </p>
-<p><strong>_self</strong>        这个目标的值对所有没有指定目标的<code>&lt;a&gt;</code>标签是默认目标。它使得目标文档载入并显示在相同的框架或者窗口中作为源文档。这个目标是多余的且不必要的，除非和文档标题<code>&lt;base&gt;</code>标签中的target属性一起使用    </p>
-<p><strong>_parent</strong>        在父框架集中打开被链接的文档</p>
-<p><strong>_top</strong>              在整个窗口打开被链接文档</p>
-<p><strong>framename</strong>   在指定的框架中打开被链接文档</p>
-<h3 id="3-name属性"><a href="#3-name属性" class="headerlink" title="3. name属性"></a>3. name属性</h3><p><code>name</code>属性规定锚(anchor)的名称，可以使用<code>name</code>属性创建html页面中的书签，书签不会以任何独特方式显示，它对读者可以是不可见的。<br>当使用<code>命名锚</code>(named anchors)时，我们可以创建直接跳转至该命名锚(比如页面中某个小节)的链接,这样使用者就无需不停滚动页面来寻找需要的信息了。<br><strong>命名语法</strong><br><code>&lt;a name=&quot;label&quot;&gt;锚(显示在页面上的文本)&lt;/a&gt;</code></p>
-<ul>
-<li>锚名称可以是任何名字</li>
-<li>可以使用id属性来代替name属性，命名锚同样有效</li>
-</ul>
-<p><strong>例子</strong><br>  1)我们在html文档中对锚进行命名(创建一个书签)<br>  <code>&lt;a name=&quot;tips&quot;&gt;基本的注意事项 - 有用的提示&lt;/a&gt;</code><br>  2）在同一个文档中创建指向该锚的链接<br>  <code>&lt;a href=&quot;tips&quot;&gt;有用的提示&lt;/a&gt;</code><br>  3)也可以在其他页面中创建指向，该锚的链接<br>  <code>&lt;a href=&quot;http://mypro#trip&quot;&gt;有用的提示&lt;a&gt;</code></p>
-<h3 id="4-标签事件"><a href="#4-标签事件" class="headerlink" title="4. 标签事件"></a>4. 标签事件</h3><p>将<code>&lt;a&gt;</code>标签的<code>href</code>属性值设置为”#”，并设置<code>onclick</code>属性。<br>在这种处理方式下，用户可以很明显地看出哪些文字是超链接。<br>在单击该超链接时，也可以执行onclick属性值中的JavaScript语句，并且不会跳转网页。</p>
-<blockquote>
-<p>但是，由于href的属性值为”#”，浏览器会自动跳 转到当前网页的顶部。<br>如果当前网页内容比较多，浏览器窗口出现下拉滚动条时，可以很明显地看到跳转，而这种跳转往往不是网页设计者的本意。</p>
-</blockquote>
-<p>在没有为<code>&lt;a&gt;</code>标签设置onclick属性时，如果单击了该超链接，浏览器会加载href属性中的URL。<br>如果href属性值并不是一 个URL，而是一个JavaScript语句的话，那么浏览器就会执行该语句。<br>因此，可以直接将JavaScript语句写在<code>&lt;a&gt;</code>标签的 href属性值中，让href属性代替onclick属性。</p>
-<p><strong>在这种处理方式下，既可以响应click事件，又可以不让网页跳转。</strong></p>
-<p><strong>注意</strong>：在 a 标签的属性值中添加JavaScript语句之前，必须要先使用”javascript:”语句来声明href属性值中的语句为<code>javaScript</code>语句，否则浏览器就会将href属性值中的JavaScript语句当成URL进行加载。<br><code>&lt;a  href=&quot;javascript:showFlag()&quot;&gt;ssgao&lt;/a&gt;  </code>   执行showFlag()方法<br><code>&lt;a  href=&quot;&quot; onclick=&quot;showFlag();&quot;&gt;ssgao&lt;/a&gt;</code>    执行showFlag()方法，并会跳转到href指向的页面—-&gt;当<code>href=&quot;&quot;</code>刷新当前页面<br><code>&lt;a  href=&quot;&quot;&gt;ssgao&lt;/a&gt;</code>  刷新当前页面<br><code>&lt;a  href=&quot;#&quot; onclick=&quot;showFlag();&quot;&gt;ssgao&lt;/a&gt;</code>   执行showFlag()方法，并会跳转到页面顶部<br><code>&lt;a href=&quot;#&quot; onclick=&quot;javascript:方法;return false;&quot;&gt;提交&lt;/a&gt;</code><br><code>&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;javascript:方法;return false;&quot;&gt;提交&lt;/a&gt;</code><br>javascript:void(0)就不会向上跳了<br>还有一个方法是 #this<br><code>a href=&quot;#this&quot; onclick=&quot;javascript:方法&quot;</code></p>
-<h3 id="5-回到顶部或底部"><a href="#5-回到顶部或底部" class="headerlink" title="5. 回到顶部或底部"></a>5. 回到顶部或底部</h3><h4 id="使用JS"><a href="#使用JS" class="headerlink" title="使用JS"></a>使用JS</h4><figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">$(<span class="string">&quot;#带有滚动条的元素&quot;</span>).animate(&#123;<span class="attr">scrollTop</span>:<span class="number">0</span>&#125;,<span class="string">&#x27;fase&#x27;</span>); <span class="comment">//带有动画</span></span><br><span class="line">$(<span class="string">&quot;#带有滚动条的元素&quot;</span>).scrollTop(<span class="number">0</span>)；<span class="comment">//不带动画</span></span><br><span class="line">scrollTop 距离滚动元素顶部的位置</span><br></pre></td></tr></table></figure>
-
-<h4 id="使用a标签的name属性-锚记"><a href="#使用a标签的name属性-锚记" class="headerlink" title="使用a标签的name属性(锚记)"></a>使用a标签的name属性(锚记)</h4><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;a <span class="attribute">name</span>=<span class="string">&quot;top&quot;</span>&gt;top&lt;/a&gt;</span><br><span class="line">&lt;a <span class="attribute">href</span>=<span class="string">&quot;#top&quot;</span>&gt; 点击此处跳转到<span class="attribute">name</span>=top的a标签的位置    </span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th align="left">属性</th>
-<th align="left">值</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_charset.asp">charset</a></td>
-<td align="left"><em>char_encoding</em></td>
-<td align="left"><span style="color:red;">HTML5 中不支持。</span>规定被链接文档的字符集。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_coords.asp">coords</a></td>
-<td align="left"><em>coordinates</em></td>
-<td align="left"><span style="color:red;">HTML5 中不支持。</span>规定链接的坐标。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_download.asp">download</a></td>
-<td align="left"><em>filename</em></td>
-<td align="left">规定被下载的超链接目标。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_href.asp">href</a></td>
-<td align="left"><em>URL</em></td>
-<td align="left">规定链接指向的页面的 URL。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_hreflang.asp">hreflang</a></td>
-<td align="left"><em>language_code</em></td>
-<td align="left">规定被链接文档的语言。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_media.asp">media</a></td>
-<td align="left"><em>media_query</em></td>
-<td align="left">规定被链接文档是为何种媒介/设备优化的。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_name.asp">name</a></td>
-<td align="left"><em>section_name</em></td>
-<td align="left"><span style="color:red;">HTML5 中不支持。</span>规定锚的名称。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_rel.asp">rel</a></td>
-<td align="left"><em>text</em></td>
-<td align="left">规定当前文档与被链接文档之间的关系。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_rev.asp">rev</a></td>
-<td align="left"><em>text</em></td>
-<td align="left"><span style="color:red;">HTML5 中不支持。</span>规定被链接文档与当前文档之间的关系。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_shape.asp">shape</a></td>
-<td align="left">defaultrectcirclepoly</td>
-<td align="left"><span style="color:red;">HTML5 中不支持。</span>规定链接的形状。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_target.asp">target</a></td>
-<td align="left">_blank_parent_self_top<em>framename</em></td>
-<td align="left">规定在何处打开链接文档。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_type.asp">type</a></td>
-<td align="left"><em>MIME type</em></td>
-<td align="left">规定被链接文档的的 MIME 类型。</td>
-</tr>
-</tbody></table>
-<h2 id="四、HTML-lt-table-gt-标签功能"><a href="#四、HTML-lt-table-gt-标签功能" class="headerlink" title="四、HTML&lt;table&gt;标签功能"></a>四、HTML<code>&lt;table&gt;</code>标签功能</h2><p>绘制表格使用；如果是做后台管理的用户列表等类似 Excel 功能，这个标签是最佳的选择</p>
-<h3 id="1-table基础"><a href="#1-table基础" class="headerlink" title="1. table基础"></a>1. <code>table</code>基础</h3><ul>
-<li><code>&lt;table&gt;</code> 标签定义 HTML 表格</li>
-<li>一个 HTML 表格包括 <code>&lt;table&gt;</code> 元素，一个或多个 <code>&lt;tr&gt;</code>、<code>&lt;th&gt;</code> 以及 <code>&lt;td&gt;</code> 元素。</li>
-<li><code>&lt;tr&gt;</code> 元素定义表格行</li>
-<li><code>&lt;th&gt;</code> 元素定义表头</li>
-<li><code>&lt;td&gt;</code> 元素定义表格单元</li>
-</ul>
-<p><strong>更复杂的 HTML 表格也可能包括</strong></p>
-<ul>
-<li><code>&lt;caption&gt;</code></li>
-<li><code>&lt;col&gt;</code></li>
-<li><code>&lt;colgroup&gt;</code></li>
-<li><code>&lt;thead&gt;</code></li>
-<li><code>&lt;tfoot&gt;</code></li>
-<li><code>&lt;tbody&gt;</code></li>
-</ul>
-<p><strong>HTML <code>&lt;table&gt; </code>标签用法</strong></p>
-<p>一个简单的 HTML 表格，包含两列两行：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>网站名<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>网址<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>abc<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>abc<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>注意事项</strong></p>
-<p>虽然现在 DIV+CSS 布局非常流行，是取代 table 布局的好选择；</p>
-<p>但是遇到 table 相关的东西，还是使用<code>table</code>标签更佳，请根据实际场景进行选择</p>
-<hr>
-<p><strong>HTML4 与 HTML5 之间的差异</strong></p>
-<p>在 HTML5 中，仅支持 “border” 属性，并且只允许使用值 “1” 或 “”。</p>
-<h3 id="2-表格样式案例"><a href="#2-表格样式案例" class="headerlink" title="2. 表格样式案例"></a>2. 表格样式案例</h3><h4 id="2-1-单像素CSS表格"><a href="#2-1-单像素CSS表格" class="headerlink" title="2.1 单像素CSS表格"></a>2.1 单像素CSS表格</h4><p><img src="./table-1.png"></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- CSS goes in the document HEAD or added to your external stylesheet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.gridtable</span> &#123;</span></span><br><span class="line">    font-family: verdana,arial,sans-serif;</span><br><span class="line"><span class="css">    <span class="selector-tag">font-size</span><span class="selector-pseudo">:11px</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">color</span>:<span class="selector-id">#333333</span>;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#666666</span>;</span></span><br><span class="line">    border-collapse: collapse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.gridtable</span> <span class="selector-tag">th</span> &#123;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#666666</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>: <span class="selector-id">#dedede</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.gridtable</span> <span class="selector-tag">td</span> &#123;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#666666</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>: <span class="selector-id">#ffffff</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!-- Table goes in the document BODY --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">&quot;gridtable&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 1<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 2<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 3<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-2-带背景图的CSS样式表格"><a href="#2-2-带背景图的CSS样式表格" class="headerlink" title="2.2 带背景图的CSS样式表格"></a>2.2 带背景图的CSS样式表格</h4><p><img src="./table-2.png"></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- CSS goes in the document HEAD or added to your external stylesheet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.imagetable</span> &#123;</span></span><br><span class="line">    font-family: verdana,arial,sans-serif;</span><br><span class="line"><span class="css">    <span class="selector-tag">font-size</span><span class="selector-pseudo">:11px</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">color</span>:<span class="selector-id">#333333</span>;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#999999</span>;</span></span><br><span class="line">    border-collapse: collapse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.imagetable</span> <span class="selector-tag">th</span> &#123;</span></span><br><span class="line">    background:#b5cfd2 url(&#x27;cell-blue.jpg&#x27;);</span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#999999</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.imagetable</span> <span class="selector-tag">td</span> &#123;</span></span><br><span class="line">    background:#dcddc0 url(&#x27;cell-grey.jpg&#x27;);</span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#999999</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!-- Table goes in the document BODY --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">&quot;imagetable&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 1<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 2<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 3<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-3-自动换整行颜色的CSS样式表格（需要用到JS）"><a href="#2-3-自动换整行颜色的CSS样式表格（需要用到JS）" class="headerlink" title="2.3 自动换整行颜色的CSS样式表格（需要用到JS）"></a>2.3 自动换整行颜色的CSS样式表格（需要用到JS）</h4><p><img src="./table-3.png"></p>
-<p>这个CSS表格会自动切换每一行的颜色，这种呈现方式，在我们编辑一个数据庞大的表格时，非常好用</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Javascript goes in the document HEAD --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">altRows</span>(<span class="params">id</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span>(<span class="built_in">document</span>.getElementsByTagName)&#123; </span></span><br><span class="line">         </span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> table = <span class="built_in">document</span>.getElementById(id); </span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> rows = table.getElementsByTagName(<span class="string">&quot;tr&quot;</span>);</span></span><br><span class="line">          </span><br><span class="line">        for(i = 0; i &lt; rows.length; i++)&#123;         </span><br><span class="line">            if(i % 2 == 0)&#123;</span><br><span class="line"><span class="javascript">                rows[i].className = <span class="string">&quot;evenrowcolor&quot;</span>;</span></span><br><span class="line"><span class="javascript">            &#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="javascript">                rows[i].className = <span class="string">&quot;oddrowcolor&quot;</span>;</span></span><br><span class="line">            &#125;     </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="javascript"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    altRows(<span class="string">&#x27;alternatecolor&#x27;</span>);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!-- CSS goes in the document HEAD or added to your external stylesheet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.altrowstable</span> &#123;</span></span><br><span class="line">    font-family: verdana,arial,sans-serif;</span><br><span class="line"><span class="css">    <span class="selector-tag">font-size</span><span class="selector-pseudo">:11px</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">color</span>:<span class="selector-id">#333333</span>;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#a9c6c9</span>;</span></span><br><span class="line">    border-collapse: collapse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.altrowstable</span> <span class="selector-tag">th</span> &#123;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#a9c6c9</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.altrowstable</span> <span class="selector-tag">td</span> &#123;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#a9c6c9</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.oddrowcolor</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>:<span class="selector-id">#d4e3e5</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.evenrowcolor</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>:<span class="selector-id">#c3dde0</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!-- Table goes in the document BODY --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">&quot;altrowstable&quot;</span> <span class="attr">id</span>=<span class="string">&quot;alternatecolor&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 1<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 2<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 3<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 3A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 3B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 3C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 4A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 4B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 4C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 5A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 5B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 5C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!--  The table code can be found here: http://www.textfixer/resources/css-tables.php#css-table03 --&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-4-鼠标悬停高亮的CSS样式表格-需要JS"><a href="#2-4-鼠标悬停高亮的CSS样式表格-需要JS" class="headerlink" title="2.4 鼠标悬停高亮的CSS样式表格 (需要JS)"></a>2.4 鼠标悬停高亮的CSS样式表格 (需要JS)</h4><p><img src="./table-4.png"></p>
-<p>纯CSS显示表格高亮在IE中显示有问题，所以这边使用了JS来做高亮。</p>
-<p><strong>注意</strong>：不要定义格子的背景色。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- CSS goes in the document HEAD or added to your external stylesheet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.hovertable</span> &#123;</span></span><br><span class="line">    font-family: verdana,arial,sans-serif;</span><br><span class="line"><span class="css">    <span class="selector-tag">font-size</span><span class="selector-pseudo">:11px</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">color</span>:<span class="selector-id">#333333</span>;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#999999</span>;</span></span><br><span class="line">    border-collapse: collapse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.hovertable</span> <span class="selector-tag">th</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>:<span class="selector-id">#c3dde0</span>;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#a9c6c9</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.hovertable</span> <span class="selector-tag">tr</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>:<span class="selector-id">#d4e3e5</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.hovertable</span> <span class="selector-tag">td</span> &#123;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#a9c6c9</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!-- Table goes in the document BODY --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">&quot;hovertable&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 1<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 2<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 3<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#ffff66&#x27;;&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#d4e3e5&#x27;;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 1A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 1B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 1C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#ffff66&#x27;;&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#d4e3e5&#x27;;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 2A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 2B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 2C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#ffff66&#x27;;&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#d4e3e5&#x27;;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 3A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 3B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 3C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#ffff66&#x27;;&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#d4e3e5&#x27;;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 4A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 4B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 4C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#ffff66&#x27;;&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#d4e3e5&#x27;;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 5A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 5B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 5C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="五、HTML-语义化"><a href="#五、HTML-语义化" class="headerlink" title="五、HTML 语义化"></a>五、HTML 语义化</h2><h3 id="1-什么是HTML语义化标签"><a href="#1-什么是HTML语义化标签" class="headerlink" title="1. 什么是HTML语义化标签"></a>1. 什么是HTML语义化标签</h3><p>语义化的标签，说明让标签有自己的含义。</p>
-<p><code>&lt;p&gt;一行文字&lt;/p&gt;</code></p>
-<p><code>&lt;span&gt;一行文字&lt;/span&gt;</code></p>
-<p>如上代码，p 标签与 span 标签都区别之一就是，p 标签的含义是：段落。而 span 标签责没有独特的含义。</p>
-<h3 id="2-语义化标签的特点"><a href="#2-语义化标签的特点" class="headerlink" title="2. 语义化标签的特点"></a>2. 语义化标签的特点</h3><ul>
-<li><p>代码结构清晰，方便阅读，有利于团队合作开发。</p>
-</li>
-<li><p>方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以语义的方式来渲染网页。</p>
-</li>
-<li><p>有利于搜索引擎优化（SEO）。</p>
-</li>
-<li><p>便于团队开发和维护，语义化更具可读性，遵循W3C标准的团队都遵循这个标准，可以减少差异化。</p>
-</li>
-</ul>
-<h3 id="3-常见的语义化标签"><a href="#3-常见的语义化标签" class="headerlink" title="3. 常见的语义化标签"></a>3. 常见的语义化标签</h3><p>因此我们在写页面结构时，应尽量使用有 语义的HTML 标签</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>：页面主体内容。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">hn</span>&gt;</span>：h1~h6，分级标题，`<span class="tag">&lt;<span class="name">h1</span>&gt;</span>` 与 `<span class="tag">&lt;<span class="name">title</span>&gt;</span>` 协调有利于搜索引擎优化。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span>：无序列表。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span>：有序列表。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span>：页眉通常包括网站标志、主导航、全站链接以及搜索框。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span>：标记导航，仅对文档中重要的链接群使用。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span>：页面主要内容，一个页面只能使用一次。如果是web应用，则包围其主要功能。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span>：定义外部的内容，其中的内容独立于文档的其余部分。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span>：定义文档中的节（section、区段）。比如章节、页眉、页脚或文档中的其他部分。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">aside</span>&gt;</span>：定义其所处内容之外的内容。如侧栏、文章的一组链接、广告、友情链接、相关产品列表等。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span>：页脚，只有当父级是body时，才是整个页面的页脚。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">small</span>&gt;</span>：呈现小号字体效果，指定细则，输入免责声明、注解、署名、版权。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">strong</span>&gt;</span>：和 em 标签一样，用于强调文本，但它强调的程度更强一些。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">em</span>&gt;</span>：将其中的文本表示为强调的内容，表现为斜体。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mark</span>&gt;</span>：使用黄色突出显示部分文本。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">figure</span>&gt;</span>：规定独立的流内容（图像、图表、照片、代码等等）（默认有40px左右margin）。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">figcaption</span>&gt;</span>：定义 figure 元素的标题，应该被置于 figure 元素的第一个或最后一个子元素的位置。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">cite</span>&gt;</span>：表示所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">blockquoto</span>&gt;</span>：定义块引用，块引用拥有它们自己的空间。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">q</span>&gt;</span>：短的引述（跨浏览器问题，尽量避免使用）。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">time</span>&gt;</span>：datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">abbr</span>&gt;</span>：简称或缩写。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dfn</span>&gt;</span>：定义术语元素，与定义必须紧挨着，可以在描述列表dl元素中使用。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">del</span>&gt;</span>：移除的内容。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ins</span>&gt;</span>：添加的内容。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">code</span>&gt;</span>：标记代码。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meter</span>&gt;</span>：定义已知范围或分数值内的标量测量。（Internet Explorer 不支持 meter 标签）</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">progress</span>&gt;</span>：定义运行中的进度（进程）。</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>参考<a href="http://yanue.net/">半叶寒羽</a> » <a href="http://yanue.net/post-106.html">HTML5废弃的标签及属性</a></p>
-</blockquote>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Front End</category>
-      </categories>
-      <tags>
-        <tag>Html</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HTML渲染</title>
     <url>/2020/08/29/HTML-render/</url>
     <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
@@ -4769,11 +4504,15 @@
 <h4 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h4><figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">server</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<blockquote>
+<p>ctrl+c ：终止服务</p>
+</blockquote>
 <h4 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h4><figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">generate</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
 <h4 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h4><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo deploy</span><br></pre></td></tr></table></figure>
 
+<p>More info：<a href="https://hexo.io/zh-cn/docs/commands.html">Hexo-API</a></p>
 <h2 id="二、站点功能"><a href="#二、站点功能" class="headerlink" title="二、站点功能"></a>二、站点功能</h2><h3 id="1-文章加密访问"><a href="#1-文章加密访问" class="headerlink" title="1. 文章加密访问"></a>1. 文章加密访问</h3><p>打开 <code>themes/next/layout/_partials/head.swig</code>文件,在 <code>&#123;% if theme.pace %&#125;` 标签下的 `&#123;% endif %&#125;</code> 之前插入代码：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    (function()&#123;</span><br><span class="line">        if(&#x27;&#123;&#123; page.password &#125;&#125;&#x27;)&#123;</span><br><span class="line">            if (prompt(&#x27;请输入文章密码&#x27;) !== &#x27;&#123;&#123; page.password &#125;&#125;&#x27;)&#123;</span><br><span class="line">                alert(&#x27;密码错误&#x27;);</span><br><span class="line">                history.back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
@@ -4858,6 +4597,7 @@
 <p>具体收录参考<a href="https://www.cnblogs.com/brady-wang/p/8493346.html">此处</a></p>
 <h2 id="三、常见问题"><a href="#三、常见问题" class="headerlink" title="三、常见问题"></a>三、常见问题</h2><h3 id="1-hexo开发环境迁移"><a href="#1-hexo开发环境迁移" class="headerlink" title="1. hexo开发环境迁移"></a>1. hexo开发环境迁移</h3><blockquote>
 <p>参考自 <a href="https://www.cnblogs.com/study-everyday/p/8902136.html">该博主</a></p>
+<p>注意Next下配置文件夹！！</p>
 </blockquote>
 <h4 id="1-1-环境准备"><a href="#1-1-环境准备" class="headerlink" title="1.1 环境准备"></a>1.1 环境准备</h4><p>安装 Git 客户端</p>
 <p>安装 node JS</p>
@@ -5057,6 +4797,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure>
 
 <p>至于后面的配置文件，现在一定要记录下来，不想再受折磨了！！！</p>
+<p><code>2022/1/6</code>终于修复完成，但是修复文件无法上传<code>git</code>仓库</p>
 <h3 id="11、对Hexo文件结构的理解相关"><a href="#11、对Hexo文件结构的理解相关" class="headerlink" title="11、对Hexo文件结构的理解相关"></a>11、对Hexo文件结构的理解相关</h3><h4 id="11-1、引入静态文件"><a href="#11-1、引入静态文件" class="headerlink" title="11.1、引入静态文件"></a>11.1、引入静态文件</h4><p>Hexo 中静态文件放在皮肤文件夹中，即</p>
 <figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">your_project<span class="regexp">/themes/</span>&lt;theme_name&gt;/<span class="keyword">source</span></span><br></pre></td></tr></table></figure>
 
@@ -5074,6 +4815,295 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTML标签</title>
+    <url>/2020/08/31/HTML-tags/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
+<p>总结了一下关于HTML标签的内容</p>
+<p>–  <code>HTML5</code>废弃标签</p>
+<p>–  <code>HTML5</code>新增语义化标签</p>
+<p>–  <code>&lt;a&gt;</code>标签</p>
+<p>–  <code>&lt;table&gt;</code>标签</p>
+<p>–  <code>HTML</code>语义化</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="一、Html5废弃标签"><a href="#一、Html5废弃标签" class="headerlink" title="一、Html5废弃标签"></a>一、Html5废弃标签</h2><h3 id="第一类：表现性元素"><a href="#第一类：表现性元素" class="headerlink" title="第一类：表现性元素"></a>第一类：表现性元素</h3><ul>
+<li>basefont</li>
+<li>big</li>
+<li>center</li>
+<li>font</li>
+<li>s</li>
+<li>strike</li>
+<li>tt</li>
+<li>u</li>
+</ul>
+<p>建议用语义正确的元素代替他们，并使用CSS来确保渲染后的效果</p>
+<h3 id="第二类：框架类元素"><a href="#第二类：框架类元素" class="headerlink" title="第二类：框架类元素"></a>第二类：框架类元素</h3><p>因框架有很多可用性及可访问性问题，HTML5规范将以下元素移除。</p>
+<ul>
+<li>frame</li>
+<li>frameset</li>
+<li>noframes</li>
+</ul>
+<p>但html5支持iframe。</p>
+<h3 id="第三类：属性类"><a href="#第三类：属性类" class="headerlink" title="第三类：属性类"></a>第三类：属性类</h3><p>很多表现性的属性也被新规范移除，如下：</p>
+<ul>
+<li>align</li>
+<li>body标签上的link、vlink、alink、text属性</li>
+<li>bgcolor</li>
+<li>height和width</li>
+<li>iframe元素上的scrolling属性</li>
+<li>valign</li>
+<li>hspace和vspace</li>
+<li>table标签上的cellpadding、cellspacing和border属性</li>
+<li>header标签上的profile属性</li>
+<li>链接标签a上的target属性</li>
+<li>img和iframe元素的longdesc属性</li>
+</ul>
+<h3 id="第四类：其他"><a href="#第四类：其他" class="headerlink" title="第四类：其他"></a>第四类：其他</h3><ul>
+<li>abbr取代acronym（用于表示缩写）</li>
+<li>object取代了applet</li>
+<li>ul取代了dir</li>
+</ul>
+<blockquote>
+<p>另附上直观的：<a href="http://demo.yanue.net/HTML5element/">html5元素周期表</a></p>
+</blockquote>
+<h2 id="二、HTML5新增的语义化标签"><a href="#二、HTML5新增的语义化标签" class="headerlink" title="二、HTML5新增的语义化标签"></a>二、HTML5新增的语义化标签</h2><p>主要有：<code> &lt;article&gt;、&lt;section&gt;、&lt;nav&gt;、&lt;aside&gt;、&lt;header&gt;、&lt;footer&gt;、&lt;time&gt;</code>等等…</p>
+<p><img src="./pic1.png"></p>
+<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ul>
+<li>为了在没有CSS的情况下，页面也能呈现出很好地内容结构、代码结构</li>
+<li>比<code>&lt;div&gt;</code>标签有更加丰富的含义，方便开发与维护</li>
+<li>方便搜索引擎能识别页面结构，有利于<code>SEO</code></li>
+<li>方便其他设备解析（如移动设备、盲人阅读器等）</li>
+<li>有利于合作，遵守W3C标准</li>
+</ul>
+<h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><ul>
+<li>尽可能少的使用无语义的标签div和span</li>
+<li>在语义不明显时，既可以使用div或者p时，尽量用p，因为p在默认情况下有上下间距，对兼容特殊终端有利</li>
+<li>不要使用纯样式标签，如：b、font、u等，改用css设置</li>
+<li>需要强调的文本，可以包含在strong或者em标签中</li>
+<li>使用表格时，标题要用caption，表头用thead，主体部分用tbody包围，尾部用tfoot包围。表头和一般单元格要区分开，表头用th，单元格用td</li>
+<li>表单域要用fieldset标签包起来，并用legend标签说明表单的用途</li>
+<li>每个input标签对应的说明文本都需要使用label标签，并且通过为input设置id属性</li>
+</ul>
+<h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><h4 id="1-header与hgroup"><a href="#1-header与hgroup" class="headerlink" title="1. header与hgroup"></a>1. <code>header</code>与<code>hgroup</code></h4><p>放在页面或布局的顶部，一般放置导航栏或标题，如：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>**信息科技有限公司<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>一个文档中可以包含一对或者一对以上的<code>&lt;header&gt;</code>标签。<br> 标签的位置是次要的，不一定非要显示在页面的上方，我们可以为任何需要的区块标签添加<code>&lt;header&gt;</code>元素，例如下面将要讲解的<code>&lt;article&gt;</code>、<code>&lt;section&gt;</code>等标签。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">hgroup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是一篇介绍HTML 5语义化标签和更简洁的结构<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>HTML 5<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">hgroup</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果有连续多个h1-h6标签就用hgroup</li>
+<li>如果有连续多个标题和其他文章数据，h1-h6标签就用hgroup包住，和其他文章元数据一起放入header标签</li>
+</ul>
+<h4 id="2-nav"><a href="#2-nav" class="headerlink" title="2. nav"></a>2. nav</h4><p>表示页面的导航，也可以在<code>&lt;header&gt;</code>标签中使用，还可以显示在侧边栏中。一个页面之中可以有多个<code>&lt;nav&gt;</code>标签。<br> 为了方便搜索引擎解析，最好是将主要的链接放在nav中。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h1</span>&gt;</span>**信息科技有限公司<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;example.html&quot;</span>&gt;</span>客户案例<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;service_one.html&quot;</span>&gt;</span>技术服务<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span>          </span><br><span class="line">       <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;aboutus_one.html&quot;</span>&gt;</span>关于我们<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;connection.html&quot;</span>&gt;</span>联系我们<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-aside"><a href="#3-aside" class="headerlink" title="3. aside"></a>3. aside</h4><p>所包含的内容不是页面的主要内容、具有独立性，是对页面的补充。<br><code> &lt;aside&gt;</code>一般使用在页面、文章的侧边栏、广告、友情链接等区域。</p>
+<h4 id="4-footer"><a href="#4-footer" class="headerlink" title="4. footer"></a>4. footer</h4><p>一般被放置在页面或者页面中某个区块的底部，包含版权信息、联系方式等信息。一个页面也可以有多个footer</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">small</span>&gt;</span></span><br><span class="line">        版权所有 © 2016-2017 **信息科技有限公司</span><br><span class="line">    <span class="tag">&lt;/<span class="name">small</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-article"><a href="#5-article" class="headerlink" title="5. article"></a>5. article</h4><p><code>&lt;article&gt;</code>元素应该使用在相对比较独立、完整的的内容区块，所以我们可以在一篇博客、一个论坛帖子、一篇新闻报道或者一个用户评论中使用<code>&lt;article&gt;</code>元素。article可以互相嵌套。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h1</span>&gt;</span>HTML5学习之语义化标签<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">p</span>&gt;</span>....正文.....<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">footer</span>&gt;</span>版权所有*伪版必究<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="6-section"><a href="#6-section" class="headerlink" title="6. section"></a>6. section</h4><p>一组或者一节内容。</p>
+<p><strong><code>&lt;div&gt;</code>、<code>&lt;section&gt;</code>、<code>&lt;article&gt;</code>三者的比较：</strong></p>
+<p><code>&lt;div&gt;</code>：应用广泛，任意一个区域<br><code>&lt;section&gt;</code>：包含的内容是一个明确的主题，通常有标题区域<br><code>&lt;article&gt;</code>：如果我们的页面中需要一个单独的模块来实现一个单独的功能，就用<code>&lt;article&gt;</code>，其他的时候都用<code>&lt;section&gt;</code></p>
+<h4 id="7-time"><a href="#7-time" class="headerlink" title="7. time"></a>7. time</h4><p>可以带格式的时间标签</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">time</span> <span class="attr">datetime</span>=<span class="string">&quot;2017-07-03&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="8-mark"><a href="#8-mark" class="headerlink" title="8. mark"></a>8. mark</h4><p>高亮</p>
+<h4 id="9-address"><a href="#9-address" class="headerlink" title="9. address"></a>9. address</h4><p>address代表区块容器，必须是作为联系信息出现，邮编地址、邮件地址等等,一般出现在footer。</p>
+<h2 id="三、-lt-a-gt-标签"><a href="#三、-lt-a-gt-标签" class="headerlink" title="三、&lt;a&gt;标签"></a>三、<code>&lt;a&gt;</code>标签</h2><figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:void(0)&quot;</span> <span class="attr">click</span>=<span class="string">&quot;function()</span></span></span><span class="template-variable">&#123;&#125;</span><span class="xml"><span class="tag"><span class="string">&quot;</span> /&gt;</span>=</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-a-标签样式"><a href="#1-a-标签样式" class="headerlink" title="1. a 标签样式"></a>1. a 标签样式</h3><p> 一组专门的预定义的类称为伪类用于处理超链接的状态，超链接的文字的状态可以通过伪类选择器+样式类进行控制  <code>&lt;a class=&quot;mycls&quot; &gt;&lt;/a&gt;</code></p>
+<ul>
+<li><p>所有状态下的链接 <code>.mycls&#123;color:red&#125;</code></p>
+</li>
+<li><p><code>a:link</code> 未访问的连接<code> .mycls a:link&#123;color:blue&#125;</code></p>
+</li>
+<li><p><code>a:visited</code> 已访问的链接<code>.mycls a:visited&#123;color: visited&#125;</code></p>
+</li>
+<li><p><code>a:active</code>  激活时（链接获取焦点）链接的颜色<code> .mycls a:active&#123;color:blue&#125;</code></p>
+</li>
+</ul>
+<p>一般情况下 a:hiver和a:visited的颜色是一种的，这4个状态的过程是： <code>a:link -&gt;a:hover-&gt;a:active-&gt;a:visited</code><br>另外，a：active不能设置有无下划线（总是有的）</p>
+<pre><code> &lt;style&gt;
+    a &#123;font-size:16px&#125; 
+    a:link &#123;color: blue; text-decoration:none;&#125; //未访问：蓝色、无下划线 
+    a:active:&#123;color: red; &#125; //激活：红色 
+    a:visited &#123;color:purple;text-decoration:none;&#125; //已访问：purple、无下划线 
+    a:hover &#123;color: red; text-decoration:underline;&#125; //鼠标移近：红色、下划线 
+  &lt;/style&gt;</code></pre>
+<h3 id="2-target的属性"><a href="#2-target的属性" class="headerlink" title="2. target的属性"></a>2. target的属性</h3><p><code>&lt;a&gt;</code>标签的target属性规定在何处打开链接文档<br>如下面这行表示在新的窗口中打开文档<br><code> &lt;a href=&quot;http://www.baidu.com&quot; target=&quot;_blank&quot;&gt; visit w3school &lt;/a&gt;</code></p>
+<p>可选值：<code>_blank</code>、<code>_parent</code>、<code>_self</code>、<code>_top</code>、<code>*framename*</code></p>
+<p><strong>_blank</strong>        浏览器总在一个新打开，未命名的窗口中载入目标文档 </p>
+<p><strong>_self</strong>        这个目标的值对所有没有指定目标的<code>&lt;a&gt;</code>标签是默认目标。它使得目标文档载入并显示在相同的框架或者窗口中作为源文档。这个目标是多余的且不必要的，除非和文档标题<code>&lt;base&gt;</code>标签中的target属性一起使用    </p>
+<p><strong>_parent</strong>        在父框架集中打开被链接的文档</p>
+<p><strong>_top</strong>              在整个窗口打开被链接文档</p>
+<p><strong>framename</strong>   在指定的框架中打开被链接文档</p>
+<h3 id="3-name属性"><a href="#3-name属性" class="headerlink" title="3. name属性"></a>3. name属性</h3><p><code>name</code>属性规定锚(anchor)的名称，可以使用<code>name</code>属性创建html页面中的书签，书签不会以任何独特方式显示，它对读者可以是不可见的。<br>当使用<code>命名锚</code>(named anchors)时，我们可以创建直接跳转至该命名锚(比如页面中某个小节)的链接,这样使用者就无需不停滚动页面来寻找需要的信息了。<br><strong>命名语法</strong><br><code>&lt;a name=&quot;label&quot;&gt;锚(显示在页面上的文本)&lt;/a&gt;</code></p>
+<ul>
+<li>锚名称可以是任何名字</li>
+<li>可以使用id属性来代替name属性，命名锚同样有效</li>
+</ul>
+<p><strong>例子</strong><br>  1)我们在html文档中对锚进行命名(创建一个书签)<br>  <code>&lt;a name=&quot;tips&quot;&gt;基本的注意事项 - 有用的提示&lt;/a&gt;</code><br>  2）在同一个文档中创建指向该锚的链接<br>  <code>&lt;a href=&quot;tips&quot;&gt;有用的提示&lt;/a&gt;</code><br>  3)也可以在其他页面中创建指向，该锚的链接<br>  <code>&lt;a href=&quot;http://mypro#trip&quot;&gt;有用的提示&lt;a&gt;</code></p>
+<h3 id="4-标签事件"><a href="#4-标签事件" class="headerlink" title="4. 标签事件"></a>4. 标签事件</h3><p>将<code>&lt;a&gt;</code>标签的<code>href</code>属性值设置为”#”，并设置<code>onclick</code>属性。<br>在这种处理方式下，用户可以很明显地看出哪些文字是超链接。<br>在单击该超链接时，也可以执行onclick属性值中的JavaScript语句，并且不会跳转网页。</p>
+<blockquote>
+<p>但是，由于href的属性值为”#”，浏览器会自动跳 转到当前网页的顶部。<br>如果当前网页内容比较多，浏览器窗口出现下拉滚动条时，可以很明显地看到跳转，而这种跳转往往不是网页设计者的本意。</p>
+</blockquote>
+<p>在没有为<code>&lt;a&gt;</code>标签设置onclick属性时，如果单击了该超链接，浏览器会加载href属性中的URL。<br>如果href属性值并不是一 个URL，而是一个JavaScript语句的话，那么浏览器就会执行该语句。<br>因此，可以直接将JavaScript语句写在<code>&lt;a&gt;</code>标签的 href属性值中，让href属性代替onclick属性。</p>
+<p><strong>在这种处理方式下，既可以响应click事件，又可以不让网页跳转。</strong></p>
+<p><strong>注意</strong>：在 a 标签的属性值中添加JavaScript语句之前，必须要先使用”javascript:”语句来声明href属性值中的语句为<code>javaScript</code>语句，否则浏览器就会将href属性值中的JavaScript语句当成URL进行加载。<br><code>&lt;a  href=&quot;javascript:showFlag()&quot;&gt;ssgao&lt;/a&gt;  </code>   执行showFlag()方法<br><code>&lt;a  href=&quot;&quot; onclick=&quot;showFlag();&quot;&gt;ssgao&lt;/a&gt;</code>    执行showFlag()方法，并会跳转到href指向的页面—-&gt;当<code>href=&quot;&quot;</code>刷新当前页面<br><code>&lt;a  href=&quot;&quot;&gt;ssgao&lt;/a&gt;</code>  刷新当前页面<br><code>&lt;a  href=&quot;#&quot; onclick=&quot;showFlag();&quot;&gt;ssgao&lt;/a&gt;</code>   执行showFlag()方法，并会跳转到页面顶部<br><code>&lt;a href=&quot;#&quot; onclick=&quot;javascript:方法;return false;&quot;&gt;提交&lt;/a&gt;</code><br><code>&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;javascript:方法;return false;&quot;&gt;提交&lt;/a&gt;</code><br>javascript:void(0)就不会向上跳了<br>还有一个方法是 #this<br><code>a href=&quot;#this&quot; onclick=&quot;javascript:方法&quot;</code></p>
+<h3 id="5-回到顶部或底部"><a href="#5-回到顶部或底部" class="headerlink" title="5. 回到顶部或底部"></a>5. 回到顶部或底部</h3><h4 id="使用JS"><a href="#使用JS" class="headerlink" title="使用JS"></a>使用JS</h4><figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">$(<span class="string">&quot;#带有滚动条的元素&quot;</span>).animate(&#123;<span class="attr">scrollTop</span>:<span class="number">0</span>&#125;,<span class="string">&#x27;fase&#x27;</span>); <span class="comment">//带有动画</span></span><br><span class="line">$(<span class="string">&quot;#带有滚动条的元素&quot;</span>).scrollTop(<span class="number">0</span>)；<span class="comment">//不带动画</span></span><br><span class="line">scrollTop 距离滚动元素顶部的位置</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用a标签的name属性-锚记"><a href="#使用a标签的name属性-锚记" class="headerlink" title="使用a标签的name属性(锚记)"></a>使用a标签的name属性(锚记)</h4><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;a <span class="attribute">name</span>=<span class="string">&quot;top&quot;</span>&gt;top&lt;/a&gt;</span><br><span class="line">&lt;a <span class="attribute">href</span>=<span class="string">&quot;#top&quot;</span>&gt; 点击此处跳转到<span class="attribute">name</span>=top的a标签的位置    </span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">值</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_charset.asp">charset</a></td>
+<td align="left"><em>char_encoding</em></td>
+<td align="left"><span style="color:red;">HTML5 中不支持。</span>规定被链接文档的字符集。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_coords.asp">coords</a></td>
+<td align="left"><em>coordinates</em></td>
+<td align="left"><span style="color:red;">HTML5 中不支持。</span>规定链接的坐标。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_download.asp">download</a></td>
+<td align="left"><em>filename</em></td>
+<td align="left">规定被下载的超链接目标。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_href.asp">href</a></td>
+<td align="left"><em>URL</em></td>
+<td align="left">规定链接指向的页面的 URL。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_hreflang.asp">hreflang</a></td>
+<td align="left"><em>language_code</em></td>
+<td align="left">规定被链接文档的语言。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_media.asp">media</a></td>
+<td align="left"><em>media_query</em></td>
+<td align="left">规定被链接文档是为何种媒介/设备优化的。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_name.asp">name</a></td>
+<td align="left"><em>section_name</em></td>
+<td align="left"><span style="color:red;">HTML5 中不支持。</span>规定锚的名称。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_rel.asp">rel</a></td>
+<td align="left"><em>text</em></td>
+<td align="left">规定当前文档与被链接文档之间的关系。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_rev.asp">rev</a></td>
+<td align="left"><em>text</em></td>
+<td align="left"><span style="color:red;">HTML5 中不支持。</span>规定被链接文档与当前文档之间的关系。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_shape.asp">shape</a></td>
+<td align="left">defaultrectcirclepoly</td>
+<td align="left"><span style="color:red;">HTML5 中不支持。</span>规定链接的形状。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_target.asp">target</a></td>
+<td align="left">_blank_parent_self_top<em>framename</em></td>
+<td align="left">规定在何处打开链接文档。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.w3school.com.cn/tags/att_a_type.asp">type</a></td>
+<td align="left"><em>MIME type</em></td>
+<td align="left">规定被链接文档的的 MIME 类型。</td>
+</tr>
+</tbody></table>
+<h2 id="四、HTML-lt-table-gt-标签功能"><a href="#四、HTML-lt-table-gt-标签功能" class="headerlink" title="四、HTML&lt;table&gt;标签功能"></a>四、HTML<code>&lt;table&gt;</code>标签功能</h2><p>绘制表格使用；如果是做后台管理的用户列表等类似 Excel 功能，这个标签是最佳的选择</p>
+<h3 id="1-table基础"><a href="#1-table基础" class="headerlink" title="1. table基础"></a>1. <code>table</code>基础</h3><ul>
+<li><code>&lt;table&gt;</code> 标签定义 HTML 表格</li>
+<li>一个 HTML 表格包括 <code>&lt;table&gt;</code> 元素，一个或多个 <code>&lt;tr&gt;</code>、<code>&lt;th&gt;</code> 以及 <code>&lt;td&gt;</code> 元素。</li>
+<li><code>&lt;tr&gt;</code> 元素定义表格行</li>
+<li><code>&lt;th&gt;</code> 元素定义表头</li>
+<li><code>&lt;td&gt;</code> 元素定义表格单元</li>
+</ul>
+<p><strong>更复杂的 HTML 表格也可能包括</strong></p>
+<ul>
+<li><code>&lt;caption&gt;</code></li>
+<li><code>&lt;col&gt;</code></li>
+<li><code>&lt;colgroup&gt;</code></li>
+<li><code>&lt;thead&gt;</code></li>
+<li><code>&lt;tfoot&gt;</code></li>
+<li><code>&lt;tbody&gt;</code></li>
+</ul>
+<p><strong>HTML <code>&lt;table&gt; </code>标签用法</strong></p>
+<p>一个简单的 HTML 表格，包含两列两行：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>网站名<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>网址<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>abc<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>abc<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意事项</strong></p>
+<p>虽然现在 DIV+CSS 布局非常流行，是取代 table 布局的好选择；</p>
+<p>但是遇到 table 相关的东西，还是使用<code>table</code>标签更佳，请根据实际场景进行选择</p>
+<hr>
+<p><strong>HTML4 与 HTML5 之间的差异</strong></p>
+<p>在 HTML5 中，仅支持 “border” 属性，并且只允许使用值 “1” 或 “”。</p>
+<h3 id="2-表格样式案例"><a href="#2-表格样式案例" class="headerlink" title="2. 表格样式案例"></a>2. 表格样式案例</h3><h4 id="2-1-单像素CSS表格"><a href="#2-1-单像素CSS表格" class="headerlink" title="2.1 单像素CSS表格"></a>2.1 单像素CSS表格</h4><p><img src="./table-1.png"></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- CSS goes in the document HEAD or added to your external stylesheet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.gridtable</span> &#123;</span></span><br><span class="line">    font-family: verdana,arial,sans-serif;</span><br><span class="line"><span class="css">    <span class="selector-tag">font-size</span><span class="selector-pseudo">:11px</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">color</span>:<span class="selector-id">#333333</span>;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#666666</span>;</span></span><br><span class="line">    border-collapse: collapse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.gridtable</span> <span class="selector-tag">th</span> &#123;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#666666</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>: <span class="selector-id">#dedede</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.gridtable</span> <span class="selector-tag">td</span> &#123;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#666666</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>: <span class="selector-id">#ffffff</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!-- Table goes in the document BODY --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">&quot;gridtable&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 1<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 2<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 3<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-带背景图的CSS样式表格"><a href="#2-2-带背景图的CSS样式表格" class="headerlink" title="2.2 带背景图的CSS样式表格"></a>2.2 带背景图的CSS样式表格</h4><p><img src="./table-2.png"></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- CSS goes in the document HEAD or added to your external stylesheet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.imagetable</span> &#123;</span></span><br><span class="line">    font-family: verdana,arial,sans-serif;</span><br><span class="line"><span class="css">    <span class="selector-tag">font-size</span><span class="selector-pseudo">:11px</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">color</span>:<span class="selector-id">#333333</span>;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#999999</span>;</span></span><br><span class="line">    border-collapse: collapse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.imagetable</span> <span class="selector-tag">th</span> &#123;</span></span><br><span class="line">    background:#b5cfd2 url(&#x27;cell-blue.jpg&#x27;);</span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#999999</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.imagetable</span> <span class="selector-tag">td</span> &#123;</span></span><br><span class="line">    background:#dcddc0 url(&#x27;cell-grey.jpg&#x27;);</span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#999999</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!-- Table goes in the document BODY --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">&quot;imagetable&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 1<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 2<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 3<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-自动换整行颜色的CSS样式表格（需要用到JS）"><a href="#2-3-自动换整行颜色的CSS样式表格（需要用到JS）" class="headerlink" title="2.3 自动换整行颜色的CSS样式表格（需要用到JS）"></a>2.3 自动换整行颜色的CSS样式表格（需要用到JS）</h4><p><img src="./table-3.png"></p>
+<p>这个CSS表格会自动切换每一行的颜色，这种呈现方式，在我们编辑一个数据庞大的表格时，非常好用</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Javascript goes in the document HEAD --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">altRows</span>(<span class="params">id</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span>(<span class="built_in">document</span>.getElementsByTagName)&#123; </span></span><br><span class="line">         </span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> table = <span class="built_in">document</span>.getElementById(id); </span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> rows = table.getElementsByTagName(<span class="string">&quot;tr&quot;</span>);</span></span><br><span class="line">          </span><br><span class="line">        for(i = 0; i &lt; rows.length; i++)&#123;         </span><br><span class="line">            if(i % 2 == 0)&#123;</span><br><span class="line"><span class="javascript">                rows[i].className = <span class="string">&quot;evenrowcolor&quot;</span>;</span></span><br><span class="line"><span class="javascript">            &#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="javascript">                rows[i].className = <span class="string">&quot;oddrowcolor&quot;</span>;</span></span><br><span class="line">            &#125;     </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="javascript"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    altRows(<span class="string">&#x27;alternatecolor&#x27;</span>);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!-- CSS goes in the document HEAD or added to your external stylesheet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.altrowstable</span> &#123;</span></span><br><span class="line">    font-family: verdana,arial,sans-serif;</span><br><span class="line"><span class="css">    <span class="selector-tag">font-size</span><span class="selector-pseudo">:11px</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">color</span>:<span class="selector-id">#333333</span>;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#a9c6c9</span>;</span></span><br><span class="line">    border-collapse: collapse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.altrowstable</span> <span class="selector-tag">th</span> &#123;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#a9c6c9</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.altrowstable</span> <span class="selector-tag">td</span> &#123;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#a9c6c9</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.oddrowcolor</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>:<span class="selector-id">#d4e3e5</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.evenrowcolor</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>:<span class="selector-id">#c3dde0</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!-- Table goes in the document BODY --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">&quot;altrowstable&quot;</span> <span class="attr">id</span>=<span class="string">&quot;alternatecolor&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 1<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 2<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 3<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 1C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 2C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 3A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 3B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 3C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 4A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 4B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 4C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 5A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 5B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Text 5C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!--  The table code can be found here: http://www.textfixer/resources/css-tables.php#css-table03 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-鼠标悬停高亮的CSS样式表格-需要JS"><a href="#2-4-鼠标悬停高亮的CSS样式表格-需要JS" class="headerlink" title="2.4 鼠标悬停高亮的CSS样式表格 (需要JS)"></a>2.4 鼠标悬停高亮的CSS样式表格 (需要JS)</h4><p><img src="./table-4.png"></p>
+<p>纯CSS显示表格高亮在IE中显示有问题，所以这边使用了JS来做高亮。</p>
+<p><strong>注意</strong>：不要定义格子的背景色。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- CSS goes in the document HEAD or added to your external stylesheet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.hovertable</span> &#123;</span></span><br><span class="line">    font-family: verdana,arial,sans-serif;</span><br><span class="line"><span class="css">    <span class="selector-tag">font-size</span><span class="selector-pseudo">:11px</span>;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">color</span>:<span class="selector-id">#333333</span>;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#999999</span>;</span></span><br><span class="line">    border-collapse: collapse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.hovertable</span> <span class="selector-tag">th</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>:<span class="selector-id">#c3dde0</span>;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#a9c6c9</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.hovertable</span> <span class="selector-tag">tr</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>:<span class="selector-id">#d4e3e5</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-tag">table</span><span class="selector-class">.hovertable</span> <span class="selector-tag">td</span> &#123;</span></span><br><span class="line">    border-width: 1px;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    border-style: solid;</span><br><span class="line"><span class="css">    <span class="selector-tag">border-color</span>: <span class="selector-id">#a9c6c9</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!-- Table goes in the document BODY --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">&quot;hovertable&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 1<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 2<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>Info Header 3<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#ffff66&#x27;;&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#d4e3e5&#x27;;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 1A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 1B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 1C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#ffff66&#x27;;&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#d4e3e5&#x27;;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 2A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 2B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 2C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#ffff66&#x27;;&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#d4e3e5&#x27;;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 3A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 3B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 3C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#ffff66&#x27;;&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#d4e3e5&#x27;;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 4A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 4B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 4C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#ffff66&#x27;;&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#d4e3e5&#x27;;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 5A<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 5B<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>Item 5C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="五、HTML-语义化"><a href="#五、HTML-语义化" class="headerlink" title="五、HTML 语义化"></a>五、HTML 语义化</h2><h3 id="1-什么是HTML语义化标签"><a href="#1-什么是HTML语义化标签" class="headerlink" title="1. 什么是HTML语义化标签"></a>1. 什么是HTML语义化标签</h3><p>语义化的标签，说明让标签有自己的含义。</p>
+<p><code>&lt;p&gt;一行文字&lt;/p&gt;</code></p>
+<p><code>&lt;span&gt;一行文字&lt;/span&gt;</code></p>
+<p>如上代码，p 标签与 span 标签都区别之一就是，p 标签的含义是：段落。而 span 标签责没有独特的含义。</p>
+<h3 id="2-语义化标签的特点"><a href="#2-语义化标签的特点" class="headerlink" title="2. 语义化标签的特点"></a>2. 语义化标签的特点</h3><ul>
+<li><p>代码结构清晰，方便阅读，有利于团队合作开发。</p>
+</li>
+<li><p>方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以语义的方式来渲染网页。</p>
+</li>
+<li><p>有利于搜索引擎优化（SEO）。</p>
+</li>
+<li><p>便于团队开发和维护，语义化更具可读性，遵循W3C标准的团队都遵循这个标准，可以减少差异化。</p>
+</li>
+</ul>
+<h3 id="3-常见的语义化标签"><a href="#3-常见的语义化标签" class="headerlink" title="3. 常见的语义化标签"></a>3. 常见的语义化标签</h3><p>因此我们在写页面结构时，应尽量使用有 语义的HTML 标签</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>：页面主体内容。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">hn</span>&gt;</span>：h1~h6，分级标题，`<span class="tag">&lt;<span class="name">h1</span>&gt;</span>` 与 `<span class="tag">&lt;<span class="name">title</span>&gt;</span>` 协调有利于搜索引擎优化。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span>：无序列表。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span>：有序列表。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span>：页眉通常包括网站标志、主导航、全站链接以及搜索框。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span>：标记导航，仅对文档中重要的链接群使用。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span>：页面主要内容，一个页面只能使用一次。如果是web应用，则包围其主要功能。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span>：定义外部的内容，其中的内容独立于文档的其余部分。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span>：定义文档中的节（section、区段）。比如章节、页眉、页脚或文档中的其他部分。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">aside</span>&gt;</span>：定义其所处内容之外的内容。如侧栏、文章的一组链接、广告、友情链接、相关产品列表等。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span>：页脚，只有当父级是body时，才是整个页面的页脚。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">small</span>&gt;</span>：呈现小号字体效果，指定细则，输入免责声明、注解、署名、版权。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">strong</span>&gt;</span>：和 em 标签一样，用于强调文本，但它强调的程度更强一些。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">em</span>&gt;</span>：将其中的文本表示为强调的内容，表现为斜体。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mark</span>&gt;</span>：使用黄色突出显示部分文本。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">figure</span>&gt;</span>：规定独立的流内容（图像、图表、照片、代码等等）（默认有40px左右margin）。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">figcaption</span>&gt;</span>：定义 figure 元素的标题，应该被置于 figure 元素的第一个或最后一个子元素的位置。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">cite</span>&gt;</span>：表示所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">blockquoto</span>&gt;</span>：定义块引用，块引用拥有它们自己的空间。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">q</span>&gt;</span>：短的引述（跨浏览器问题，尽量避免使用）。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">time</span>&gt;</span>：datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">abbr</span>&gt;</span>：简称或缩写。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dfn</span>&gt;</span>：定义术语元素，与定义必须紧挨着，可以在描述列表dl元素中使用。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">del</span>&gt;</span>：移除的内容。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ins</span>&gt;</span>：添加的内容。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">code</span>&gt;</span>：标记代码。</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meter</span>&gt;</span>：定义已知范围或分数值内的标量测量。（Internet Explorer 不支持 meter 标签）</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">progress</span>&gt;</span>：定义运行中的进度（进程）。</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>参考<a href="http://yanue.net/">半叶寒羽</a> » <a href="http://yanue.net/post-106.html">HTML5废弃的标签及属性</a></p>
+</blockquote>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Front End</category>
+      </categories>
+      <tags>
+        <tag>Html</tag>
       </tags>
   </entry>
   <entry>
