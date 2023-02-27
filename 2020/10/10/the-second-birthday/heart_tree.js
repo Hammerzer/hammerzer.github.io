@@ -2,10 +2,10 @@
 (function(){
     var canvas = $('#mycanvas');
     
-    if (!canvas[0].getContext) {
-        $("#error").show();
-        return false;
-    }
+    // if (!canvas[0].getContext) {
+    //     $("#error").show();
+    //     return false;
+    // }
 
     var width = canvas.width();
     var height = canvas.height();
