@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
+    
+    <lastmod>2023-02-27</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hammerzer.github.io/2020/10/10/the-second-birthday/</loc>
     
     <lastmod>2023-02-27</lastmod>
@@ -17,13 +24,6 @@
   
   <url>
     <loc>https://hammerzer.github.io/2023/02/27/After-That-Day/</loc>
-    
-    <lastmod>2023-02-27</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
     
     <lastmod>2023-02-27</lastmod>
     
@@ -65,14 +65,14 @@
   </url>
   
   <url>
-    <loc>https://hammerzer.github.io/tags/index.html</loc>
+    <loc>https://hammerzer.github.io/categories/index.html</loc>
     
     <lastmod>2021-10-11</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hammerzer.github.io/categories/index.html</loc>
+    <loc>https://hammerzer.github.io/tags/index.html</loc>
     
     <lastmod>2021-10-11</lastmod>
     
@@ -396,14 +396,14 @@
   </url>
   
   <url>
-    <loc>https://hammerzer.github.io/tags/Guitar/</loc>
+    <loc>https://hammerzer.github.io/tags/Git/</loc>
     <lastmod>2023-02-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hammerzer.github.io/tags/Git/</loc>
+    <loc>https://hammerzer.github.io/tags/Guitar/</loc>
     <lastmod>2023-02-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
