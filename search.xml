@@ -512,129 +512,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Cocos上路</title>
-    <url>/2020/12/10/cocos-firstman/</url>
-    <content><![CDATA[<h2 id="CONTENT-OULINE"><a href="#CONTENT-OULINE" class="headerlink" title="CONTENT OULINE"></a>CONTENT OULINE</h2><p><strong>新手上路，请注意避让！</strong></p>
-<a id="more"></a>
-
-<p><a href="https://www.cocos.com/docs">技术文档</a></p>
-<p><a href="https://account.cocos.com/#/game/game_list">cocos账号中心</a></p>
-<p><a href="https://cocos-creator.github.io/example-cases/">演示案例</a></p>
-<p><a href="http://fbdemos.leanapp.cn/star-catcher/">演示案例——摘星星</a></p>
-<p><a href="https://www.bilibili.com/video/BV1sA411Y7x4?p=2">bilibili教程</a>    <a href="http://afanihao.cn/">教程文件下载</a></p>
-<p><a href="https://docs.cocos.com/creator/api/zh/">Cocos API</a></p>
-<p><a href="https://www.jianshu.com/p/cfb524ecce31?utm_campaign=maleskine...&utm_content=note&utm_medium=seo_notes&utm_source=recommendation">事件系统</a></p>
-<p><a href="https://forum.cocos.org/">Cocos 中文社区</a></p>
-<h2 id="现场感悟"><a href="#现场感悟" class="headerlink" title="现场感悟"></a>现场感悟</h2><h3 id="2020-12-25"><a href="#2020-12-25" class="headerlink" title="2020/12/25"></a>2020/12/25</h3><p>​        这是一个相对成熟的游戏引擎（？），也是，可能比其他的好很多，但是毕竟是人烟稀少的土地，遇到的问题轻则头疼绕道，重则直接嗝屁，都是巴戈，真想口吐芬芳</p>
-<h3 id="2021-1-19"><a href="#2021-1-19" class="headerlink" title="2021/1/19"></a>2021/1/19</h3><p>​        真的是吐了，这个游戏引擎莫名其妙出现巴戈，然后莫名其妙地重启之后消失，有咩有考虑过，中间的这个过程让宝宝好痛苦，绝对是一种被玩弄的感觉。</p>
-<p>​        而且，出现巴戈的 <code>sourceMap</code> 提示根本没有办法溯源，去搜索相应的报错信息也是一无所获，这个社区真的可以说没有！再做两三个游戏就塞<code>Goodbye</code>了.</p>
-<p>​        记住，出现异常报错之后：先重启，先重启，先重启引擎！！！</p>
-<p><img src="./bug1.png"></p>
-<h3 id="2021-1-22"><a href="#2021-1-22" class="headerlink" title="2021/1/22"></a>2021/1/22</h3><p>针对异常的报错，可以排查是否出现如下的问题：</p>
-<ul>
-<li>重启引擎能否解决</li>
-<li>在某个节点上，是否绑定了正确的脚本</li>
-</ul>
-<h2 id="翻车现场"><a href="#翻车现场" class="headerlink" title="翻车现场"></a>翻车现场</h2><blockquote>
-<p><code>copy</code> 一波官方文档，说实话，官方文档写的很接地气，但是总有一些坑，让我掉进去了 <code>-_-</code></p>
-<p>总之，下面是官方文档的补充坑点</p>
-</blockquote>
-<h3 id="一、缓动系统"><a href="#一、缓动系统" class="headerlink" title="一、缓动系统"></a>一、缓动系统</h3><h4 id="链式-API"><a href="#链式-API" class="headerlink" title="链式 API"></a>链式 API</h4><p><code>cc.tween</code> 的每一个 API 都会在内部生成一个 action，并将这个 action 添加到内部队列中，在 API 调用完后会再返回自身实例，这样就可以通过链式调用的方式来组织代码。</p>
-<p><code>cc.tween</code> 在调用 start 时会将之前生成的 action 队列重新组合生成一个 cc.sequence 队列，所以 <code>cc.tween</code> 的链式结构是依次执行每一个 API 的，也就是会执行完一个 API 再执行下一个 API。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    <span class="comment">// 0s 时，node 的 scale 还是 1</span></span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;)</span><br><span class="line">    <span class="comment">// 1s 时，执行完第一个 action，scale 为 2</span></span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">3</span> &#125;)</span><br><span class="line">    <span class="comment">// 2s 时，执行完第二个 action，scale 为 3</span></span><br><span class="line">    .start()</span><br><span class="line">    <span class="comment">// 调用 start 开始执行 cc.tween</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="设置缓动属性"><a href="#设置缓动属性" class="headerlink" title="设置缓动属性"></a>设置缓动属性</h4><p><code>cc.tween</code> 提供了两个设置属性的 API：</p>
-<ul>
-<li><code>to</code>：对属性进行绝对值计算，最终的运行结果即是设置的属性值，即改变到某个值。</li>
-<li><code>by</code>：对属性进行相对值计算，最终的运行结果是设置的属性值加上开始运行时节点的属性值，即变化值。</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(node)</span><br><span class="line">  .to(<span class="number">1</span>, &#123;<span class="attr">scale</span>: <span class="number">2</span>&#125;)      <span class="comment">// node.scale === 2</span></span><br><span class="line">  .by(<span class="number">1</span>, &#123;<span class="attr">scale</span>: <span class="number">2</span>&#125;)      <span class="comment">// node.scale === 4 (2 + 2)</span></span><br><span class="line">  .by(<span class="number">1</span>, &#123;<span class="attr">scale</span>: <span class="number">1</span>&#125;)      <span class="comment">// node.scale === 5</span></span><br><span class="line">  .to(<span class="number">1</span>, &#123;<span class="attr">scale</span>: <span class="number">2</span>&#125;)      <span class="comment">// node.scale === 2</span></span><br><span class="line">  .start()</span><br></pre></td></tr></table></figure>
-
-<h4 id="支持缓动任意对象的任意属性"><a href="#支持缓动任意对象的任意属性" class="headerlink" title="支持缓动任意对象的任意属性"></a>支持缓动任意对象的任意属性</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="number">0</span> &#125;</span><br><span class="line">cc.tween(obj)</span><br><span class="line">  .to(<span class="number">1</span>, &#123; <span class="attr">a</span>: <span class="number">100</span> &#125;)</span><br><span class="line">  .start()</span><br></pre></td></tr></table></figure>
-
-<h4 id="同时执行多个属性"><a href="#同时执行多个属性" class="headerlink" title="同时执行多个属性"></a>同时执行多个属性</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    <span class="comment">// 同时对 scale, position, rotation 三个属性缓动</span></span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span>, <span class="attr">position</span>: cc.v2(<span class="number">100</span>, <span class="number">100</span>), <span class="attr">rotation</span>: <span class="number">90</span> &#125;)</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
-
-<h4 id="easing"><a href="#easing" class="headerlink" title="easing"></a>easing</h4><p>你可以使用 easing 来使缓动更生动，<code>cc.tween</code> 针对不同的情况提供了多种使用方式。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 传入 easing 名字，直接使用内置 easing 函数</span></span><br><span class="line">cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;, &#123; <span class="attr">easing</span>: <span class="string">&#x27;sineOutIn&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用自定义 easing 函数</span></span><br><span class="line">cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;, &#123; <span class="attr">easing</span>: <span class="function"><span class="params">t</span> =&gt;</span> t*t; &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 只对单个属性使用 easing 函数</span></span><br><span class="line"><span class="comment">// value 必须与 easing 或者 progress 配合使用</span></span><br><span class="line">cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span>, <span class="attr">position</span>: &#123; <span class="attr">value</span>: cc.v3(<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>), <span class="attr">easing</span>: <span class="string">&#x27;sineOutIn&#x27;</span> &#125; &#125;)</span><br></pre></td></tr></table></figure>
-
-<p>Easing 类型说明可参考 <a href="https://docs.cocos.com/creator/api/zh/classes/Easing.html">API 文档</a>。</p>
-<h4 id="自定义-progress"><a href="#自定义-progress" class="headerlink" title="自定义 progress"></a>自定义 progress</h4><p>相对于 easing，自定义 progress 函数可以更自由的控制缓动的过程。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 对所有属性自定义 progress</span></span><br><span class="line">cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span>, <span class="attr">rotation</span>: <span class="number">90</span> &#125;, &#123;</span><br><span class="line">  progress: <span class="function">(<span class="params">start, end, current, ratio</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> start + (end - start) * ratio;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对单个属性自定义 progress</span></span><br><span class="line">cc.tween().to(<span class="number">1</span>, &#123;</span><br><span class="line">  scale: <span class="number">2</span>,</span><br><span class="line">  position: &#123;</span><br><span class="line">    value: cc.v3(),</span><br><span class="line">    progress: <span class="function">(<span class="params">start, end, current, t</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 注意，传入的属性为 cc.Vec3，所以需要使用 Vec3.lerp 进行插值计算</span></span><br><span class="line">      <span class="keyword">return</span> start.lerp(end, t, current);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="复制缓动"><a href="#复制缓动" class="headerlink" title="复制缓动"></a>复制缓动</h4><p>clone 函数会克隆一个当前的缓动，并接受一个 target 作为参数。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 先创建一个缓动作为模板</span></span><br><span class="line"><span class="keyword">let</span> tween = cc.tween().to(<span class="number">4</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 复制 tween，并使用节点 Canvas/cocos 作为 target</span></span><br><span class="line">tween.clone(cc.find(<span class="string">&#x27;Canvas/cocos&#x27;</span>)).start()</span><br><span class="line"><span class="comment">// 复制 tween，并使用节点 Canvas/cocos2 作为 target</span></span><br><span class="line">tween.clone(cc.find(<span class="string">&#x27;Canvas/cocos2&#x27;</span>)).start()</span><br></pre></td></tr></table></figure>
-
-<h4 id="插入其他的缓动到队列中"><a href="#插入其他的缓动到队列中" class="headerlink" title="插入其他的缓动到队列中"></a>插入其他的缓动到队列中</h4><p>你可以事先创建一些固定的缓动，然后通过组合这些缓动形成新的缓动来减少代码的编写。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> scale = cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;)</span><br><span class="line"><span class="keyword">let</span> rotate = cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">rotation</span>: <span class="number">90</span>&#125;)</span><br><span class="line"><span class="keyword">let</span> move = cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">position</span>: cc.v3(<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>)&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 先缩放再旋转</span></span><br><span class="line">cc.tween(<span class="built_in">this</span>.node).then(scale).then(rotate)</span><br><span class="line"><span class="comment">// 先缩放再移动</span></span><br><span class="line">cc.tween(<span class="built_in">this</span>.node).then(scale).then(move)</span><br></pre></td></tr></table></figure>
-
-<h4 id="并行执行缓动"><a href="#并行执行缓动" class="headerlink" title="并行执行缓动"></a>并行执行缓动</h4><p><code>cc.tween</code> 在链式执行时是按照 sequence 的方式来执行的，但是在编写复杂缓动的时候可能会需要同时并行执行多个队列，<code>cc.tween</code>提供了 parallel 接口来满足这个需求。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> t = cc.tween;</span><br><span class="line">t(<span class="built_in">this</span>.node)</span><br><span class="line">    <span class="comment">// 同时执行两个 cc.tween</span></span><br><span class="line">    .parallel(</span><br><span class="line">        t().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;),</span><br><span class="line">        t().to(<span class="number">2</span>, &#123; <span class="attr">position</span>: cc.v2(<span class="number">100</span>, <span class="number">100</span>) &#125;)</span><br><span class="line">    )</span><br><span class="line">    .call(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;All tweens finished.&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
-
-<h4 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    .to(<span class="number">2</span>, &#123; <span class="attr">rotation</span>: <span class="number">90</span>&#125;)</span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span>&#125;)</span><br><span class="line">    <span class="comment">// 当前面的动作都执行完毕后才会调用这个回调函数</span></span><br><span class="line">    .call(<span class="function">() =&gt;</span> &#123; cc.log(<span class="string">&#x27;This is a callback&#x27;</span>) &#125;)</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
-
-<h4 id="重复执行"><a href="#重复执行" class="headerlink" title="重复执行"></a>重复执行</h4><p>repeat/repeatForever 函数会将  <span style="color:red;font-weight:bold;">前一个</span>   action 作为作用对象。但是如果有参数提供了其他的 action 或者 tween，则 repeat/repeatForever 函数会将传入的 action 或者 tween 作为作用对象。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    .by(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">1</span> &#125;)</span><br><span class="line">    <span class="comment">// 对前一个 by 重复执行 10次</span></span><br><span class="line">    .repeat(<span class="number">10</span>)</span><br><span class="line">    <span class="comment">// 最后 node.scale === 11</span></span><br><span class="line">    .start()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以这样用</span></span><br><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    .repeat(<span class="number">10</span>,</span><br><span class="line">        cc.tween().by(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">1</span> &#125;)</span><br><span class="line">    )</span><br><span class="line">    .start()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一直重复执行下去， 注意该  repeatForever() 只会重复最后一个 tween</span></span><br><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    .by(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">1</span> &#125;)</span><br><span class="line">    .repeatForever()</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
-
-<h4 id="延迟执行"><a href="#延迟执行" class="headerlink" title="延迟执行"></a>延迟执行</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    <span class="comment">// 延迟 1s</span></span><br><span class="line">    .delay(<span class="number">1</span>)</span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;)</span><br><span class="line">    <span class="comment">// 再延迟 1s</span></span><br><span class="line">    .delay(<span class="number">1</span>)</span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">3</span> &#125;)</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
-
-<h3 id="二、定时器"><a href="#二、定时器" class="headerlink" title="二、定时器"></a>二、定时器</h3><p>首先，先创建一个指向某个组件的变量，变量名为 component。</p>
-<blockquote>
-<p>其中 component 属于</p>
-</blockquote>
-<p><strong>1、开始一个计时器</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">component.schedule(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这里的 this 指向 component</span></span><br><span class="line">    <span class="built_in">this</span>.doSomething();</span><br><span class="line">&#125;, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
-
-<p>上面这个计时器将每隔 5s 执行一次。</p>
-<p><strong>2、更灵活的计时器</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 以秒为单位的时间间隔</span></span><br><span class="line"><span class="keyword">var</span> interval = <span class="number">5</span>;</span><br><span class="line"><span class="comment">// 重复次数</span></span><br><span class="line"><span class="keyword">var</span> repeat = <span class="number">3</span>;</span><br><span class="line"><span class="comment">// 开始延时</span></span><br><span class="line"><span class="keyword">var</span> delay = <span class="number">10</span>;</span><br><span class="line">component.schedule(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这里的 this 指向 component</span></span><br><span class="line">    <span class="built_in">this</span>.doSomething();</span><br><span class="line">&#125;, interval, repeat, delay);</span><br></pre></td></tr></table></figure>
-
-<p>上面的计时器将在 10 秒后开始计时，每 5 秒执行一次回调，执行 3 + 1 次。</p>
-<p><strong>3、只执行一次的计时器（快捷方式）</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">component.scheduleOnce(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这里的 this 指向 component</span></span><br><span class="line">    <span class="built_in">this</span>.doSomething();</span><br><span class="line">&#125;, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-
-<p>上面的计时器将在两秒后执行一次回调函数，之后就停止计时。</p>
-<p><strong>4、取消计时器</strong></p>
-<p>开发者可以使用回调函数本身来取消计时器：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.count = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">this</span>.callback = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.count === <span class="number">5</span>) &#123;</span><br><span class="line">        <span class="comment">// 在第六次执行回调时取消这个计时器</span></span><br><span class="line">        <span class="built_in">this</span>.unschedule(<span class="built_in">this</span>.callback);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.doSomething();</span><br><span class="line">    <span class="built_in">this</span>.count++;</span><br><span class="line">&#125;</span><br><span class="line">component.schedule(<span class="built_in">this</span>.callback, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：组件的计时器调用回调时，会将回调的 <code>this</code> 指定为组件本身，因此回调中可以直接使用 <code>this</code>。</p>
-<p>下面是 Component 中所有关于计时器的函数：</p>
-<ul>
-<li><code>schedule</code>：开始一个计时器</li>
-<li><code>scheduleOnce</code>：开始一个只执行一次的计时器</li>
-<li><code>unschedule</code>：取消一个计时器</li>
-<li><code>unscheduleAllCallbacks</code>：取消这个组件的所有计时器</li>
-</ul>
-<p>这些 API 的详细描述都可以在 <a href="https://docs.cocos.com/creator/api/zh/classes/Component.html">Component API</a> 文档中找到。</p>
-<p>除此之外，如果需要每一帧都执行一个函数，请直接在 Component 中添加 <code>update</code> 函数，这个函数将默认被每帧调用，这在 <a href="https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html#update">生命周期文档</a> 中有详细描述。</p>
-<p><strong>注意：<code>cc.Node</code> 不包含计时器相关 API</strong></p>
-<br>
-
-<h2 id="冷知识"><a href="#冷知识" class="headerlink" title="冷知识"></a>冷知识</h2><h3 id="1、构建时的参数含义"><a href="#1、构建时的参数含义" class="headerlink" title="1、构建时的参数含义"></a>1、构建时的参数含义</h3><p><strong>MD5 cache：</strong>使用creator构建web平台时为了使用玩家可以及时更新修改，可以使用MD5 cache功能，便会在构建出来的文件名称中加上 <code>md5</code> 值。</p>
-<p>值得注意的是，若使用 <code>build-templates</code>，需要保证不带 MD5 值，因为在模板 <code>index.js</code> 中把 <code>mian.js</code> 路径和名称是写死的。</p>
-<h3 id="2、-加载远程资源"><a href="#2、-加载远程资源" class="headerlink" title="2、 加载远程资源"></a>2、 加载远程资源</h3><blockquote>
-<p><a href="http://docs.cocos.com/creator/manual/zh/scripting/dynamic-load-resources.html#%E5%8A%A0%E8%BD%BD%E8%BF%9C%E7%A8%8B%E8%B5%84%E6%BA%90%E5%92%8C%E8%AE%BE%E5%A4%87%E8%B5%84%E6%BA%90">官方文档 </a>中是这样说的</p>
-<p>查找了相关动态加载的文档如下：</p>
-<p><a href="https://blog.csdn.net/qq_43287088/article/details/107172955">Cocos Creator 资源管理AssetManager</a></p>
-<p><a href="https://blog.csdn.net/weixin_36760331/article/details/85766057">细谈cocos中sprite、texture和SpriteFrame</a></p>
-<p>本人在使用过程中，<code>vscode</code> 一直报错，后来功能却可以正常是实现</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 远程 url 带图片后缀名</span></span><br><span class="line"><span class="keyword">var</span> remoteUrl = <span class="string">&quot;http://unknown.org/someres.png&quot;</span>;</span><br><span class="line">cc.assetManager.loadRemote(remoteUrl, <span class="function"><span class="keyword">function</span> (<span class="params">err, texture</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Use texture to create sprite frame</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 远程 url 不带图片后缀名，此时必须指定远程图片文件的类型</span></span><br><span class="line">remoteUrl = <span class="string">&quot;http://unknown.org/emoji?id=124982374&quot;</span>;</span><br><span class="line">cc.assetManager.loadRemote(remoteUrl, &#123;<span class="attr">ext</span>: <span class="string">&#x27;.png&#x27;</span>&#125;, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Use texture to create sprite frame</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用绝对路径加载设备存储内的资源，比如相册</span></span><br><span class="line"><span class="keyword">var</span> absolutePath = <span class="string">&quot;/dara/data/some/path/to/image.png&quot;</span></span><br><span class="line">cc.assetManager.loadRemote(absolutePath, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Use texture to create sprite frame</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 远程音频</span></span><br><span class="line">remoteUrl = <span class="string">&quot;http://unknown.org/sound.mp3&quot;</span>;</span><br><span class="line">cc.assetManager.loadRemote(remoteUrl, <span class="function"><span class="keyword">function</span> (<span class="params">err, audioClip</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// play audio clip</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 远程文本</span></span><br><span class="line">remoteUrl = <span class="string">&quot;http://unknown.org/skill.txt&quot;</span>;</span><br><span class="line">cc.assetManager.loadRemote(remoteUrl, <span class="function"><span class="keyword">function</span> (<span class="params">err, textAsset</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// use string to do something</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p><strong>个人的需求</strong>：</p>
-<p>加载远程 <code>url</code> 不带图片后缀名，获取图片之后动态替换原图片</p>
-<p><u>但是，如果远程 <code>url</code> 带图片后缀，绝对不可再次声明图片后缀</u></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.assetManager.loadRemote(res[<span class="string">&#x27;couponQRCode&#x27;</span>], &#123;<span class="attr">ext</span>: <span class="string">&#x27;.png&#x27;</span>&#125;, <span class="function">(<span class="params">err, texture</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// Use texture to create sprite frame</span></span><br><span class="line">    <span class="keyword">const</span> sp = <span class="keyword">new</span> cc.SpriteFrame(texture); <span class="comment">// 这个地方一直报错 类型错误</span></span><br><span class="line">    <span class="built_in">this</span>.gameEnd.getChildByName(<span class="string">&#x27;rewards&#x27;</span>).getChildByName(<span class="string">&#x27;qrcode&#x27;</span>).getComponent(cc.Sprite).spriteFrame = sp;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Cocos</category>
-      </categories>
-      <tags>
-        <tag>Cocos-dev</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>DOM&amp;BOM</title>
     <url>/2020/10/21/DOM&amp;BOM/</url>
     <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
@@ -770,6 +647,129 @@
       </categories>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cocos上路</title>
+    <url>/2020/12/10/cocos-firstman/</url>
+    <content><![CDATA[<h2 id="CONTENT-OULINE"><a href="#CONTENT-OULINE" class="headerlink" title="CONTENT OULINE"></a>CONTENT OULINE</h2><p><strong>新手上路，请注意避让！</strong></p>
+<a id="more"></a>
+
+<p><a href="https://www.cocos.com/docs">技术文档</a></p>
+<p><a href="https://account.cocos.com/#/game/game_list">cocos账号中心</a></p>
+<p><a href="https://cocos-creator.github.io/example-cases/">演示案例</a></p>
+<p><a href="http://fbdemos.leanapp.cn/star-catcher/">演示案例——摘星星</a></p>
+<p><a href="https://www.bilibili.com/video/BV1sA411Y7x4?p=2">bilibili教程</a>    <a href="http://afanihao.cn/">教程文件下载</a></p>
+<p><a href="https://docs.cocos.com/creator/api/zh/">Cocos API</a></p>
+<p><a href="https://www.jianshu.com/p/cfb524ecce31?utm_campaign=maleskine...&utm_content=note&utm_medium=seo_notes&utm_source=recommendation">事件系统</a></p>
+<p><a href="https://forum.cocos.org/">Cocos 中文社区</a></p>
+<h2 id="现场感悟"><a href="#现场感悟" class="headerlink" title="现场感悟"></a>现场感悟</h2><h3 id="2020-12-25"><a href="#2020-12-25" class="headerlink" title="2020/12/25"></a>2020/12/25</h3><p>​        这是一个相对成熟的游戏引擎（？），也是，可能比其他的好很多，但是毕竟是人烟稀少的土地，遇到的问题轻则头疼绕道，重则直接嗝屁，都是巴戈，真想口吐芬芳</p>
+<h3 id="2021-1-19"><a href="#2021-1-19" class="headerlink" title="2021/1/19"></a>2021/1/19</h3><p>​        真的是吐了，这个游戏引擎莫名其妙出现巴戈，然后莫名其妙地重启之后消失，有咩有考虑过，中间的这个过程让宝宝好痛苦，绝对是一种被玩弄的感觉。</p>
+<p>​        而且，出现巴戈的 <code>sourceMap</code> 提示根本没有办法溯源，去搜索相应的报错信息也是一无所获，这个社区真的可以说没有！再做两三个游戏就塞<code>Goodbye</code>了.</p>
+<p>​        记住，出现异常报错之后：先重启，先重启，先重启引擎！！！</p>
+<p><img src="./bug1.png"></p>
+<h3 id="2021-1-22"><a href="#2021-1-22" class="headerlink" title="2021/1/22"></a>2021/1/22</h3><p>针对异常的报错，可以排查是否出现如下的问题：</p>
+<ul>
+<li>重启引擎能否解决</li>
+<li>在某个节点上，是否绑定了正确的脚本</li>
+</ul>
+<h2 id="翻车现场"><a href="#翻车现场" class="headerlink" title="翻车现场"></a>翻车现场</h2><blockquote>
+<p><code>copy</code> 一波官方文档，说实话，官方文档写的很接地气，但是总有一些坑，让我掉进去了 <code>-_-</code></p>
+<p>总之，下面是官方文档的补充坑点</p>
+</blockquote>
+<h3 id="一、缓动系统"><a href="#一、缓动系统" class="headerlink" title="一、缓动系统"></a>一、缓动系统</h3><h4 id="链式-API"><a href="#链式-API" class="headerlink" title="链式 API"></a>链式 API</h4><p><code>cc.tween</code> 的每一个 API 都会在内部生成一个 action，并将这个 action 添加到内部队列中，在 API 调用完后会再返回自身实例，这样就可以通过链式调用的方式来组织代码。</p>
+<p><code>cc.tween</code> 在调用 start 时会将之前生成的 action 队列重新组合生成一个 cc.sequence 队列，所以 <code>cc.tween</code> 的链式结构是依次执行每一个 API 的，也就是会执行完一个 API 再执行下一个 API。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    <span class="comment">// 0s 时，node 的 scale 还是 1</span></span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;)</span><br><span class="line">    <span class="comment">// 1s 时，执行完第一个 action，scale 为 2</span></span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">3</span> &#125;)</span><br><span class="line">    <span class="comment">// 2s 时，执行完第二个 action，scale 为 3</span></span><br><span class="line">    .start()</span><br><span class="line">    <span class="comment">// 调用 start 开始执行 cc.tween</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="设置缓动属性"><a href="#设置缓动属性" class="headerlink" title="设置缓动属性"></a>设置缓动属性</h4><p><code>cc.tween</code> 提供了两个设置属性的 API：</p>
+<ul>
+<li><code>to</code>：对属性进行绝对值计算，最终的运行结果即是设置的属性值，即改变到某个值。</li>
+<li><code>by</code>：对属性进行相对值计算，最终的运行结果是设置的属性值加上开始运行时节点的属性值，即变化值。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(node)</span><br><span class="line">  .to(<span class="number">1</span>, &#123;<span class="attr">scale</span>: <span class="number">2</span>&#125;)      <span class="comment">// node.scale === 2</span></span><br><span class="line">  .by(<span class="number">1</span>, &#123;<span class="attr">scale</span>: <span class="number">2</span>&#125;)      <span class="comment">// node.scale === 4 (2 + 2)</span></span><br><span class="line">  .by(<span class="number">1</span>, &#123;<span class="attr">scale</span>: <span class="number">1</span>&#125;)      <span class="comment">// node.scale === 5</span></span><br><span class="line">  .to(<span class="number">1</span>, &#123;<span class="attr">scale</span>: <span class="number">2</span>&#125;)      <span class="comment">// node.scale === 2</span></span><br><span class="line">  .start()</span><br></pre></td></tr></table></figure>
+
+<h4 id="支持缓动任意对象的任意属性"><a href="#支持缓动任意对象的任意属性" class="headerlink" title="支持缓动任意对象的任意属性"></a>支持缓动任意对象的任意属性</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="number">0</span> &#125;</span><br><span class="line">cc.tween(obj)</span><br><span class="line">  .to(<span class="number">1</span>, &#123; <span class="attr">a</span>: <span class="number">100</span> &#125;)</span><br><span class="line">  .start()</span><br></pre></td></tr></table></figure>
+
+<h4 id="同时执行多个属性"><a href="#同时执行多个属性" class="headerlink" title="同时执行多个属性"></a>同时执行多个属性</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    <span class="comment">// 同时对 scale, position, rotation 三个属性缓动</span></span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span>, <span class="attr">position</span>: cc.v2(<span class="number">100</span>, <span class="number">100</span>), <span class="attr">rotation</span>: <span class="number">90</span> &#125;)</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
+
+<h4 id="easing"><a href="#easing" class="headerlink" title="easing"></a>easing</h4><p>你可以使用 easing 来使缓动更生动，<code>cc.tween</code> 针对不同的情况提供了多种使用方式。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 传入 easing 名字，直接使用内置 easing 函数</span></span><br><span class="line">cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;, &#123; <span class="attr">easing</span>: <span class="string">&#x27;sineOutIn&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用自定义 easing 函数</span></span><br><span class="line">cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;, &#123; <span class="attr">easing</span>: <span class="function"><span class="params">t</span> =&gt;</span> t*t; &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 只对单个属性使用 easing 函数</span></span><br><span class="line"><span class="comment">// value 必须与 easing 或者 progress 配合使用</span></span><br><span class="line">cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span>, <span class="attr">position</span>: &#123; <span class="attr">value</span>: cc.v3(<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>), <span class="attr">easing</span>: <span class="string">&#x27;sineOutIn&#x27;</span> &#125; &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>Easing 类型说明可参考 <a href="https://docs.cocos.com/creator/api/zh/classes/Easing.html">API 文档</a>。</p>
+<h4 id="自定义-progress"><a href="#自定义-progress" class="headerlink" title="自定义 progress"></a>自定义 progress</h4><p>相对于 easing，自定义 progress 函数可以更自由的控制缓动的过程。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 对所有属性自定义 progress</span></span><br><span class="line">cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span>, <span class="attr">rotation</span>: <span class="number">90</span> &#125;, &#123;</span><br><span class="line">  progress: <span class="function">(<span class="params">start, end, current, ratio</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> start + (end - start) * ratio;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对单个属性自定义 progress</span></span><br><span class="line">cc.tween().to(<span class="number">1</span>, &#123;</span><br><span class="line">  scale: <span class="number">2</span>,</span><br><span class="line">  position: &#123;</span><br><span class="line">    value: cc.v3(),</span><br><span class="line">    progress: <span class="function">(<span class="params">start, end, current, t</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 注意，传入的属性为 cc.Vec3，所以需要使用 Vec3.lerp 进行插值计算</span></span><br><span class="line">      <span class="keyword">return</span> start.lerp(end, t, current);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="复制缓动"><a href="#复制缓动" class="headerlink" title="复制缓动"></a>复制缓动</h4><p>clone 函数会克隆一个当前的缓动，并接受一个 target 作为参数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 先创建一个缓动作为模板</span></span><br><span class="line"><span class="keyword">let</span> tween = cc.tween().to(<span class="number">4</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 复制 tween，并使用节点 Canvas/cocos 作为 target</span></span><br><span class="line">tween.clone(cc.find(<span class="string">&#x27;Canvas/cocos&#x27;</span>)).start()</span><br><span class="line"><span class="comment">// 复制 tween，并使用节点 Canvas/cocos2 作为 target</span></span><br><span class="line">tween.clone(cc.find(<span class="string">&#x27;Canvas/cocos2&#x27;</span>)).start()</span><br></pre></td></tr></table></figure>
+
+<h4 id="插入其他的缓动到队列中"><a href="#插入其他的缓动到队列中" class="headerlink" title="插入其他的缓动到队列中"></a>插入其他的缓动到队列中</h4><p>你可以事先创建一些固定的缓动，然后通过组合这些缓动形成新的缓动来减少代码的编写。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> scale = cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;)</span><br><span class="line"><span class="keyword">let</span> rotate = cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">rotation</span>: <span class="number">90</span>&#125;)</span><br><span class="line"><span class="keyword">let</span> move = cc.tween().to(<span class="number">1</span>, &#123; <span class="attr">position</span>: cc.v3(<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>)&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 先缩放再旋转</span></span><br><span class="line">cc.tween(<span class="built_in">this</span>.node).then(scale).then(rotate)</span><br><span class="line"><span class="comment">// 先缩放再移动</span></span><br><span class="line">cc.tween(<span class="built_in">this</span>.node).then(scale).then(move)</span><br></pre></td></tr></table></figure>
+
+<h4 id="并行执行缓动"><a href="#并行执行缓动" class="headerlink" title="并行执行缓动"></a>并行执行缓动</h4><p><code>cc.tween</code> 在链式执行时是按照 sequence 的方式来执行的，但是在编写复杂缓动的时候可能会需要同时并行执行多个队列，<code>cc.tween</code>提供了 parallel 接口来满足这个需求。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> t = cc.tween;</span><br><span class="line">t(<span class="built_in">this</span>.node)</span><br><span class="line">    <span class="comment">// 同时执行两个 cc.tween</span></span><br><span class="line">    .parallel(</span><br><span class="line">        t().to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;),</span><br><span class="line">        t().to(<span class="number">2</span>, &#123; <span class="attr">position</span>: cc.v2(<span class="number">100</span>, <span class="number">100</span>) &#125;)</span><br><span class="line">    )</span><br><span class="line">    .call(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;All tweens finished.&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
+
+<h4 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    .to(<span class="number">2</span>, &#123; <span class="attr">rotation</span>: <span class="number">90</span>&#125;)</span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span>&#125;)</span><br><span class="line">    <span class="comment">// 当前面的动作都执行完毕后才会调用这个回调函数</span></span><br><span class="line">    .call(<span class="function">() =&gt;</span> &#123; cc.log(<span class="string">&#x27;This is a callback&#x27;</span>) &#125;)</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
+
+<h4 id="重复执行"><a href="#重复执行" class="headerlink" title="重复执行"></a>重复执行</h4><p>repeat/repeatForever 函数会将  <span style="color:red;font-weight:bold;">前一个</span>   action 作为作用对象。但是如果有参数提供了其他的 action 或者 tween，则 repeat/repeatForever 函数会将传入的 action 或者 tween 作为作用对象。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    .by(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">1</span> &#125;)</span><br><span class="line">    <span class="comment">// 对前一个 by 重复执行 10次</span></span><br><span class="line">    .repeat(<span class="number">10</span>)</span><br><span class="line">    <span class="comment">// 最后 node.scale === 11</span></span><br><span class="line">    .start()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以这样用</span></span><br><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    .repeat(<span class="number">10</span>,</span><br><span class="line">        cc.tween().by(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">1</span> &#125;)</span><br><span class="line">    )</span><br><span class="line">    .start()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一直重复执行下去， 注意该  repeatForever() 只会重复最后一个 tween</span></span><br><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    .by(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">1</span> &#125;)</span><br><span class="line">    .repeatForever()</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
+
+<h4 id="延迟执行"><a href="#延迟执行" class="headerlink" title="延迟执行"></a>延迟执行</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.tween(<span class="built_in">this</span>.node)</span><br><span class="line">    <span class="comment">// 延迟 1s</span></span><br><span class="line">    .delay(<span class="number">1</span>)</span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">2</span> &#125;)</span><br><span class="line">    <span class="comment">// 再延迟 1s</span></span><br><span class="line">    .delay(<span class="number">1</span>)</span><br><span class="line">    .to(<span class="number">1</span>, &#123; <span class="attr">scale</span>: <span class="number">3</span> &#125;)</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、定时器"><a href="#二、定时器" class="headerlink" title="二、定时器"></a>二、定时器</h3><p>首先，先创建一个指向某个组件的变量，变量名为 component。</p>
+<blockquote>
+<p>其中 component 属于</p>
+</blockquote>
+<p><strong>1、开始一个计时器</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">component.schedule(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这里的 this 指向 component</span></span><br><span class="line">    <span class="built_in">this</span>.doSomething();</span><br><span class="line">&#125;, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面这个计时器将每隔 5s 执行一次。</p>
+<p><strong>2、更灵活的计时器</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 以秒为单位的时间间隔</span></span><br><span class="line"><span class="keyword">var</span> interval = <span class="number">5</span>;</span><br><span class="line"><span class="comment">// 重复次数</span></span><br><span class="line"><span class="keyword">var</span> repeat = <span class="number">3</span>;</span><br><span class="line"><span class="comment">// 开始延时</span></span><br><span class="line"><span class="keyword">var</span> delay = <span class="number">10</span>;</span><br><span class="line">component.schedule(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这里的 this 指向 component</span></span><br><span class="line">    <span class="built_in">this</span>.doSomething();</span><br><span class="line">&#125;, interval, repeat, delay);</span><br></pre></td></tr></table></figure>
+
+<p>上面的计时器将在 10 秒后开始计时，每 5 秒执行一次回调，执行 3 + 1 次。</p>
+<p><strong>3、只执行一次的计时器（快捷方式）</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">component.scheduleOnce(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这里的 this 指向 component</span></span><br><span class="line">    <span class="built_in">this</span>.doSomething();</span><br><span class="line">&#125;, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面的计时器将在两秒后执行一次回调函数，之后就停止计时。</p>
+<p><strong>4、取消计时器</strong></p>
+<p>开发者可以使用回调函数本身来取消计时器：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.count = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">this</span>.callback = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.count === <span class="number">5</span>) &#123;</span><br><span class="line">        <span class="comment">// 在第六次执行回调时取消这个计时器</span></span><br><span class="line">        <span class="built_in">this</span>.unschedule(<span class="built_in">this</span>.callback);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.doSomething();</span><br><span class="line">    <span class="built_in">this</span>.count++;</span><br><span class="line">&#125;</span><br><span class="line">component.schedule(<span class="built_in">this</span>.callback, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：组件的计时器调用回调时，会将回调的 <code>this</code> 指定为组件本身，因此回调中可以直接使用 <code>this</code>。</p>
+<p>下面是 Component 中所有关于计时器的函数：</p>
+<ul>
+<li><code>schedule</code>：开始一个计时器</li>
+<li><code>scheduleOnce</code>：开始一个只执行一次的计时器</li>
+<li><code>unschedule</code>：取消一个计时器</li>
+<li><code>unscheduleAllCallbacks</code>：取消这个组件的所有计时器</li>
+</ul>
+<p>这些 API 的详细描述都可以在 <a href="https://docs.cocos.com/creator/api/zh/classes/Component.html">Component API</a> 文档中找到。</p>
+<p>除此之外，如果需要每一帧都执行一个函数，请直接在 Component 中添加 <code>update</code> 函数，这个函数将默认被每帧调用，这在 <a href="https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html#update">生命周期文档</a> 中有详细描述。</p>
+<p><strong>注意：<code>cc.Node</code> 不包含计时器相关 API</strong></p>
+<br>
+
+<h2 id="冷知识"><a href="#冷知识" class="headerlink" title="冷知识"></a>冷知识</h2><h3 id="1、构建时的参数含义"><a href="#1、构建时的参数含义" class="headerlink" title="1、构建时的参数含义"></a>1、构建时的参数含义</h3><p><strong>MD5 cache：</strong>使用creator构建web平台时为了使用玩家可以及时更新修改，可以使用MD5 cache功能，便会在构建出来的文件名称中加上 <code>md5</code> 值。</p>
+<p>值得注意的是，若使用 <code>build-templates</code>，需要保证不带 MD5 值，因为在模板 <code>index.js</code> 中把 <code>mian.js</code> 路径和名称是写死的。</p>
+<h3 id="2、-加载远程资源"><a href="#2、-加载远程资源" class="headerlink" title="2、 加载远程资源"></a>2、 加载远程资源</h3><blockquote>
+<p><a href="http://docs.cocos.com/creator/manual/zh/scripting/dynamic-load-resources.html#%E5%8A%A0%E8%BD%BD%E8%BF%9C%E7%A8%8B%E8%B5%84%E6%BA%90%E5%92%8C%E8%AE%BE%E5%A4%87%E8%B5%84%E6%BA%90">官方文档 </a>中是这样说的</p>
+<p>查找了相关动态加载的文档如下：</p>
+<p><a href="https://blog.csdn.net/qq_43287088/article/details/107172955">Cocos Creator 资源管理AssetManager</a></p>
+<p><a href="https://blog.csdn.net/weixin_36760331/article/details/85766057">细谈cocos中sprite、texture和SpriteFrame</a></p>
+<p>本人在使用过程中，<code>vscode</code> 一直报错，后来功能却可以正常是实现</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 远程 url 带图片后缀名</span></span><br><span class="line"><span class="keyword">var</span> remoteUrl = <span class="string">&quot;http://unknown.org/someres.png&quot;</span>;</span><br><span class="line">cc.assetManager.loadRemote(remoteUrl, <span class="function"><span class="keyword">function</span> (<span class="params">err, texture</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Use texture to create sprite frame</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 远程 url 不带图片后缀名，此时必须指定远程图片文件的类型</span></span><br><span class="line">remoteUrl = <span class="string">&quot;http://unknown.org/emoji?id=124982374&quot;</span>;</span><br><span class="line">cc.assetManager.loadRemote(remoteUrl, &#123;<span class="attr">ext</span>: <span class="string">&#x27;.png&#x27;</span>&#125;, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Use texture to create sprite frame</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用绝对路径加载设备存储内的资源，比如相册</span></span><br><span class="line"><span class="keyword">var</span> absolutePath = <span class="string">&quot;/dara/data/some/path/to/image.png&quot;</span></span><br><span class="line">cc.assetManager.loadRemote(absolutePath, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Use texture to create sprite frame</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 远程音频</span></span><br><span class="line">remoteUrl = <span class="string">&quot;http://unknown.org/sound.mp3&quot;</span>;</span><br><span class="line">cc.assetManager.loadRemote(remoteUrl, <span class="function"><span class="keyword">function</span> (<span class="params">err, audioClip</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// play audio clip</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 远程文本</span></span><br><span class="line">remoteUrl = <span class="string">&quot;http://unknown.org/skill.txt&quot;</span>;</span><br><span class="line">cc.assetManager.loadRemote(remoteUrl, <span class="function"><span class="keyword">function</span> (<span class="params">err, textAsset</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// use string to do something</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>个人的需求</strong>：</p>
+<p>加载远程 <code>url</code> 不带图片后缀名，获取图片之后动态替换原图片</p>
+<p><u>但是，如果远程 <code>url</code> 带图片后缀，绝对不可再次声明图片后缀</u></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cc.assetManager.loadRemote(res[<span class="string">&#x27;couponQRCode&#x27;</span>], &#123;<span class="attr">ext</span>: <span class="string">&#x27;.png&#x27;</span>&#125;, <span class="function">(<span class="params">err, texture</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// Use texture to create sprite frame</span></span><br><span class="line">    <span class="keyword">const</span> sp = <span class="keyword">new</span> cc.SpriteFrame(texture); <span class="comment">// 这个地方一直报错 类型错误</span></span><br><span class="line">    <span class="built_in">this</span>.gameEnd.getChildByName(<span class="string">&#x27;rewards&#x27;</span>).getChildByName(<span class="string">&#x27;qrcode&#x27;</span>).getComponent(cc.Sprite).spriteFrame = sp;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Cocos</category>
+      </categories>
+      <tags>
+        <tag>Cocos-dev</tag>
       </tags>
   </entry>
   <entry>
@@ -1005,36 +1005,6 @@
       </categories>
       <tags>
         <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Guitar</title>
-    <url>/2023/02/25/Guitar/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT-OUTLINE"></a>CONTENT-OUTLINE</h2><blockquote>
-<p>汇总一些日常碰见的<code>CSS</code>小问题</p>
-<p>– </p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="一、基础知识点"><a href="#一、基础知识点" class="headerlink" title="一、基础知识点"></a>一、基础知识点</h2><p>1、十二平均律</p>
-<p><img src="./g-1.png"></p>
-<blockquote>
-<p>口诀：全全半全全全半</p>
-</blockquote>
-<p><img src="./g-2.png"></p>
-<p><img src="./g-3.png"></p>
-<blockquote>
-<p>D和弦：2【中指】标在一弦的而品</p>
-<p>X：表示不要被弹响的音</p>
-<p>O：和谐外音</p>
-</blockquote>
-<p><img src="./g-4.png"></p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>My Life</category>
-      </categories>
-      <tags>
-        <tag>Guitar</tag>
       </tags>
   </entry>
   <entry>
@@ -1302,6 +1272,36 @@
       </tags>
   </entry>
   <entry>
+    <title>Guitar</title>
+    <url>/2023/02/25/Guitar/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT-OUTLINE"></a>CONTENT-OUTLINE</h2><blockquote>
+<p>汇总一些日常碰见的<code>CSS</code>小问题</p>
+<p>– </p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="一、基础知识点"><a href="#一、基础知识点" class="headerlink" title="一、基础知识点"></a>一、基础知识点</h2><p>1、十二平均律</p>
+<p><img src="./g-1.png"></p>
+<blockquote>
+<p>口诀：全全半全全全半</p>
+</blockquote>
+<p><img src="./g-2.png"></p>
+<p><img src="./g-3.png"></p>
+<blockquote>
+<p>D和弦：2【中指】标在一弦的而品</p>
+<p>X：表示不要被弹响的音</p>
+<p>O：和谐外音</p>
+</blockquote>
+<p><img src="./g-4.png"></p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>My Life</category>
+      </categories>
+      <tags>
+        <tag>Guitar</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>React-起步</title>
     <url>/2021/01/13/React-start/</url>
     <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><p><a href="https://www.bootcdn.cn/">BootCDN  —  常见库Cdn</a></p>
@@ -1401,6 +1401,7 @@
         <category>My Life</category>
       </categories>
       <tags>
+        <tag>She</tag>
         <tag>myLove</tag>
       </tags>
   </entry>
@@ -1924,6 +1925,28 @@
       </tags>
   </entry>
   <entry>
+    <title>工程化-Webpack</title>
+    <url>/2020/11/25/webpack/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
+<p>前端工程化包括 <strong>打包工具</strong> 和 <strong>转译工具</strong></p>
+<p>转译工具即 <code>Babel</code>， 打包工具包括 <code>Webpack</code>、<code>parcel</code>、<code>Gulp</code>、<code>Browserify</code></p>
+<p>这篇文章汇总关于 <code>Webpack</code> 学习资料</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="参考自"><a href="#参考自" class="headerlink" title="参考自"></a>参考自</h2><p><a href="https://www.bilibili.com/video/BV1e7411j7T5?p=2">b站尚硅谷Webpack讲解</a></p>
+<p><a href="https://webpack.docschina.org/guides/getting-started/">Webpack 官方文档</a></p>
+<h2 id="基本生产环境的配置"><a href="#基本生产环境的配置" class="headerlink" title="基本生产环境的配置"></a>基本生产环境的配置</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; resolve &#125; = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> OptimizeCssAssetsWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;optimize-css-assets-webpack-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义nodejs环境变量：决定使用browserslist的哪个环境</span></span><br><span class="line">process.env.NODE_ENV = <span class="string">&#x27;production&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 复用loader</span></span><br><span class="line"><span class="keyword">const</span> commonCssLoader = [</span><br><span class="line">  MiniCssExtractPlugin.loader,</span><br><span class="line">  <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 还需要在package.json中定义browserslist</span></span><br><span class="line">    loader: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">    options: &#123;</span><br><span class="line">      ident: <span class="string">&#x27;postcss&#x27;</span>,</span><br><span class="line">      plugins: <span class="function">() =&gt;</span> [<span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)()]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">&#x27;./src/js/index.js&#x27;</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">&#x27;js/built.js&#x27;</span>,</span><br><span class="line">    path: resolve(__dirname, <span class="string">&#x27;build&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        use: [...commonCssLoader]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">        use: [...commonCssLoader, <span class="string">&#x27;less-loader&#x27;</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">        正常来讲，一个文件只能被一个loader处理。</span></span><br><span class="line"><span class="comment">        当一个文件要被多个loader处理，那么一定要指定loader执行的先后顺序：</span></span><br><span class="line"><span class="comment">          先执行eslint 在执行babel</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// 在package.json中eslintConfig --&gt; airbnb</span></span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        <span class="comment">// 优先执行</span></span><br><span class="line">        enforce: <span class="string">&#x27;pre&#x27;</span>,</span><br><span class="line">        loader: <span class="string">&#x27;eslint-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          fix: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          presets: [</span><br><span class="line">            [</span><br><span class="line">              <span class="string">&#x27;@babel/preset-env&#x27;</span>,</span><br><span class="line">              &#123;</span><br><span class="line">                useBuiltIns: <span class="string">&#x27;usage&#x27;</span>,</span><br><span class="line">                corejs: &#123;<span class="attr">version</span>: <span class="number">3</span>&#125;,</span><br><span class="line">                targets: &#123;</span><br><span class="line">                  chrome: <span class="string">&#x27;60&#x27;</span>,</span><br><span class="line">                  firefox: <span class="string">&#x27;50&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.(jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;url-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          limit: <span class="number">8</span> * <span class="number">1024</span>,</span><br><span class="line">          name: <span class="string">&#x27;[hash:10].[ext]&#x27;</span>,</span><br><span class="line">          outputPath: <span class="string">&#x27;imgs&#x27;</span>,</span><br><span class="line">          esModule: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.html$/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;html-loader&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        exclude: <span class="regexp">/\.(js|css|less|html|jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          outputPath: <span class="string">&#x27;media&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">      filename: <span class="string">&#x27;css/built.css&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> OptimizeCssAssetsWebpackPlugin(),</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      template: <span class="string">&#x27;./src/index.html&#x27;</span>,</span><br><span class="line">      minify: &#123;</span><br><span class="line">        collapseWhitespace: <span class="literal">true</span>,</span><br><span class="line">        removeComments: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  mode: <span class="string">&#x27;production&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Front End</category>
+      </categories>
+      <tags>
+        <tag>工程化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在Vue-Swiper里踩过的坑</title>
     <url>/2020/09/05/about-Swiper/</url>
     <content><![CDATA[<h2 id="问题缘起"><a href="#问题缘起" class="headerlink" title="问题缘起"></a>问题缘起</h2><blockquote>
@@ -2016,51 +2039,6 @@
         <tag>框架与工具</tag>
         <tag>Vue</tag>
         <tag>Vue Problems</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>工程化-Webpack</title>
-    <url>/2020/11/25/webpack/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
-<p>前端工程化包括 <strong>打包工具</strong> 和 <strong>转译工具</strong></p>
-<p>转译工具即 <code>Babel</code>， 打包工具包括 <code>Webpack</code>、<code>parcel</code>、<code>Gulp</code>、<code>Browserify</code></p>
-<p>这篇文章汇总关于 <code>Webpack</code> 学习资料</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="参考自"><a href="#参考自" class="headerlink" title="参考自"></a>参考自</h2><p><a href="https://www.bilibili.com/video/BV1e7411j7T5?p=2">b站尚硅谷Webpack讲解</a></p>
-<p><a href="https://webpack.docschina.org/guides/getting-started/">Webpack 官方文档</a></p>
-<h2 id="基本生产环境的配置"><a href="#基本生产环境的配置" class="headerlink" title="基本生产环境的配置"></a>基本生产环境的配置</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; resolve &#125; = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> OptimizeCssAssetsWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;optimize-css-assets-webpack-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义nodejs环境变量：决定使用browserslist的哪个环境</span></span><br><span class="line">process.env.NODE_ENV = <span class="string">&#x27;production&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 复用loader</span></span><br><span class="line"><span class="keyword">const</span> commonCssLoader = [</span><br><span class="line">  MiniCssExtractPlugin.loader,</span><br><span class="line">  <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 还需要在package.json中定义browserslist</span></span><br><span class="line">    loader: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">    options: &#123;</span><br><span class="line">      ident: <span class="string">&#x27;postcss&#x27;</span>,</span><br><span class="line">      plugins: <span class="function">() =&gt;</span> [<span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)()]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">&#x27;./src/js/index.js&#x27;</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">&#x27;js/built.js&#x27;</span>,</span><br><span class="line">    path: resolve(__dirname, <span class="string">&#x27;build&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        use: [...commonCssLoader]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">        use: [...commonCssLoader, <span class="string">&#x27;less-loader&#x27;</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">        正常来讲，一个文件只能被一个loader处理。</span></span><br><span class="line"><span class="comment">        当一个文件要被多个loader处理，那么一定要指定loader执行的先后顺序：</span></span><br><span class="line"><span class="comment">          先执行eslint 在执行babel</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// 在package.json中eslintConfig --&gt; airbnb</span></span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        <span class="comment">// 优先执行</span></span><br><span class="line">        enforce: <span class="string">&#x27;pre&#x27;</span>,</span><br><span class="line">        loader: <span class="string">&#x27;eslint-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          fix: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          presets: [</span><br><span class="line">            [</span><br><span class="line">              <span class="string">&#x27;@babel/preset-env&#x27;</span>,</span><br><span class="line">              &#123;</span><br><span class="line">                useBuiltIns: <span class="string">&#x27;usage&#x27;</span>,</span><br><span class="line">                corejs: &#123;<span class="attr">version</span>: <span class="number">3</span>&#125;,</span><br><span class="line">                targets: &#123;</span><br><span class="line">                  chrome: <span class="string">&#x27;60&#x27;</span>,</span><br><span class="line">                  firefox: <span class="string">&#x27;50&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.(jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;url-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          limit: <span class="number">8</span> * <span class="number">1024</span>,</span><br><span class="line">          name: <span class="string">&#x27;[hash:10].[ext]&#x27;</span>,</span><br><span class="line">          outputPath: <span class="string">&#x27;imgs&#x27;</span>,</span><br><span class="line">          esModule: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.html$/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;html-loader&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        exclude: <span class="regexp">/\.(js|css|less|html|jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          outputPath: <span class="string">&#x27;media&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">      filename: <span class="string">&#x27;css/built.css&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> OptimizeCssAssetsWebpackPlugin(),</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      template: <span class="string">&#x27;./src/index.html&#x27;</span>,</span><br><span class="line">      minify: &#123;</span><br><span class="line">        collapseWhitespace: <span class="literal">true</span>,</span><br><span class="line">        removeComments: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  mode: <span class="string">&#x27;production&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Front End</category>
-      </categories>
-      <tags>
-        <tag>工程化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>被手摸手用Vue撸后台</title>
-    <url>/2020/10/28/Be-Led-to-Write-VUE-Background/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
-<p>一起学习用 <code>Vue</code> 写后台吧！</p>
-<p>这儿参考大佬的文章来做练习，并记录一些遇到的问题和新知识</p>
-<p><a href="https://juejin.im/post/6844903476661583880#heading-0">原文传送门</a></p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="系列一：基础篇"><a href="#系列一：基础篇" class="headerlink" title="系列一：基础篇"></a>系列一：基础篇</h2><blockquote>
-<p>大佬的完整项目 <a href="https://github.com/PanJiaChen/vue-element-admin">github地址</a></p>
-</blockquote>
-<p>一、</p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Front End</category>
-      </categories>
-      <tags>
-        <tag>框架与工具</tag>
-        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -2185,6 +2163,191 @@
       <tags>
         <tag>监控与分析</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>被手摸手用Vue撸后台</title>
+    <url>/2020/10/28/Be-Led-to-Write-VUE-Background/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
+<p>一起学习用 <code>Vue</code> 写后台吧！</p>
+<p>这儿参考大佬的文章来做练习，并记录一些遇到的问题和新知识</p>
+<p><a href="https://juejin.im/post/6844903476661583880#heading-0">原文传送门</a></p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="系列一：基础篇"><a href="#系列一：基础篇" class="headerlink" title="系列一：基础篇"></a>系列一：基础篇</h2><blockquote>
+<p>大佬的完整项目 <a href="https://github.com/PanJiaChen/vue-element-admin">github地址</a></p>
+</blockquote>
+<p>一、</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Front End</category>
+      </categories>
+      <tags>
+        <tag>框架与工具</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/02/27/undefined/</url>
+    <content><![CDATA[// 心形树script
+(function(){
+    var canvas = $('#mycanvas');
+    
+    if (!canvas[0].getContext) {
+        $("#error").show();
+        return false;
+    }
+
+    var width = canvas.width();
+    var height = canvas.height();
+    
+    canvas.attr("width", width);
+    canvas.attr("height", height);
+
+    var opts = {
+        seed: {
+            x: width / 2 - 20,
+            color: "rgb(190, 26, 37)",
+            scale: 2
+        },
+        branch: [
+            [535, 680, 570, 250, 500, 200, 30, 100, [
+                [540, 500, 455, 417, 340, 400, 13, 100, [
+                    [450, 435, 434, 430, 394, 395, 2, 40]
+                ]],
+                [550, 445, 600, 356, 680, 345, 12, 100, [
+                    [578, 400, 648, 409, 661, 426, 3, 80]
+                ]],
+                [539, 281, 537, 248, 534, 217, 3, 40],
+                [546, 397, 413, 247, 328, 244, 9, 80, [
+                    [427, 286, 383, 253, 371, 205, 2, 40],
+                    [498, 345, 435, 315, 395, 330, 4, 60]
+                ]],
+                [546, 357, 608, 252, 678, 221, 6, 100, [
+                    [590, 293, 646, 277, 648, 271, 2, 80]
+                ]]
+            ]] 
+        ],
+        bloom: {
+            num: 700,
+            width: 1080,
+            height: 650,
+        },
+        footer: {
+            width: 1200,
+            height: 5,
+            speed: 10,
+        }
+    }
+
+    var tree = new Tree(canvas[0], width, height, opts);
+    var seed = tree.seed;
+    var foot = tree.footer;
+    var hold = 1;
+
+    canvas.click(function(e) {
+        var offset = canvas.offset(), x, y;
+        x = e.pageX - offset.left;
+        y = e.pageY - offset.top;
+        if (seed.hover(x, y)) {
+            hold = 0; 
+            canvas.unbind("click");
+            canvas.unbind("mousemove");
+            canvas.removeClass('hand');
+        }
+    }).mousemove(function(e){
+        var offset = canvas.offset(), x, y;
+        x = e.pageX - offset.left;
+        y = e.pageY - offset.top;
+        canvas.toggleClass('hand', seed.hover(x, y));
+    });
+
+    var seedAnimate = eval(Jscex.compile("async", function () {
+        seed.draw();
+        while (hold) {
+            $await(Jscex.Async.sleep(10));
+        }
+        while (seed.canScale()) {
+            seed.scale(0.95);
+            $await(Jscex.Async.sleep(10));
+        }
+        while (seed.canMove()) {
+            seed.move(0, 2);
+            foot.draw();
+            $await(Jscex.Async.sleep(10));
+        }
+    }));
+
+    var growAnimate = eval(Jscex.compile("async", function () {
+        do {
+            tree.grow();
+            $await(Jscex.Async.sleep(10));
+        } while (tree.canGrow());
+    }));
+
+    var flowAnimate = eval(Jscex.compile("async", function () {
+        do {
+            tree.flower(2);
+            $await(Jscex.Async.sleep(10));
+        } while (tree.canFlower());
+    }));
+
+    var moveAnimate = eval(Jscex.compile("async", function () {
+        tree.snapshot("p1", 240, 0, 610, 680);
+        while (tree.move("p1", 500, 0)) {
+            foot.draw();
+            $await(Jscex.Async.sleep(10));
+        }
+        foot.draw();
+        tree.snapshot("p2", 500, 0, 610, 680);
+
+
+        canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+        canvas.css("background", "#ffe");
+        $await(Jscex.Async.sleep(300));
+        canvas.css("background", "none");
+    }));
+
+    var jumpAnimate = eval(Jscex.compile("async", function () {
+        var ctx = tree.ctx;
+        while (true) {
+            tree.ctx.clearRect(0, 0, width, height);
+            tree.jump();
+            foot.draw();
+            $await(Jscex.Async.sleep(25));
+        }
+    }));
+   //下面修改起始日期
+    var textAnimate = eval(Jscex.compile("async", function () {
+        var together = new Date();
+        together.setFullYear(2019, 2, 19); 			//时间年月日 月份0~11
+        together.setHours(22);						//小时	
+        together.setMinutes(50);					//分钟
+        together.setSeconds(0);					//秒前一位
+        together.setMilliseconds(0);				//秒第二位
+
+        // $("#code").show().typewriter();
+        $("#myclock").fadeIn(500);
+        while (true) {
+            timeElapse(together);
+            $await(Jscex.Async.sleep(1000));
+        }
+    }));
+
+    var runAsync = eval(Jscex.compile("async", function () {
+        $await(seedAnimate());
+        $await(growAnimate());
+        $await(flowAnimate());
+        $await(moveAnimate());
+
+        textAnimate().start();
+
+        $await(jumpAnimate());
+    }));
+
+    runAsync().start();
+})();<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
   </entry>
   <entry>
     <title>CSS 动画</title>
@@ -5942,7 +6105,17 @@ A[方形] -->B(圆角)
   C -->|a=1| D[结果1]
   C -->|a=2| E[结果2]
   F[横向流程图]</pre>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start:>https://www.zybuluo.com
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">对象A->对象B: 对象B你好吗?（请求）
+Note right of 对象B: 对象B的描述
+Note left of 对象A: 对象A的描述(提示)
+对象B-->对象A: 我很好(响应)
+对象A->对象B: 你真的好吗？</textarea><textarea id="sequence-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><textarea id="sequence-1-code" style="display: none">Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!</textarea><textarea id="sequence-1-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-1-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-1", options);</script><textarea id="sequence-2-code" style="display: none">Title: Here is a title
+A->B: Normal line
+B-->C: Dashed line
+C->>D: Open arrow
+D-->>A: Dashed open arrow</textarea><textarea id="sequence-2-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-2-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-2-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-2", options);</script><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start:>https://www.zybuluo.com
 io=>inputoutput: verification
 op=>operation: Your Operation
 cond=>condition: Yes or No?
@@ -5952,7 +6125,7 @@ e=>end
 st->io->op->cond
 cond(yes)->e
 cond(no)->sub->io
-​</textarea><textarea id="flowchart-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><textarea id="flowchart-1-code" style="display: none">st=>start: Start:>https://www.zybuluo.com
+​</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><textarea id="flowchart-1-code" style="display: none">st=>start: Start:>https://www.zybuluo.com
 io=>inputoutput: verification
 op=>operation: Your Operation
 cond=>condition: Yes or No?
@@ -5961,17 +6134,7 @@ e=>end
 
 st->io->op->cond
 cond(yes)->e
-cond(no)->sub->io</textarea><textarea id="flowchart-1-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-1-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-1", options);</script><script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">对象A->对象B: 对象B你好吗?（请求）
-Note right of 对象B: 对象B的描述
-Note left of 对象A: 对象A的描述(提示)
-对象B-->对象A: 我很好(响应)
-对象A->对象B: 你真的好吗？</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><textarea id="sequence-1-code" style="display: none">Alice->Bob: Hello Bob, how are you?
-Note right of Bob: Bob thinks
-Bob-->Alice: I am good thanks!</textarea><textarea id="sequence-1-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-1-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-1", options);</script><textarea id="sequence-2-code" style="display: none">Title: Here is a title
-A->B: Normal line
-B-->C: Dashed line
-C->>D: Open arrow
-D-->>A: Dashed open arrow</textarea><textarea id="sequence-2-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-2-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-2-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-2", options);</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+cond(no)->sub->io</textarea><textarea id="flowchart-1-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("flowchart-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-1-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-1", options);</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
       <categories>
         <category>Tool &amp; Platform</category>
       </categories>
