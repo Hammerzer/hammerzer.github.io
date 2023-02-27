@@ -396,14 +396,7 @@
   </url>
   
   <url>
-    <loc>https://hammerzer.github.io/tags/Guitar/</loc>
-    <lastmod>2023-02-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/tags/Web%E6%96%B0%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://hammerzer.github.io/tags/Git/</loc>
     <lastmod>2023-02-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -417,7 +410,14 @@
   </url>
   
   <url>
-    <loc>https://hammerzer.github.io/tags/Git/</loc>
+    <loc>https://hammerzer.github.io/tags/Guitar/</loc>
+    <lastmod>2023-02-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/tags/Web%E6%96%B0%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2023-02-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -473,14 +473,14 @@
   </url>
   
   <url>
-    <loc>https://hammerzer.github.io/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/</loc>
+    <loc>https://hammerzer.github.io/tags/Vue-Problems/</loc>
     <lastmod>2023-02-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hammerzer.github.io/tags/Vue-Problems/</loc>
+    <loc>https://hammerzer.github.io/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/</loc>
     <lastmod>2023-02-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
