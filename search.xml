@@ -1360,54 +1360,6 @@
       </tags>
   </entry>
   <entry>
-    <title>VsCode 杂谈</title>
-    <url>/2020/09/08/talk-about-VsCode/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
-<p>这篇文章汇总有关<code>VsCode</code>的冷知识，换句话说就是<code>IDE</code>的使用和一些自己遇到的问题</p>
-<p>–  值得推荐的<code>Vscode</code>插件</p>
-<p>–  使用<code>Vscode</code>中遇到的问题</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="一、值得推荐的Vscode插件"><a href="#一、值得推荐的Vscode插件" class="headerlink" title="一、值得推荐的Vscode插件"></a>一、值得推荐的<code>Vscode</code>插件</h2><p><code>2020/10/29</code> 终于找到了比较全的文章</p>
-<p><a href="https://github.com/varHarrie/varharrie.github.io/issues/10">戳这儿</a></p>
-<p>推荐一个<strong>上班摸鱼又炒鱿鱼</strong>小插件：<code>小霸王</code>  —— 绝对的炒鱿鱼小技巧</p>
-<p><strong>目前在用的有如下：</strong></p>
-<ul>
-<li><code>GitLens — Git supercharged</code> ： 一个可以同步展示代码的修改时间、修改人和修改原因</li>
-<li><code>Auto Close Tag</code> ：自动闭合标签</li>
-<li><code>Auto Import</code> ：自动补充 <code>import</code> 引用</li>
-<li><code>Chinese (Simplified) Language Pack for Visual Studio Code</code> ： 汉化</li>
-<li><code>Debugger for Chrome</code> ：用于使用 <code>chrome</code> 调试</li>
-<li><code>liver Server</code> ：H5预览本地服务器</li>
-<li><code>VueHelper</code> ：<code>Vue</code> 代码自动补全</li>
-<li><code>Bracket Pair Colorizer</code> ： 多颜色大括号颜色区分</li>
-</ul>
-<br>
-
-<h2 id="二、使用Vscode中遇到的问题"><a href="#二、使用Vscode中遇到的问题" class="headerlink" title="二、使用Vscode中遇到的问题"></a>二、使用<code>Vscode</code>中遇到的问题</h2><h3 id="1、解决eslint空格报错等问题"><a href="#1、解决eslint空格报错等问题" class="headerlink" title="1、解决eslint空格报错等问题"></a>1、解决<code>eslint</code>空格报错等问题</h3><blockquote>
-<p>参考<a href="https://www.cnblogs.com/fqh123/p/9967771.html">该博主</a></p>
-</blockquote>
-<p><code>eslint</code>检查代码风格是好的，不过 有些<code>换行报错</code> 、<code>空格报错</code>，还有在代码中有 console也是报错，这有些烦人—-&gt;</p>
-<p>为了把这些烦人的报错给禁止掉</p>
-<p>我们可以在<code>package.json</code>文件中 找到（或者在<code>.eslintrc.js</code>中找到<code>rules</code>）</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;eslintConfig&quot;</span>: &#123;</span><br><span class="line">　　<span class="string">&quot;root&quot;</span>: true,</span><br><span class="line">　　<span class="string">&quot;env&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;node&quot;</span>: true</span><br><span class="line">　　&#125;,</span><br><span class="line">　　<span class="string">&quot;extends&quot;</span>: [</span><br><span class="line">　　　　<span class="string">&quot;plugin:vue/essential&quot;</span>,</span><br><span class="line">　　　　<span class="string">&quot;eslint:recommended&quot;</span></span><br><span class="line">　　],</span><br><span class="line">　　<span class="string">&quot;rules&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;no-console&quot;</span>:<span class="string">&quot;off&quot;</span>,<span class="regexp">//</span>在这禁止掉console报错检查</span><br><span class="line">　　　　<span class="string">&quot;no-irregular-whitespace&quot;</span>:<span class="string">&quot;off&quot;</span><span class="regexp">//</span>这禁止掉 空格报错检查</span><br><span class="line">　　&#125;,</span><br><span class="line">　　<span class="string">&quot;parserOptions&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;parser&quot;</span>: <span class="string">&quot;babel-eslint&quot;</span></span><br><span class="line">　　&#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>在rules规则中 禁止掉这些规则</span><br></pre></td></tr></table></figure>
-
-<p>下面罗列一些，一些规则的含义：</p>
-<blockquote>
-<p>“off” or 0 - 关闭(禁用)规则<br>“warn” or 1 - 将规则视为一个警告（并不会导致检查不通过）<br>“error” or 2 - 将规则视为一个错误 (退出码为1，检查不通过) </p>
-</blockquote>
-<h3 id="2、代码行数统计"><a href="#2、代码行数统计" class="headerlink" title="2、代码行数统计"></a>2、代码行数统计</h3><p>选择<strong>编辑</strong> -&gt; <strong>在文件中查找（正则）</strong>        <code>^b*[^:b#/]+.*$</code>     </p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Tool &amp; Platform</category>
-      </categories>
-      <tags>
-        <tag>开发与调试</tag>
-        <tag>开发工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>UI 框架</title>
     <url>/2020/11/06/UI-frames/</url>
     <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
@@ -1497,6 +1449,54 @@
       </categories>
       <tags>
         <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VsCode 杂谈</title>
+    <url>/2020/09/08/talk-about-VsCode/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
+<p>这篇文章汇总有关<code>VsCode</code>的冷知识，换句话说就是<code>IDE</code>的使用和一些自己遇到的问题</p>
+<p>–  值得推荐的<code>Vscode</code>插件</p>
+<p>–  使用<code>Vscode</code>中遇到的问题</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="一、值得推荐的Vscode插件"><a href="#一、值得推荐的Vscode插件" class="headerlink" title="一、值得推荐的Vscode插件"></a>一、值得推荐的<code>Vscode</code>插件</h2><p><code>2020/10/29</code> 终于找到了比较全的文章</p>
+<p><a href="https://github.com/varHarrie/varharrie.github.io/issues/10">戳这儿</a></p>
+<p>推荐一个<strong>上班摸鱼又炒鱿鱼</strong>小插件：<code>小霸王</code>  —— 绝对的炒鱿鱼小技巧</p>
+<p><strong>目前在用的有如下：</strong></p>
+<ul>
+<li><code>GitLens — Git supercharged</code> ： 一个可以同步展示代码的修改时间、修改人和修改原因</li>
+<li><code>Auto Close Tag</code> ：自动闭合标签</li>
+<li><code>Auto Import</code> ：自动补充 <code>import</code> 引用</li>
+<li><code>Chinese (Simplified) Language Pack for Visual Studio Code</code> ： 汉化</li>
+<li><code>Debugger for Chrome</code> ：用于使用 <code>chrome</code> 调试</li>
+<li><code>liver Server</code> ：H5预览本地服务器</li>
+<li><code>VueHelper</code> ：<code>Vue</code> 代码自动补全</li>
+<li><code>Bracket Pair Colorizer</code> ： 多颜色大括号颜色区分</li>
+</ul>
+<br>
+
+<h2 id="二、使用Vscode中遇到的问题"><a href="#二、使用Vscode中遇到的问题" class="headerlink" title="二、使用Vscode中遇到的问题"></a>二、使用<code>Vscode</code>中遇到的问题</h2><h3 id="1、解决eslint空格报错等问题"><a href="#1、解决eslint空格报错等问题" class="headerlink" title="1、解决eslint空格报错等问题"></a>1、解决<code>eslint</code>空格报错等问题</h3><blockquote>
+<p>参考<a href="https://www.cnblogs.com/fqh123/p/9967771.html">该博主</a></p>
+</blockquote>
+<p><code>eslint</code>检查代码风格是好的，不过 有些<code>换行报错</code> 、<code>空格报错</code>，还有在代码中有 console也是报错，这有些烦人—-&gt;</p>
+<p>为了把这些烦人的报错给禁止掉</p>
+<p>我们可以在<code>package.json</code>文件中 找到（或者在<code>.eslintrc.js</code>中找到<code>rules</code>）</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;eslintConfig&quot;</span>: &#123;</span><br><span class="line">　　<span class="string">&quot;root&quot;</span>: true,</span><br><span class="line">　　<span class="string">&quot;env&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;node&quot;</span>: true</span><br><span class="line">　　&#125;,</span><br><span class="line">　　<span class="string">&quot;extends&quot;</span>: [</span><br><span class="line">　　　　<span class="string">&quot;plugin:vue/essential&quot;</span>,</span><br><span class="line">　　　　<span class="string">&quot;eslint:recommended&quot;</span></span><br><span class="line">　　],</span><br><span class="line">　　<span class="string">&quot;rules&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;no-console&quot;</span>:<span class="string">&quot;off&quot;</span>,<span class="regexp">//</span>在这禁止掉console报错检查</span><br><span class="line">　　　　<span class="string">&quot;no-irregular-whitespace&quot;</span>:<span class="string">&quot;off&quot;</span><span class="regexp">//</span>这禁止掉 空格报错检查</span><br><span class="line">　　&#125;,</span><br><span class="line">　　<span class="string">&quot;parserOptions&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;parser&quot;</span>: <span class="string">&quot;babel-eslint&quot;</span></span><br><span class="line">　　&#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>在rules规则中 禁止掉这些规则</span><br></pre></td></tr></table></figure>
+
+<p>下面罗列一些，一些规则的含义：</p>
+<blockquote>
+<p>“off” or 0 - 关闭(禁用)规则<br>“warn” or 1 - 将规则视为一个警告（并不会导致检查不通过）<br>“error” or 2 - 将规则视为一个错误 (退出码为1，检查不通过) </p>
+</blockquote>
+<h3 id="2、代码行数统计"><a href="#2、代码行数统计" class="headerlink" title="2、代码行数统计"></a>2、代码行数统计</h3><p>选择<strong>编辑</strong> -&gt; <strong>在文件中查找（正则）</strong>        <code>^b*[^:b#/]+.*$</code>     </p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Tool &amp; Platform</category>
+      </categories>
+      <tags>
+        <tag>开发与调试</tag>
+        <tag>开发工具</tag>
       </tags>
   </entry>
   <entry>
