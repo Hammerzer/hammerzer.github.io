@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hammerzer.github.io/2023/07/09/Introduction-to-deep-learning/</loc>
+    
+    <lastmod>2023-07-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
+    
+    <lastmod>2023-07-09</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hammerzer.github.io/about/index.html</loc>
     
     <lastmod>2023-07-09</lastmod>
@@ -66,13 +80,6 @@
   
   <url>
     <loc>https://hammerzer.github.io/2020/10/10/the-second-birthday/</loc>
-    
-    <lastmod>2023-02-27</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
     
     <lastmod>2023-02-27</lastmod>
     
@@ -529,6 +536,13 @@
   </url>
   
   <url>
+    <loc>https://hammerzer.github.io/tags/Deep-Learning/</loc>
+    <lastmod>2023-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hammerzer.github.io/tags/Hexo/</loc>
     <lastmod>2023-07-09</lastmod>
     <changefreq>daily</changefreq>
@@ -581,6 +595,13 @@
   
   <url>
     <loc>https://hammerzer.github.io/categories/Tool-Platform/</loc>
+    <lastmod>2023-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/categories/Artificial-Intelligence/</loc>
     <lastmod>2023-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
