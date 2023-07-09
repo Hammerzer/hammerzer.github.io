@@ -73,6 +73,77 @@
       </tags>
   </entry>
   <entry>
+    <title>CSS响应式设计</title>
+    <url>/2020/09/17/css-responsive-design/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
+<p>CSS响应式设计有关内容</p>
+<p>– 媒体查询</p>
+<p>– rem/em</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="一、媒体查询-Media-Queryies"><a href="#一、媒体查询-Media-Queryies" class="headerlink" title="一、媒体查询 Media Queryies"></a>一、媒体查询 <code>Media Queryies</code></h2><p><strong>Media Queries</strong>直译过来就是“<code>媒体查询</code>”，在我们平时的Web页面中<code>head</code>部分常看到这样的一段代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;css/reset.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">media</span>=<span class="string">&quot;screen&quot;</span> /&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;css/style.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">media</span>=<span class="string">&quot;all&quot;</span> /&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;css/print.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">media</span>=<span class="string">&quot;print&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>而这个“media”就是用来指定特定的媒体类型，在HTML4和CSS2中允许你使用“<a href="https://link.jianshu.com/?t=http://www.w3.org/TR/CSS2/media.html">media</a>”来指定特定的媒体类型，如屏幕（screen）和打印（print）的样式表，当然还有其他的，比如说“TV”,“handheld”等，其中“all”表示的是支持所有媒体介质。有关于更多的Media类型，可以点击<a href="http://www.w3.org/TR/CSS2/media.html">这里</a>。</p>
+<p><strong>举个例子</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">media</span>=<span class="string">&quot;screen and (max-width: 600px)&quot;</span> <span class="attr">href</span>=<span class="string">&quot;small.css&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面的media语句表示的是：当页面宽度小于或等于600px,调用small.css样式表来渲染你的Web页面。</p>
+</blockquote>
+<ol>
+<li><strong>screen</strong>：这个不用说大家都知道，指的是一种媒体类型；</li>
+<li><strong>and</strong>：被称为关键词，与其相似的还有not,only，稍后会介绍；</li>
+<li><strong>（max-width:600px）</strong>：这个就是媒体特性，说得通俗一点就是媒体条件。</li>
+</ol>
+<p><strong>上述的代码换成css的写法如下:</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@media</span> <span class="function">screen <span class="title">and</span> <span class="params">(max-width: <span class="number">600</span>px)</span> </span>&#123; 选择器 &#123; 属性：属性值； &#125; &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>常用的Media Query</strong>如下表所示：</p>
+<blockquote>
+<p>color<br>color-index<br>aspect-ratio<br>device-aspect-ratio<br>device-height<br>device-width<br>grid<br>height<br>monochrome<br>orientation : landscape | portrait<br>resolution<br>scan<br>width</p>
+</blockquote>
+<p><img src="./media_query-1.png"></p>
+<h3 id="Media-Queries的具体使用方式"><a href="#Media-Queries的具体使用方式" class="headerlink" title="Media Queries的具体使用方式"></a>Media Queries的具体使用方式</h3><h4 id="1-最大宽度Max-Width"><a href="#1-最大宽度Max-Width" class="headerlink" title="1. 最大宽度Max Width"></a>1. 最大宽度Max Width</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> </span><br><span class="line">media=<span class="string">&quot;screen and (max-width:600px)&quot;</span> </span><br><span class="line">href=<span class="string">&quot;small.css&quot;</span> <span class="built_in">type</span>=<span class="string">&quot;text/css&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面表示的是：当屏幕小于或等于<code>600px</code>时，将采用<code>small.css</code>样式来渲染Web页面。</p>
+<h4 id="2-最小宽度Min-Width"><a href="#2-最小宽度Min-Width" class="headerlink" title="2. 最小宽度Min Width"></a>2. 最小宽度Min Width</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> </span><br><span class="line">media=<span class="string">&quot;screen and (min-width:600px)&quot;</span> </span><br><span class="line">href=<span class="string">&quot;large.css&quot;</span> <span class="built_in">type</span>=<span class="string">&quot;text/css&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面表示的是：当屏幕大于或等于600px时，将采用large.css样式来渲染Web页面。</p>
+<h4 id="3-多个Media-Queries使用"><a href="#3-多个Media-Queries使用" class="headerlink" title="3. 多个Media Queries使用"></a>3. 多个Media Queries使用</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> </span><br><span class="line">media=<span class="string">&quot;screen and (min-width:600px) and (max-width:900px)&quot;</span> </span><br><span class="line">href=<span class="string">&quot;style.css&quot;</span> <span class="built_in">type</span>=<span class="string">&quot;text/css&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的表示的是当屏幕在600px-900px之间时采用style.css样式来渲染web页面。</p>
+<h4 id="4-两种加载方式"><a href="#4-两种加载方式" class="headerlink" title="4. 两种加载方式"></a>4. 两种加载方式</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- CSS media query on a link element --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">media</span>=<span class="string">&quot;(max-width: 800px)&quot;</span> <span class="attr">href</span>=<span class="string">&quot;example.css&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- CSS media query within a stylesheet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css"><span class="keyword">@media</span> (<span class="attribute">max-width:</span> <span class="number">600px</span>) &#123;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.facet_sidebar</span> &#123;</span></span><br><span class="line">    display: none;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：所有的media query css都会加载，只有符合条的会被解析</strong></p>
+<h4 id="5-标准语法"><a href="#5-标准语法" class="headerlink" title="5. 标准语法"></a>5. 标准语法</h4><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="symbol">media_query_list:</span> &lt;media_query&gt; [, &lt;media_query&gt; ]*</span><br><span class="line"><span class="symbol">media_query:</span> [[only <span class="params">| <span class="keyword">not</span>]? &lt;media_type&gt; [ <span class="keyword">and</span> &lt;expression&gt; ]*]</span></span><br><span class="line"><span class="params">  |</span> &lt;expression&gt; [ <span class="keyword">and</span> &lt;expression&gt; ]*</span><br><span class="line"><span class="symbol">expression:</span> ( &lt;media_feature&gt; [: &lt;value&gt;]? )</span><br><span class="line"><span class="symbol">media_type:</span> all <span class="params">| aural |</span> braille <span class="params">| handheld |</span> print <span class="params">|</span></span><br><span class="line"><span class="params">  projection |</span> screen <span class="params">| tty |</span> tv <span class="params">| embossed</span></span><br><span class="line"><span class="params">media_feature: width |</span> min-width <span class="params">| max-width</span></span><br><span class="line"><span class="params">  |</span> height <span class="params">| min-height |</span> max-height</span><br><span class="line">  <span class="params">| device-width |</span> min-device-width <span class="params">| max-device-width</span></span><br><span class="line"><span class="params">  |</span> device-height <span class="params">| min-device-height |</span> max-device-height</span><br><span class="line">  <span class="params">| aspect-ratio |</span> min-aspect-ratio <span class="params">| max-aspect-ratio</span></span><br><span class="line"><span class="params">  |</span> device-aspect-ratio <span class="params">| min-device-aspect-ratio |</span> max-device-aspect-ratio</span><br><span class="line">  <span class="params">| color |</span> min-color <span class="params">| max-color</span></span><br><span class="line"><span class="params">  |</span> color-index <span class="params">| min-color-index |</span> max-color-index</span><br><span class="line">  <span class="params">| monochrome |</span> min-monochrome <span class="params">| max-monochrome</span></span><br><span class="line"><span class="params">  |</span> resolution <span class="params">| min-resolution |</span> max-resolution</span><br><span class="line">  <span class="params">| scan |</span> grid</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-逻辑操作符"><a href="#6-逻辑操作符" class="headerlink" title="6. 逻辑操作符"></a>6. 逻辑操作符</h4><ul>
+<li>and 同编程语言里的and</li>
+<li>not 同编程语言里的not</li>
+</ul>
+<p><strong>逗号</strong> ：    当逗号两边的条件有一个为真都为真， 同编程语言里的or</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><h4 id="1-提供一组目前的适配移动端屏幕的Media-Queries"><a href="#1-提供一组目前的适配移动端屏幕的Media-Queries" class="headerlink" title="1. 提供一组目前的适配移动端屏幕的Media Queries"></a>1. 提供一组目前的适配移动端屏幕的Media Queries</h4><blockquote>
+<p>根据不同的手机屏幕,设置基于html元素的字体大小,利用rem的方式实现移动端屏幕的适配</p>
+<p>(注:这套适配方案是按照640的屏幕,获得的实际大小除以40,如获得的字体大小为40px,那么转换为rem就是1rem)</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">321px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">321px</span>) <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">360px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">22.5px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">361px</span>) <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">375px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">23.4px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">376px</span>) <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">414px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">25.8px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">415px</span>) <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">479px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">27px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">480px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">30px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">768px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">32px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、响应式设计中的-em-rem"><a href="#二、响应式设计中的-em-rem" class="headerlink" title="二、响应式设计中的 em/rem"></a>二、响应式设计中的 <code>em/rem</code></h2><p><code>rem</code>是指：<strong>根元素</strong>（root element，html）的字体大小，</p>
+<p><code>em</code>是指：<strong>父元素</strong>的字体大小。</p>
+<blockquote>
+<p><strong>注:</strong>    可以引入 CSS 预处理工具（Sass、LESS 、Stylus等）自动计算 rem 值。</p>
+</blockquote>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Front End</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CSS 选择器</title>
     <url>/2020/09/17/css-selectors/</url>
     <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT-OUTLINE"></a>CONTENT-OUTLINE</h2><blockquote>
@@ -432,77 +503,6 @@
 <li>Never 永远不要在你的插件中使用 !important</li>
 <li>Always 要优化考虑使用样式规则的优先级来解决问题而不是 !important</li>
 </ol>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Front End</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CSS响应式设计</title>
-    <url>/2020/09/17/css-responsive-design/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
-<p>CSS响应式设计有关内容</p>
-<p>– 媒体查询</p>
-<p>– rem/em</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="一、媒体查询-Media-Queryies"><a href="#一、媒体查询-Media-Queryies" class="headerlink" title="一、媒体查询 Media Queryies"></a>一、媒体查询 <code>Media Queryies</code></h2><p><strong>Media Queries</strong>直译过来就是“<code>媒体查询</code>”，在我们平时的Web页面中<code>head</code>部分常看到这样的一段代码：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;css/reset.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">media</span>=<span class="string">&quot;screen&quot;</span> /&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;css/style.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">media</span>=<span class="string">&quot;all&quot;</span> /&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;css/print.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">media</span>=<span class="string">&quot;print&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>而这个“media”就是用来指定特定的媒体类型，在HTML4和CSS2中允许你使用“<a href="https://link.jianshu.com/?t=http://www.w3.org/TR/CSS2/media.html">media</a>”来指定特定的媒体类型，如屏幕（screen）和打印（print）的样式表，当然还有其他的，比如说“TV”,“handheld”等，其中“all”表示的是支持所有媒体介质。有关于更多的Media类型，可以点击<a href="http://www.w3.org/TR/CSS2/media.html">这里</a>。</p>
-<p><strong>举个例子</strong></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">media</span>=<span class="string">&quot;screen and (max-width: 600px)&quot;</span> <span class="attr">href</span>=<span class="string">&quot;small.css&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>上面的media语句表示的是：当页面宽度小于或等于600px,调用small.css样式表来渲染你的Web页面。</p>
-</blockquote>
-<ol>
-<li><strong>screen</strong>：这个不用说大家都知道，指的是一种媒体类型；</li>
-<li><strong>and</strong>：被称为关键词，与其相似的还有not,only，稍后会介绍；</li>
-<li><strong>（max-width:600px）</strong>：这个就是媒体特性，说得通俗一点就是媒体条件。</li>
-</ol>
-<p><strong>上述的代码换成css的写法如下:</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@media</span> <span class="function">screen <span class="title">and</span> <span class="params">(max-width: <span class="number">600</span>px)</span> </span>&#123; 选择器 &#123; 属性：属性值； &#125; &#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>常用的Media Query</strong>如下表所示：</p>
-<blockquote>
-<p>color<br>color-index<br>aspect-ratio<br>device-aspect-ratio<br>device-height<br>device-width<br>grid<br>height<br>monochrome<br>orientation : landscape | portrait<br>resolution<br>scan<br>width</p>
-</blockquote>
-<p><img src="./media_query-1.png"></p>
-<h3 id="Media-Queries的具体使用方式"><a href="#Media-Queries的具体使用方式" class="headerlink" title="Media Queries的具体使用方式"></a>Media Queries的具体使用方式</h3><h4 id="1-最大宽度Max-Width"><a href="#1-最大宽度Max-Width" class="headerlink" title="1. 最大宽度Max Width"></a>1. 最大宽度Max Width</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> </span><br><span class="line">media=<span class="string">&quot;screen and (max-width:600px)&quot;</span> </span><br><span class="line">href=<span class="string">&quot;small.css&quot;</span> <span class="built_in">type</span>=<span class="string">&quot;text/css&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
-
-<p>上面表示的是：当屏幕小于或等于<code>600px</code>时，将采用<code>small.css</code>样式来渲染Web页面。</p>
-<h4 id="2-最小宽度Min-Width"><a href="#2-最小宽度Min-Width" class="headerlink" title="2. 最小宽度Min Width"></a>2. 最小宽度Min Width</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> </span><br><span class="line">media=<span class="string">&quot;screen and (min-width:600px)&quot;</span> </span><br><span class="line">href=<span class="string">&quot;large.css&quot;</span> <span class="built_in">type</span>=<span class="string">&quot;text/css&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
-
-<p>上面表示的是：当屏幕大于或等于600px时，将采用large.css样式来渲染Web页面。</p>
-<h4 id="3-多个Media-Queries使用"><a href="#3-多个Media-Queries使用" class="headerlink" title="3. 多个Media Queries使用"></a>3. 多个Media Queries使用</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> </span><br><span class="line">media=<span class="string">&quot;screen and (min-width:600px) and (max-width:900px)&quot;</span> </span><br><span class="line">href=<span class="string">&quot;style.css&quot;</span> <span class="built_in">type</span>=<span class="string">&quot;text/css&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
-
-<p>上面的表示的是当屏幕在600px-900px之间时采用style.css样式来渲染web页面。</p>
-<h4 id="4-两种加载方式"><a href="#4-两种加载方式" class="headerlink" title="4. 两种加载方式"></a>4. 两种加载方式</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- CSS media query on a link element --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">media</span>=<span class="string">&quot;(max-width: 800px)&quot;</span> <span class="attr">href</span>=<span class="string">&quot;example.css&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- CSS media query within a stylesheet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css"><span class="keyword">@media</span> (<span class="attribute">max-width:</span> <span class="number">600px</span>) &#123;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.facet_sidebar</span> &#123;</span></span><br><span class="line">    display: none;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>注意：所有的media query css都会加载，只有符合条的会被解析</strong></p>
-<h4 id="5-标准语法"><a href="#5-标准语法" class="headerlink" title="5. 标准语法"></a>5. 标准语法</h4><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="symbol">media_query_list:</span> &lt;media_query&gt; [, &lt;media_query&gt; ]*</span><br><span class="line"><span class="symbol">media_query:</span> [[only <span class="params">| <span class="keyword">not</span>]? &lt;media_type&gt; [ <span class="keyword">and</span> &lt;expression&gt; ]*]</span></span><br><span class="line"><span class="params">  |</span> &lt;expression&gt; [ <span class="keyword">and</span> &lt;expression&gt; ]*</span><br><span class="line"><span class="symbol">expression:</span> ( &lt;media_feature&gt; [: &lt;value&gt;]? )</span><br><span class="line"><span class="symbol">media_type:</span> all <span class="params">| aural |</span> braille <span class="params">| handheld |</span> print <span class="params">|</span></span><br><span class="line"><span class="params">  projection |</span> screen <span class="params">| tty |</span> tv <span class="params">| embossed</span></span><br><span class="line"><span class="params">media_feature: width |</span> min-width <span class="params">| max-width</span></span><br><span class="line"><span class="params">  |</span> height <span class="params">| min-height |</span> max-height</span><br><span class="line">  <span class="params">| device-width |</span> min-device-width <span class="params">| max-device-width</span></span><br><span class="line"><span class="params">  |</span> device-height <span class="params">| min-device-height |</span> max-device-height</span><br><span class="line">  <span class="params">| aspect-ratio |</span> min-aspect-ratio <span class="params">| max-aspect-ratio</span></span><br><span class="line"><span class="params">  |</span> device-aspect-ratio <span class="params">| min-device-aspect-ratio |</span> max-device-aspect-ratio</span><br><span class="line">  <span class="params">| color |</span> min-color <span class="params">| max-color</span></span><br><span class="line"><span class="params">  |</span> color-index <span class="params">| min-color-index |</span> max-color-index</span><br><span class="line">  <span class="params">| monochrome |</span> min-monochrome <span class="params">| max-monochrome</span></span><br><span class="line"><span class="params">  |</span> resolution <span class="params">| min-resolution |</span> max-resolution</span><br><span class="line">  <span class="params">| scan |</span> grid</span><br></pre></td></tr></table></figure>
-
-<h4 id="6-逻辑操作符"><a href="#6-逻辑操作符" class="headerlink" title="6. 逻辑操作符"></a>6. 逻辑操作符</h4><ul>
-<li>and 同编程语言里的and</li>
-<li>not 同编程语言里的not</li>
-</ul>
-<p><strong>逗号</strong> ：    当逗号两边的条件有一个为真都为真， 同编程语言里的or</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><h4 id="1-提供一组目前的适配移动端屏幕的Media-Queries"><a href="#1-提供一组目前的适配移动端屏幕的Media-Queries" class="headerlink" title="1. 提供一组目前的适配移动端屏幕的Media Queries"></a>1. 提供一组目前的适配移动端屏幕的Media Queries</h4><blockquote>
-<p>根据不同的手机屏幕,设置基于html元素的字体大小,利用rem的方式实现移动端屏幕的适配</p>
-<p>(注:这套适配方案是按照640的屏幕,获得的实际大小除以40,如获得的字体大小为40px,那么转换为rem就是1rem)</p>
-</blockquote>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">321px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">321px</span>) <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">360px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">22.5px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">361px</span>) <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">375px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">23.4px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">376px</span>) <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">414px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">25.8px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">415px</span>) <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">479px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">27px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">480px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">30px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">768px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">32px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="二、响应式设计中的-em-rem"><a href="#二、响应式设计中的-em-rem" class="headerlink" title="二、响应式设计中的 em/rem"></a>二、响应式设计中的 <code>em/rem</code></h2><p><code>rem</code>是指：<strong>根元素</strong>（root element，html）的字体大小，</p>
-<p><code>em</code>是指：<strong>父元素</strong>的字体大小。</p>
-<blockquote>
-<p><strong>注:</strong>    可以引入 CSS 预处理工具（Sass、LESS 、Stylus等）自动计算 rem 值。</p>
-</blockquote>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
       <categories>
         <category>Front End</category>
@@ -1384,54 +1384,6 @@
       </tags>
   </entry>
   <entry>
-    <title>VsCode 杂谈</title>
-    <url>/2020/09/08/talk-about-VsCode/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
-<p>这篇文章汇总有关<code>VsCode</code>的冷知识，换句话说就是<code>IDE</code>的使用和一些自己遇到的问题</p>
-<p>–  值得推荐的<code>Vscode</code>插件</p>
-<p>–  使用<code>Vscode</code>中遇到的问题</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="一、值得推荐的Vscode插件"><a href="#一、值得推荐的Vscode插件" class="headerlink" title="一、值得推荐的Vscode插件"></a>一、值得推荐的<code>Vscode</code>插件</h2><p><code>2020/10/29</code> 终于找到了比较全的文章</p>
-<p><a href="https://github.com/varHarrie/varharrie.github.io/issues/10">戳这儿</a></p>
-<p>推荐一个<strong>上班摸鱼又炒鱿鱼</strong>小插件：<code>小霸王</code>  —— 绝对的炒鱿鱼小技巧</p>
-<p><strong>目前在用的有如下：</strong></p>
-<ul>
-<li><code>GitLens — Git supercharged</code> ： 一个可以同步展示代码的修改时间、修改人和修改原因</li>
-<li><code>Auto Close Tag</code> ：自动闭合标签</li>
-<li><code>Auto Import</code> ：自动补充 <code>import</code> 引用</li>
-<li><code>Chinese (Simplified) Language Pack for Visual Studio Code</code> ： 汉化</li>
-<li><code>Debugger for Chrome</code> ：用于使用 <code>chrome</code> 调试</li>
-<li><code>liver Server</code> ：H5预览本地服务器</li>
-<li><code>VueHelper</code> ：<code>Vue</code> 代码自动补全</li>
-<li><code>Bracket Pair Colorizer</code> ： 多颜色大括号颜色区分</li>
-</ul>
-<br>
-
-<h2 id="二、使用Vscode中遇到的问题"><a href="#二、使用Vscode中遇到的问题" class="headerlink" title="二、使用Vscode中遇到的问题"></a>二、使用<code>Vscode</code>中遇到的问题</h2><h3 id="1、解决eslint空格报错等问题"><a href="#1、解决eslint空格报错等问题" class="headerlink" title="1、解决eslint空格报错等问题"></a>1、解决<code>eslint</code>空格报错等问题</h3><blockquote>
-<p>参考<a href="https://www.cnblogs.com/fqh123/p/9967771.html">该博主</a></p>
-</blockquote>
-<p><code>eslint</code>检查代码风格是好的，不过 有些<code>换行报错</code> 、<code>空格报错</code>，还有在代码中有 console也是报错，这有些烦人—-&gt;</p>
-<p>为了把这些烦人的报错给禁止掉</p>
-<p>我们可以在<code>package.json</code>文件中 找到（或者在<code>.eslintrc.js</code>中找到<code>rules</code>）</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;eslintConfig&quot;</span>: &#123;</span><br><span class="line">　　<span class="string">&quot;root&quot;</span>: true,</span><br><span class="line">　　<span class="string">&quot;env&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;node&quot;</span>: true</span><br><span class="line">　　&#125;,</span><br><span class="line">　　<span class="string">&quot;extends&quot;</span>: [</span><br><span class="line">　　　　<span class="string">&quot;plugin:vue/essential&quot;</span>,</span><br><span class="line">　　　　<span class="string">&quot;eslint:recommended&quot;</span></span><br><span class="line">　　],</span><br><span class="line">　　<span class="string">&quot;rules&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;no-console&quot;</span>:<span class="string">&quot;off&quot;</span>,<span class="regexp">//</span>在这禁止掉console报错检查</span><br><span class="line">　　　　<span class="string">&quot;no-irregular-whitespace&quot;</span>:<span class="string">&quot;off&quot;</span><span class="regexp">//</span>这禁止掉 空格报错检查</span><br><span class="line">　　&#125;,</span><br><span class="line">　　<span class="string">&quot;parserOptions&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;parser&quot;</span>: <span class="string">&quot;babel-eslint&quot;</span></span><br><span class="line">　　&#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>在rules规则中 禁止掉这些规则</span><br></pre></td></tr></table></figure>
-
-<p>下面罗列一些，一些规则的含义：</p>
-<blockquote>
-<p>“off” or 0 - 关闭(禁用)规则<br>“warn” or 1 - 将规则视为一个警告（并不会导致检查不通过）<br>“error” or 2 - 将规则视为一个错误 (退出码为1，检查不通过) </p>
-</blockquote>
-<h3 id="2、代码行数统计"><a href="#2、代码行数统计" class="headerlink" title="2、代码行数统计"></a>2、代码行数统计</h3><p>选择<strong>编辑</strong> -&gt; <strong>在文件中查找（正则）</strong>        <code>^b*[^:b#/]+.*$</code>     </p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Tool &amp; Platform</category>
-      </categories>
-      <tags>
-        <tag>开发与调试</tag>
-        <tag>开发工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>UI 框架</title>
     <url>/2020/11/06/UI-frames/</url>
     <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
@@ -1521,6 +1473,54 @@
       </categories>
       <tags>
         <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VsCode 杂谈</title>
+    <url>/2020/09/08/talk-about-VsCode/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
+<p>这篇文章汇总有关<code>VsCode</code>的冷知识，换句话说就是<code>IDE</code>的使用和一些自己遇到的问题</p>
+<p>–  值得推荐的<code>Vscode</code>插件</p>
+<p>–  使用<code>Vscode</code>中遇到的问题</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="一、值得推荐的Vscode插件"><a href="#一、值得推荐的Vscode插件" class="headerlink" title="一、值得推荐的Vscode插件"></a>一、值得推荐的<code>Vscode</code>插件</h2><p><code>2020/10/29</code> 终于找到了比较全的文章</p>
+<p><a href="https://github.com/varHarrie/varharrie.github.io/issues/10">戳这儿</a></p>
+<p>推荐一个<strong>上班摸鱼又炒鱿鱼</strong>小插件：<code>小霸王</code>  —— 绝对的炒鱿鱼小技巧</p>
+<p><strong>目前在用的有如下：</strong></p>
+<ul>
+<li><code>GitLens — Git supercharged</code> ： 一个可以同步展示代码的修改时间、修改人和修改原因</li>
+<li><code>Auto Close Tag</code> ：自动闭合标签</li>
+<li><code>Auto Import</code> ：自动补充 <code>import</code> 引用</li>
+<li><code>Chinese (Simplified) Language Pack for Visual Studio Code</code> ： 汉化</li>
+<li><code>Debugger for Chrome</code> ：用于使用 <code>chrome</code> 调试</li>
+<li><code>liver Server</code> ：H5预览本地服务器</li>
+<li><code>VueHelper</code> ：<code>Vue</code> 代码自动补全</li>
+<li><code>Bracket Pair Colorizer</code> ： 多颜色大括号颜色区分</li>
+</ul>
+<br>
+
+<h2 id="二、使用Vscode中遇到的问题"><a href="#二、使用Vscode中遇到的问题" class="headerlink" title="二、使用Vscode中遇到的问题"></a>二、使用<code>Vscode</code>中遇到的问题</h2><h3 id="1、解决eslint空格报错等问题"><a href="#1、解决eslint空格报错等问题" class="headerlink" title="1、解决eslint空格报错等问题"></a>1、解决<code>eslint</code>空格报错等问题</h3><blockquote>
+<p>参考<a href="https://www.cnblogs.com/fqh123/p/9967771.html">该博主</a></p>
+</blockquote>
+<p><code>eslint</code>检查代码风格是好的，不过 有些<code>换行报错</code> 、<code>空格报错</code>，还有在代码中有 console也是报错，这有些烦人—-&gt;</p>
+<p>为了把这些烦人的报错给禁止掉</p>
+<p>我们可以在<code>package.json</code>文件中 找到（或者在<code>.eslintrc.js</code>中找到<code>rules</code>）</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;eslintConfig&quot;</span>: &#123;</span><br><span class="line">　　<span class="string">&quot;root&quot;</span>: true,</span><br><span class="line">　　<span class="string">&quot;env&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;node&quot;</span>: true</span><br><span class="line">　　&#125;,</span><br><span class="line">　　<span class="string">&quot;extends&quot;</span>: [</span><br><span class="line">　　　　<span class="string">&quot;plugin:vue/essential&quot;</span>,</span><br><span class="line">　　　　<span class="string">&quot;eslint:recommended&quot;</span></span><br><span class="line">　　],</span><br><span class="line">　　<span class="string">&quot;rules&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;no-console&quot;</span>:<span class="string">&quot;off&quot;</span>,<span class="regexp">//</span>在这禁止掉console报错检查</span><br><span class="line">　　　　<span class="string">&quot;no-irregular-whitespace&quot;</span>:<span class="string">&quot;off&quot;</span><span class="regexp">//</span>这禁止掉 空格报错检查</span><br><span class="line">　　&#125;,</span><br><span class="line">　　<span class="string">&quot;parserOptions&quot;</span>: &#123;</span><br><span class="line">　　　　<span class="string">&quot;parser&quot;</span>: <span class="string">&quot;babel-eslint&quot;</span></span><br><span class="line">　　&#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>在rules规则中 禁止掉这些规则</span><br></pre></td></tr></table></figure>
+
+<p>下面罗列一些，一些规则的含义：</p>
+<blockquote>
+<p>“off” or 0 - 关闭(禁用)规则<br>“warn” or 1 - 将规则视为一个警告（并不会导致检查不通过）<br>“error” or 2 - 将规则视为一个错误 (退出码为1，检查不通过) </p>
+</blockquote>
+<h3 id="2、代码行数统计"><a href="#2、代码行数统计" class="headerlink" title="2、代码行数统计"></a>2、代码行数统计</h3><p>选择<strong>编辑</strong> -&gt; <strong>在文件中查找（正则）</strong>        <code>^b*[^:b#/]+.*$</code>     </p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Tool &amp; Platform</category>
+      </categories>
+      <tags>
+        <tag>开发与调试</tag>
+        <tag>开发工具</tag>
       </tags>
   </entry>
   <entry>
@@ -1795,19 +1795,6 @@
       </tags>
   </entry>
   <entry>
-    <title>vue-性能优化</title>
-    <url>/2020/12/07/vue-performance-optimization/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><p><a href="https://www.cnblogs.com/webhmy/p/12162675.html">vue项目–浏览器出现卡顿及崩溃的原因查找与解决方案</a></p>
-<p><a href="https://www.umyui.com/">vue 表格优化替代方案 umy-ui</a></p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Front End</category>
-      </categories>
-      <tags>
-        <tag>WEB优化</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>gitignore-Question</title>
     <url>/2020/11/25/gitignore-Question/</url>
     <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
@@ -1862,6 +1849,19 @@
       </tags>
   </entry>
   <entry>
+    <title>vue-性能优化</title>
+    <url>/2020/12/07/vue-performance-optimization/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><p><a href="https://www.cnblogs.com/webhmy/p/12162675.html">vue项目–浏览器出现卡顿及崩溃的原因查找与解决方案</a></p>
+<p><a href="https://www.umyui.com/">vue 表格优化替代方案 umy-ui</a></p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Front End</category>
+      </categories>
+      <tags>
+        <tag>WEB优化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>前端技术栈中的Node</title>
     <url>/2020/11/27/the-node-in-front-end/</url>
     <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
@@ -1900,28 +1900,6 @@
       </categories>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>工程化-Webpack</title>
-    <url>/2020/11/25/webpack/</url>
-    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
-<p>前端工程化包括 <strong>打包工具</strong> 和 <strong>转译工具</strong></p>
-<p>转译工具即 <code>Babel</code>， 打包工具包括 <code>Webpack</code>、<code>parcel</code>、<code>Gulp</code>、<code>Browserify</code></p>
-<p>这篇文章汇总关于 <code>Webpack</code> 学习资料</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="参考自"><a href="#参考自" class="headerlink" title="参考自"></a>参考自</h2><p><a href="https://www.bilibili.com/video/BV1e7411j7T5?p=2">b站尚硅谷Webpack讲解</a></p>
-<p><a href="https://webpack.docschina.org/guides/getting-started/">Webpack 官方文档</a></p>
-<h2 id="基本生产环境的配置"><a href="#基本生产环境的配置" class="headerlink" title="基本生产环境的配置"></a>基本生产环境的配置</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; resolve &#125; = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> OptimizeCssAssetsWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;optimize-css-assets-webpack-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义nodejs环境变量：决定使用browserslist的哪个环境</span></span><br><span class="line">process.env.NODE_ENV = <span class="string">&#x27;production&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 复用loader</span></span><br><span class="line"><span class="keyword">const</span> commonCssLoader = [</span><br><span class="line">  MiniCssExtractPlugin.loader,</span><br><span class="line">  <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 还需要在package.json中定义browserslist</span></span><br><span class="line">    loader: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">    options: &#123;</span><br><span class="line">      ident: <span class="string">&#x27;postcss&#x27;</span>,</span><br><span class="line">      plugins: <span class="function">() =&gt;</span> [<span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)()]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">&#x27;./src/js/index.js&#x27;</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">&#x27;js/built.js&#x27;</span>,</span><br><span class="line">    path: resolve(__dirname, <span class="string">&#x27;build&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        use: [...commonCssLoader]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">        use: [...commonCssLoader, <span class="string">&#x27;less-loader&#x27;</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">        正常来讲，一个文件只能被一个loader处理。</span></span><br><span class="line"><span class="comment">        当一个文件要被多个loader处理，那么一定要指定loader执行的先后顺序：</span></span><br><span class="line"><span class="comment">          先执行eslint 在执行babel</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// 在package.json中eslintConfig --&gt; airbnb</span></span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        <span class="comment">// 优先执行</span></span><br><span class="line">        enforce: <span class="string">&#x27;pre&#x27;</span>,</span><br><span class="line">        loader: <span class="string">&#x27;eslint-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          fix: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          presets: [</span><br><span class="line">            [</span><br><span class="line">              <span class="string">&#x27;@babel/preset-env&#x27;</span>,</span><br><span class="line">              &#123;</span><br><span class="line">                useBuiltIns: <span class="string">&#x27;usage&#x27;</span>,</span><br><span class="line">                corejs: &#123;<span class="attr">version</span>: <span class="number">3</span>&#125;,</span><br><span class="line">                targets: &#123;</span><br><span class="line">                  chrome: <span class="string">&#x27;60&#x27;</span>,</span><br><span class="line">                  firefox: <span class="string">&#x27;50&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.(jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;url-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          limit: <span class="number">8</span> * <span class="number">1024</span>,</span><br><span class="line">          name: <span class="string">&#x27;[hash:10].[ext]&#x27;</span>,</span><br><span class="line">          outputPath: <span class="string">&#x27;imgs&#x27;</span>,</span><br><span class="line">          esModule: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.html$/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;html-loader&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        exclude: <span class="regexp">/\.(js|css|less|html|jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          outputPath: <span class="string">&#x27;media&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">      filename: <span class="string">&#x27;css/built.css&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> OptimizeCssAssetsWebpackPlugin(),</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      template: <span class="string">&#x27;./src/index.html&#x27;</span>,</span><br><span class="line">      minify: &#123;</span><br><span class="line">        collapseWhitespace: <span class="literal">true</span>,</span><br><span class="line">        removeComments: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  mode: <span class="string">&#x27;production&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>Front End</category>
-      </categories>
-      <tags>
-        <tag>工程化</tag>
       </tags>
   </entry>
   <entry>
@@ -2017,6 +1995,28 @@
         <tag>框架与工具</tag>
         <tag>Vue</tag>
         <tag>Vue Problems</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>工程化-Webpack</title>
+    <url>/2020/11/25/webpack/</url>
+    <content><![CDATA[<h2 id="CONTENT-OUTLINE"><a href="#CONTENT-OUTLINE" class="headerlink" title="CONTENT OUTLINE"></a>CONTENT OUTLINE</h2><blockquote>
+<p>前端工程化包括 <strong>打包工具</strong> 和 <strong>转译工具</strong></p>
+<p>转译工具即 <code>Babel</code>， 打包工具包括 <code>Webpack</code>、<code>parcel</code>、<code>Gulp</code>、<code>Browserify</code></p>
+<p>这篇文章汇总关于 <code>Webpack</code> 学习资料</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="参考自"><a href="#参考自" class="headerlink" title="参考自"></a>参考自</h2><p><a href="https://www.bilibili.com/video/BV1e7411j7T5?p=2">b站尚硅谷Webpack讲解</a></p>
+<p><a href="https://webpack.docschina.org/guides/getting-started/">Webpack 官方文档</a></p>
+<h2 id="基本生产环境的配置"><a href="#基本生产环境的配置" class="headerlink" title="基本生产环境的配置"></a>基本生产环境的配置</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; resolve &#125; = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> OptimizeCssAssetsWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;optimize-css-assets-webpack-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义nodejs环境变量：决定使用browserslist的哪个环境</span></span><br><span class="line">process.env.NODE_ENV = <span class="string">&#x27;production&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 复用loader</span></span><br><span class="line"><span class="keyword">const</span> commonCssLoader = [</span><br><span class="line">  MiniCssExtractPlugin.loader,</span><br><span class="line">  <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 还需要在package.json中定义browserslist</span></span><br><span class="line">    loader: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">    options: &#123;</span><br><span class="line">      ident: <span class="string">&#x27;postcss&#x27;</span>,</span><br><span class="line">      plugins: <span class="function">() =&gt;</span> [<span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)()]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">&#x27;./src/js/index.js&#x27;</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">&#x27;js/built.js&#x27;</span>,</span><br><span class="line">    path: resolve(__dirname, <span class="string">&#x27;build&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        use: [...commonCssLoader]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">        use: [...commonCssLoader, <span class="string">&#x27;less-loader&#x27;</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">        正常来讲，一个文件只能被一个loader处理。</span></span><br><span class="line"><span class="comment">        当一个文件要被多个loader处理，那么一定要指定loader执行的先后顺序：</span></span><br><span class="line"><span class="comment">          先执行eslint 在执行babel</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// 在package.json中eslintConfig --&gt; airbnb</span></span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        <span class="comment">// 优先执行</span></span><br><span class="line">        enforce: <span class="string">&#x27;pre&#x27;</span>,</span><br><span class="line">        loader: <span class="string">&#x27;eslint-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          fix: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          presets: [</span><br><span class="line">            [</span><br><span class="line">              <span class="string">&#x27;@babel/preset-env&#x27;</span>,</span><br><span class="line">              &#123;</span><br><span class="line">                useBuiltIns: <span class="string">&#x27;usage&#x27;</span>,</span><br><span class="line">                corejs: &#123;<span class="attr">version</span>: <span class="number">3</span>&#125;,</span><br><span class="line">                targets: &#123;</span><br><span class="line">                  chrome: <span class="string">&#x27;60&#x27;</span>,</span><br><span class="line">                  firefox: <span class="string">&#x27;50&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.(jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;url-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          limit: <span class="number">8</span> * <span class="number">1024</span>,</span><br><span class="line">          name: <span class="string">&#x27;[hash:10].[ext]&#x27;</span>,</span><br><span class="line">          outputPath: <span class="string">&#x27;imgs&#x27;</span>,</span><br><span class="line">          esModule: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.html$/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;html-loader&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        exclude: <span class="regexp">/\.(js|css|less|html|jpg|png|gif)/</span>,</span><br><span class="line">        loader: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          outputPath: <span class="string">&#x27;media&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">      filename: <span class="string">&#x27;css/built.css&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> OptimizeCssAssetsWebpackPlugin(),</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      template: <span class="string">&#x27;./src/index.html&#x27;</span>,</span><br><span class="line">      minify: &#123;</span><br><span class="line">        collapseWhitespace: <span class="literal">true</span>,</span><br><span class="line">        removeComments: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  mode: <span class="string">&#x27;production&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Front End</category>
+      </categories>
+      <tags>
+        <tag>工程化</tag>
       </tags>
   </entry>
   <entry>
