@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hammerzer.github.io/2023/07/09/Introduction-to-deep-learning/</loc>
-    <lastmod>2023-07-09</lastmod>
+    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
+    <lastmod>2023-07-18</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
+    <loc>https://hammerzer.github.io/2023/07/09/Introduction-to-deep-learning/</loc>
+    <lastmod>2023-07-18</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2020/10/10/the-second-birthday/</loc>
+    <lastmod>2023-07-12</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2020/09/08/git-problems/</loc>
     <lastmod>2023-07-09</lastmod>
   </url>
   <url>
@@ -39,10 +47,6 @@
   <url>
     <loc>https://hammerzer.github.io/2023/02/27/After-That-Day/</loc>
     <lastmod>2023-03-20</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2020/10/10/the-second-birthday/</loc>
-    <lastmod>2023-02-27</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2023/02/01/java-base-2/</loc>
@@ -162,10 +166,6 @@
   </url>
   <url>
     <loc>https://hammerzer.github.io/2021/01/08/H5-application-cache/</loc>
-    <lastmod>2021-10-11</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2020/09/08/git-problems/</loc>
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
