@@ -2,23 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://hammerzer.github.io/2023/07/09/Introduction-to-deep-learning/</loc>
-    <lastmod>2023-09-14</lastmod>
+    <lastmod>2023-10-18</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2023/08/10/convolutional-neural-network/</loc>
-    <lastmod>2023-09-13</lastmod>
+    <lastmod>2023-10-17</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2023/10/15/CPP-Plan/</loc>
+    <lastmod>2023-10-15</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2023/07/21/Tool-Pytorch/</loc>
-    <lastmod>2023-09-13</lastmod>
+    <lastmod>2023-10-15</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2023/07/19/Python-Start/</loc>
-    <lastmod>2023-09-07</lastmod>
+    <lastmod>2023-10-14</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2023/07/21/Tool-Numpy/</loc>
-    <lastmod>2023-08-10</lastmod>
+    <lastmod>2023-09-23</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2023/09/16/introduction-to-mathematical-modelling/</loc>
+    <lastmod>2023-09-21</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2023/09/18/Daily-Algorithm-Practice-PlanningANDStarted/</loc>
+    <lastmod>2023-09-18</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
