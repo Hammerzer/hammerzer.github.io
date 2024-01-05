@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hammerzer.github.io/2024/01/05/React-Hooks/</loc>
+    <lastmod>2024-01-05</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2021/01/13/React-start/</loc>
+    <lastmod>2024-01-05</lastmod>
+  </url>
+  <url>
     <loc>https://hammerzer.github.io/2023/12/05/Accumulation-of-data-processing-methods/</loc>
     <lastmod>2023-12-10</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2023/07/09/Introduction-to-deep-learning/</loc>
     <lastmod>2023-12-09</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2021/01/13/React-start/</loc>
-    <lastmod>2023-11-28</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2020/09/08/talk-about-VsCode/</loc>
