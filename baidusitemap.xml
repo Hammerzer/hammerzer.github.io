@@ -1,16 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hammerzer.github.io/2024/04/13/Linux-Quick-Start/</loc>
-    <lastmod>2024-06-01</lastmod>
+    <loc>https://hammerzer.github.io/2024/07/16/qt-Quick-Start/</loc>
+    <lastmod>2024-07-26</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/06/05/windows-Quick-Start/</loc>
+    <lastmod>2024-07-16</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/05/29/Linux-Quick-Start2/</loc>
-    <lastmod>2024-05-29</lastmod>
+    <lastmod>2024-07-16</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2024/05/05/leetcode-route/</loc>
-    <lastmod>2024-05-26</lastmod>
+    <loc>https://hammerzer.github.io/2024/03/11/cpp-base-1/</loc>
+    <lastmod>2024-07-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/06/29/One%20of%20the%20challenges%20in%20rapid%20development/</loc>
+    <lastmod>2024-07-07</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2020/09/08/git-problems/</loc>
+    <lastmod>2024-07-02</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/04/13/Linux-Quick-Start/</loc>
+    <lastmod>2024-06-27</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/03/13/cpp-base-3/</loc>
+    <lastmod>2024-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
+    <lastmod>2024-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/06/11/word-questions/</loc>
+    <lastmod>2024-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/06/16/plan-and-tips-of-Leetcode/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/06/14/Linux-and-Windows-cmd/</loc>
+    <lastmod>2024-06-14</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2020/08/26/markdown/</loc>
+    <lastmod>2024-06-11</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/05/26/Leetcode101-2/</loc>
@@ -19,14 +59,6 @@
   <url>
     <loc>https://hammerzer.github.io/2024/05/26/Leetcode101-11/</loc>
     <lastmod>2024-05-26</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/03/13/cpp-base-3/</loc>
-    <lastmod>2024-05-26</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/03/11/cpp-base-1/</loc>
-    <lastmod>2024-04-19</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/03/12/cpp-base-2/</loc>
@@ -50,10 +82,6 @@
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/03/13/cpp-base-4/</loc>
-    <lastmod>2024-03-15</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
     <lastmod>2024-03-15</lastmod>
   </url>
   <url>
@@ -87,10 +115,6 @@
   <url>
     <loc>https://hammerzer.github.io/2020/09/08/talk-about-VsCode/</loc>
     <lastmod>2023-11-28</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2020/09/08/git-problems/</loc>
-    <lastmod>2023-11-14</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2023/11/10/Mysql-Start/</loc>
@@ -189,19 +213,15 @@
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2020/11/10/vue-router's-two-models/</loc>
-    <lastmod>2021-10-11</lastmod>
-  </url>
-  <url>
     <loc>https://hammerzer.github.io/2020/11/23/vue-config-js/</loc>
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2020/11/06/UI-frames/</loc>
+    <loc>https://hammerzer.github.io/2020/11/10/vue-router's-two-models/</loc>
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2020/08/26/markdown/</loc>
+    <loc>https://hammerzer.github.io/2020/11/06/UI-frames/</loc>
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
@@ -277,11 +297,11 @@
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2020/09/17/css-naming-scheme/</loc>
+    <loc>https://hammerzer.github.io/2020/09/17/css-knowledge-points-summary/</loc>
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2020/09/17/css-knowledge-points-summary/</loc>
+    <loc>https://hammerzer.github.io/2020/09/17/css-naming-scheme/</loc>
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
