@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hammerzer.github.io/2024/07/16/qt-Quick-Start/</loc>
-    <lastmod>2024-07-26</lastmod>
+    <loc>https://hammerzer.github.io/2024/08/07/qt-project-weather/</loc>
+    <lastmod>2024-08-20</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/03/13/cpp-base-3/</loc>
+    <lastmod>2024-08-14</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/06/05/windows-Quick-Start/</loc>
-    <lastmod>2024-07-16</lastmod>
+    <lastmod>2024-08-14</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/07/16/qt-Quick-Start/</loc>
+    <lastmod>2024-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/03/11/cpp-base-1/</loc>
+    <lastmod>2024-07-29</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/05/29/Linux-Quick-Start2/</loc>
     <lastmod>2024-07-16</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/03/11/cpp-base-1/</loc>
-    <lastmod>2024-07-15</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/06/29/One%20of%20the%20challenges%20in%20rapid%20development/</loc>
@@ -27,10 +35,6 @@
   <url>
     <loc>https://hammerzer.github.io/2024/04/13/Linux-Quick-Start/</loc>
     <lastmod>2024-06-27</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/03/13/cpp-base-3/</loc>
-    <lastmod>2024-06-22</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
@@ -265,11 +269,11 @@
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2020/10/27/new-features-and-frontiers-of-ES6-sec/</loc>
+    <loc>https://hammerzer.github.io/2020/10/22/new-features-and-frontiers-of-ES6/</loc>
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2020/10/22/new-features-and-frontiers-of-ES6/</loc>
+    <loc>https://hammerzer.github.io/2020/10/27/new-features-and-frontiers-of-ES6-sec/</loc>
     <lastmod>2021-10-11</lastmod>
   </url>
   <url>
