@@ -2,45 +2,111 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://hammerzer.github.io/about/index.html</loc>
+    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
     
-    <lastmod>2024-08-20</lastmod>
+    <lastmod>2024-09-16</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hammerzer.github.io/2024/08/07/qt-project-weather/</loc>
+    <loc>https://hammerzer.github.io/2024/08/28/mfc-start/</loc>
     
-    <lastmod>2024-08-20</lastmod>
+    <lastmod>2024-09-13</lastmod>
     
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/2024/03/13/cpp-base-3/</loc>
-    
-    <lastmod>2024-08-14</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/2024/06/05/windows-Quick-Start/</loc>
-    
-    <lastmod>2024-08-14</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/2024/07/16/qt-Quick-Start/</loc>
-    
-    <lastmod>2024-08-08</lastmod>
-    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/2024/03/11/cpp-base-1/</loc>
     
-    <lastmod>2024-07-29</lastmod>
+    <lastmod>2024-09-13</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/2024/03/13/cpp-base-3/</loc>
+    
+    <lastmod>2024-09-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/2024/08/20/CPP-QA/</loc>
+    
+    <lastmod>2024-09-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/2024/03/12/cpp-base-2/</loc>
+    
+    <lastmod>2024-09-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/2024/07/16/qt-Quick-Start/</loc>
+    
+    <lastmod>2024-09-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/2024/08/20/OS-Frames-QA/</loc>
+    
+    <lastmod>2024-09-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/2024/04/13/Linux-Quick-Start/</loc>
+    
+    <lastmod>2024-09-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/about/index.html</loc>
+    
+    <lastmod>2024-09-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/2024/06/05/windows-Quick-Start/</loc>
+    
+    <lastmod>2024-09-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/2024/08/07/qt-project-weather/</loc>
+    
+    <lastmod>2024-08-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -48,6 +114,8 @@
     
     <lastmod>2024-07-16</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -55,6 +123,8 @@
     
     <lastmod>2024-07-07</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -62,20 +132,8 @@
     
     <lastmod>2024-07-02</lastmod>
     
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/2024/04/13/Linux-Quick-Start/</loc>
-    
-    <lastmod>2024-06-27</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
-    
-    <lastmod>2024-06-21</lastmod>
-    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -83,6 +141,8 @@
     
     <lastmod>2024-06-21</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -90,6 +150,8 @@
     
     <lastmod>2024-06-16</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -97,6 +159,8 @@
     
     <lastmod>2024-06-14</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -104,6 +168,8 @@
     
     <lastmod>2024-06-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -111,6 +177,8 @@
     
     <lastmod>2024-05-26</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -118,13 +186,8 @@
     
     <lastmod>2024-05-26</lastmod>
     
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/2024/03/12/cpp-base-2/</loc>
-    
-    <lastmod>2024-04-15</lastmod>
-    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -132,13 +195,8 @@
     
     <lastmod>2024-04-14</lastmod>
     
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/2024/03/15/CPP-BASE-supplement/</loc>
-    
-    <lastmod>2024-04-13</lastmod>
-    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -146,6 +204,8 @@
     
     <lastmod>2024-03-22</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -153,6 +213,8 @@
     
     <lastmod>2024-03-22</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -160,6 +222,8 @@
     
     <lastmod>2024-03-15</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -167,6 +231,8 @@
     
     <lastmod>2024-01-29</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -174,6 +240,8 @@
     
     <lastmod>2024-01-24</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -181,6 +249,8 @@
     
     <lastmod>2024-01-13</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -188,6 +258,8 @@
     
     <lastmod>2024-01-06</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -195,6 +267,8 @@
     
     <lastmod>2024-01-05</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -202,6 +276,8 @@
     
     <lastmod>2023-12-10</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -209,6 +285,8 @@
     
     <lastmod>2023-12-09</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -216,6 +294,8 @@
     
     <lastmod>2023-11-28</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -223,6 +303,8 @@
     
     <lastmod>2023-11-12</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -230,6 +312,8 @@
     
     <lastmod>2023-11-04</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -237,6 +321,8 @@
     
     <lastmod>2023-10-15</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -244,6 +330,8 @@
     
     <lastmod>2023-10-14</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -251,6 +339,8 @@
     
     <lastmod>2023-09-23</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -258,6 +348,8 @@
     
     <lastmod>2023-09-21</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -265,6 +357,8 @@
     
     <lastmod>2023-07-12</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -272,6 +366,8 @@
     
     <lastmod>2023-05-25</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -279,6 +375,8 @@
     
     <lastmod>2023-05-22</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -286,6 +384,8 @@
     
     <lastmod>2023-03-20</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -293,6 +393,8 @@
     
     <lastmod>2023-02-24</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -300,6 +402,8 @@
     
     <lastmod>2023-02-02</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -307,6 +411,8 @@
     
     <lastmod>2022-01-06</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -314,6 +420,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -321,6 +429,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -328,6 +438,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -335,6 +447,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -342,6 +456,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -349,6 +465,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -356,6 +474,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -363,6 +483,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -370,6 +492,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -377,6 +501,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -384,6 +510,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -391,6 +519,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -398,6 +528,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -405,6 +537,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -412,6 +546,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -419,6 +555,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -426,6 +564,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -433,6 +573,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -440,6 +582,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -447,6 +591,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -454,6 +600,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -461,6 +609,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -468,6 +618,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -475,6 +627,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -482,6 +636,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -489,6 +645,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -496,6 +654,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -503,6 +663,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -510,6 +672,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -517,6 +681,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -524,6 +690,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -531,6 +699,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -538,6 +708,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -545,6 +717,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -552,6 +726,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -559,6 +735,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -566,6 +744,8 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
   <url>
@@ -573,12 +753,14 @@
     
     <lastmod>2021-10-11</lastmod>
     
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   
 
   <url>
     <loc>https://hammerzer.github.io/</loc>
-    <lastmod>2024-08-20</lastmod>
+    <lastmod>2024-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -586,291 +768,305 @@
   
   <url>
     <loc>https://hammerzer.github.io/tags/She/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/CPP%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/tags/QA/</loc>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/CSS/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Cocos-dev/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/JavaScript/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Git/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Web%E6%96%B0%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Html/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Hexo/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Java%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Algorithm/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E6%A1%86%E6%9E%B6/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://hammerzer.github.io/tags/%E5%BC%80%E5%8F%91%E4%B8%8E%E8%B0%83%E8%AF%95/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <loc>https://hammerzer.github.io/tags/MFC/</loc>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/tags/%E5%BC%80%E5%8F%91%E4%B8%8E%E8%B0%83%E8%AF%95/</loc>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Python/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Deep-Learning/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Qt/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/myLove/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/%E6%A1%86%E6%9E%B6%E4%B8%8E%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/React/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Vue/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/tags/Node/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/tags/WEB%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/tags/WEB%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/tags/Node/</loc>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Mathematical-Modelling/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Vue-Problems/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hammerzer.github.io/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/JavaWeb/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://hammerzer.github.io/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/</loc>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Hardware/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/Travel/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/tags/%E7%9B%91%E6%8E%A7%E4%B8%8E%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
 
   
   <url>
     <loc>https://hammerzer.github.io/categories/My-Life/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/categories/CPP/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/categories/Front-End/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/categories/Cocos/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/categories/Tool-Platform/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/categories/Back-End/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/categories/Artificial-Intelligence/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/categories/Algorithm/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hammerzer.github.io/categories/AloT/</loc>
-    <lastmod>2024-08-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2024-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
   
 </urlset>

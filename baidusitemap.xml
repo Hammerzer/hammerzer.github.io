@@ -1,24 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hammerzer.github.io/2024/08/07/qt-project-weather/</loc>
-    <lastmod>2024-08-20</lastmod>
+    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
+    <lastmod>2024-09-16</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2024/03/13/cpp-base-3/</loc>
-    <lastmod>2024-08-14</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/06/05/windows-Quick-Start/</loc>
-    <lastmod>2024-08-14</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/07/16/qt-Quick-Start/</loc>
-    <lastmod>2024-08-08</lastmod>
+    <loc>https://hammerzer.github.io/2024/08/28/mfc-start/</loc>
+    <lastmod>2024-09-13</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/03/11/cpp-base-1/</loc>
-    <lastmod>2024-07-29</lastmod>
+    <lastmod>2024-09-13</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/03/13/cpp-base-3/</loc>
+    <lastmod>2024-09-13</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/08/20/CPP-QA/</loc>
+    <lastmod>2024-09-12</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/03/12/cpp-base-2/</loc>
+    <lastmod>2024-09-12</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/07/16/qt-Quick-Start/</loc>
+    <lastmod>2024-09-12</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/08/20/OS-Frames-QA/</loc>
+    <lastmod>2024-09-09</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/04/13/Linux-Quick-Start/</loc>
+    <lastmod>2024-09-09</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/06/05/windows-Quick-Start/</loc>
+    <lastmod>2024-09-01</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/08/07/qt-project-weather/</loc>
+    <lastmod>2024-08-22</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/05/29/Linux-Quick-Start2/</loc>
@@ -31,14 +55,6 @@
   <url>
     <loc>https://hammerzer.github.io/2020/09/08/git-problems/</loc>
     <lastmod>2024-07-02</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/04/13/Linux-Quick-Start/</loc>
-    <lastmod>2024-06-27</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
-    <lastmod>2024-06-21</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/06/11/word-questions/</loc>
@@ -65,16 +81,8 @@
     <lastmod>2024-05-26</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2024/03/12/cpp-base-2/</loc>
-    <lastmod>2024-04-15</lastmod>
-  </url>
-  <url>
     <loc>https://hammerzer.github.io/2024/03/22/Overview-of-modern-foundation-models-1/</loc>
     <lastmod>2024-04-14</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/03/15/CPP-BASE-supplement/</loc>
-    <lastmod>2024-04-13</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/03/22/Deep-learning-model-training/</loc>
