@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
-    <lastmod>2024-09-17</lastmod>
+    <loc>https://hammerzer.github.io/2024/03/13/cpp-base-3/</loc>
+    <lastmod>2024-10-12</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/08/28/mfc-start/</loc>
-    <lastmod>2024-09-16</lastmod>
+    <lastmod>2024-10-12</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/03/11/cpp-base-1/</loc>
-    <lastmod>2024-09-13</lastmod>
+    <lastmod>2024-09-27</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2024/03/13/cpp-base-3/</loc>
-    <lastmod>2024-09-13</lastmod>
+    <loc>https://hammerzer.github.io/2023/07/09/Introduction-to-deep-learning/</loc>
+    <lastmod>2024-09-26</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/08/20/CPP-QA/</loc>
-    <lastmod>2024-09-12</lastmod>
+    <lastmod>2024-09-19</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/04/13/Linux-Quick-Start/</loc>
+    <lastmod>2024-09-19</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
+    <lastmod>2024-09-17</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/03/12/cpp-base-2/</loc>
@@ -27,14 +35,6 @@
   <url>
     <loc>https://hammerzer.github.io/2024/07/16/qt-Quick-Start/</loc>
     <lastmod>2024-09-12</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/08/20/OS-Frames-QA/</loc>
-    <lastmod>2024-09-09</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/04/13/Linux-Quick-Start/</loc>
-    <lastmod>2024-09-09</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/06/05/windows-Quick-Start/</loc>
@@ -119,10 +119,6 @@
   <url>
     <loc>https://hammerzer.github.io/2023/12/05/Accumulation-of-data-processing-methods/</loc>
     <lastmod>2023-12-10</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2023/07/09/Introduction-to-deep-learning/</loc>
-    <lastmod>2023-12-09</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2020/09/08/talk-about-VsCode/</loc>
