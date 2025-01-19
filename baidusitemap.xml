@@ -2,11 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://hammerzer.github.io/2024/03/13/cpp-base-3/</loc>
-    <lastmod>2024-10-12</lastmod>
+    <lastmod>2024-10-31</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/10/15/mysql-start/</loc>
+    <lastmod>2024-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/07/16/qt-Quick-Start/</loc>
+    <lastmod>2024-10-21</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/08/28/mfc-start/</loc>
-    <lastmod>2024-10-12</lastmod>
+    <lastmod>2024-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2024/10/13/LeetCode101-Open-brush/</loc>
+    <lastmod>2024-10-13</lastmod>
+  </url>
+  <url>
+    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
+    <lastmod>2024-10-13</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/03/11/cpp-base-1/</loc>
@@ -25,15 +41,7 @@
     <lastmod>2024-09-19</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2020/08/20/Hexo-Next-Supplement/</loc>
-    <lastmod>2024-09-17</lastmod>
-  </url>
-  <url>
     <loc>https://hammerzer.github.io/2024/03/12/cpp-base-2/</loc>
-    <lastmod>2024-09-12</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/07/16/qt-Quick-Start/</loc>
     <lastmod>2024-09-12</lastmod>
   </url>
   <url>
@@ -61,24 +69,12 @@
     <lastmod>2024-06-21</lastmod>
   </url>
   <url>
-    <loc>https://hammerzer.github.io/2024/06/16/plan-and-tips-of-Leetcode/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>
-  <url>
     <loc>https://hammerzer.github.io/2024/06/14/Linux-and-Windows-cmd/</loc>
     <lastmod>2024-06-14</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2020/08/26/markdown/</loc>
     <lastmod>2024-06-11</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/05/26/Leetcode101-2/</loc>
-    <lastmod>2024-05-26</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2024/05/26/Leetcode101-11/</loc>
-    <lastmod>2024-05-26</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2024/03/22/Overview-of-modern-foundation-models-1/</loc>
@@ -123,10 +119,6 @@
   <url>
     <loc>https://hammerzer.github.io/2020/09/08/talk-about-VsCode/</loc>
     <lastmod>2023-11-28</lastmod>
-  </url>
-  <url>
-    <loc>https://hammerzer.github.io/2023/11/10/Mysql-Start/</loc>
-    <lastmod>2023-11-12</lastmod>
   </url>
   <url>
     <loc>https://hammerzer.github.io/2023/10/23/npm-tool/</loc>
