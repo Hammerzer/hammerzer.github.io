@@ -15,4 +15,6 @@
 
 1. 先安装插件：`Claude Code for VS Code`，也要安装Git-Bash。
 
-2. 打开`VSCode`的`setting`，扩展 - Claude Code - Environment Variables（在setting.json中修改），并修改其中的API-KEY。
+2. 打开`VSCode`的`setting`，扩展 - Claude Code - Environment Variables（在setting.json中修改），并修改其中的API-KEY。ddd
+
+3. dddddddddddddddddddddddddddddddddddddd
