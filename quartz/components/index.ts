@@ -23,6 +23,10 @@ import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
 import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
+import UserProfile from "./UserProfile"
+import CustomStyles from "./CustomStyles"
+import ReadingProgress from "./ReadingProgress"
+import ReadingProgressScript from "./ReadingProgressScript"
 
 export {
   ArticleTitle,
@@ -50,4 +54,8 @@ export {
   Comments,
   Flex,
   ConditionalRender,
+  UserProfile,
+  CustomStyles,
+  ReadingProgress,
+  ReadingProgressScript,
 }
