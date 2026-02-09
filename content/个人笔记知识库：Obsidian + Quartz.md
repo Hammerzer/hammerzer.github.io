@@ -635,12 +635,59 @@ quartz-v5/
 $sidePanelWidth: 350px; //320px;380px;侧边栏宽度
 ```
 
-#### 7.5 修改步骤总结
+#### 7.6 修复头像路径问题
 
-1. 优化 UserProfile 组件，添加点击跳转首页功能
-2. 调整 CustomStyles 中链接样式，防止 UserProfile 中的链接出现下划线
-3. 在 quartz.layout.ts 中注释掉 PageTitle 组件，保留 UserProfile 组件
-4. 调整 variables.scss 中侧边栏宽度变量，提升视觉体验
+**问题描述**:
+- 推送到 GitHub Pages 后，左侧边栏头像不显示
+- 头像路径使用硬编码的 `/static/avatar.png`，导致在某些路径下无法正确加载
+
+**问题分析**:
+- 在 `UserProfile.tsx` 组件中，头像路径硬编码为 `/static/avatar.png`
+- 当页面不在根路径时，这个绝对路径会导致资源找不到
+- 需要使用动态计算的根路径来构建正确的静态资源路径
+
+**修复方案**:
+
+**修改文件**: `quartz/components/UserProfile.tsx`
+
+```tsx
+// 原代码
+<img src="/static/avatar.png" alt="头像" class="avatar" />
+
+// 修复后代码
+<img src={`${baseDir}/static/avatar.png`} alt="头像" class="avatar" />
+```
+
+**完整修改过程**:
+
+1. 确保已导入 `pathToRoot` 函数：
+   ```tsx
+   import { pathToRoot } from "../util/path"
+   ```
+
+2. 计算根路径：
+   ```tsx
+   const baseDir = pathToRoot(fileData.slug!)
+   ```
+
+3. 使用动态路径加载头像：
+   ```tsx
+   <img src={`${baseDir}/static/avatar.png`} alt="头像" class="avatar" />
+   ```
+
+**注意事项**:
+
+1. 确保头像文件存在于正确位置：`quartz/static/avatar.png`
+2. 如果头像文件名或路径变更，需要同步更新组件中的路径
+3. 对于使用不同部署方式的用户，可能需要调整 baseUrl 配置
+
+**修改日志**:
+- **日期**: 2026-02-09
+- **修改内容**: 修复了 UserProfile 组件中头像路径硬编码问题
+- **解决方案**: 使用 pathToRoot 函数动态计算根路径，构建正确的资源路径
+- **验证结果**: 本地构建和预览测试通过
+
+
 
 ### 8. 添加阅读进度条
 
