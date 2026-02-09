@@ -16,7 +16,7 @@ const UserProfile: QuartzComponent = ({ cfg, fileData }: QuartzComponentProps) =
       <div class="profile-header">
         <div class="avatar-container">
           <a href={baseDir}>
-            <img src="/static/avatar.png" alt="头像" class="avatar" />
+            <img src={`${baseDir}/static/avatar.png`} alt="头像" class="avatar" />
           </a>
         </div>
         <div class="site-info">
