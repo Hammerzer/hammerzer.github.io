@@ -201,11 +201,11 @@ git push -u origin main
 1.  **编辑内容**：在 `content/` 目录下编辑 Markdown 文件
 2.  **本地预览**：运行 `npx quartz build --serve` 预览效果
 3.  **提交推送**：
-        ```BASH
+```BASH
     git add .
     git commit -m "更新内容描述"
     git push github-pages main:main
-    ```
+```
 4.  **自动部署**：GitHub Actions 自动构建并部署网站
 
 ## 六 🔧 Quartz 配置详解与站点美化
@@ -1018,6 +1018,195 @@ plugins: {
 4. **头像特殊处理**：如果需要修改头像的懒加载行为，可以修改 `ImageLazyLoad.tsx` 组件中的选择器。
 
 ### 10. 优化移动端适配
+
+#### 10.1 问题识别与分析
+在移动设备上查看 Quartz 站点时，发现以下主要问题：
+- 头像和简介框在移动端固定在顶部，占用过多空间
+- 页面边距过小，内容贴近屏幕边缘
+- 响应式设计不够完善，部分组件在移动端显示不佳
+
+#### 10.2 优化方案
+
+##### 10.2.1 响应式断点优化
+**修改文件**：`quartz/styles/variables.scss`
+
+```scss
+// 简化的断点别名（基于方向的响应式设计）
+$mobile: "(orientation: portrait)"; // 所有竖屏设备（包括手机、平板竖屏）
+$landscape: "(orientation: landscape)"; // 所有横屏设备
+$tablet: "(min-width: 1025px) and (max-width: #{map.get($breakpoints, xl)})"; // 平板横屏 (1025px - 1200px)
+$desktop: $xl; // > 1200px
+```
+
+**优化效果**：
+- 所有竖屏设备（包括手机、平板竖屏）都将显示相同的布局风格
+- 横屏设备保持原有的桌面端风格
+- 解决了平板竖屏（如 iPad Pro 1024x1366）的适配问题
+
+##### 10.2.2 页面边距优化
+**修改文件**：`quartz/styles/base.scss` 和 `quartz/components/CustomStyles.tsx`
+
+```scss
+// 增强页面整体边距（base.scss）
+    // 网页边距 - 确保所有屏幕尺寸都有足够的边距
+    @media (max-width: 1199px) {
+      padding: 0 3rem;
+    }
+
+    @media (min-width: 800px) and (max-width: 1199px) {
+      padding: 0 3rem;
+    }
+
+    @media (min-width: 640px) and (max-width: 799px) {
+      padding: 0 2.5rem;
+    }
+
+    @media (min-width: 480px) and (max-width: 639px) {
+      padding: 0 2rem;
+    }
+
+    @media (max-width: 479px) {
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+```
+
+```css
+/* 增强页面整体边距（CustomStyles.tsx） */
+.page {
+  max-width: 1600px; // 增加最大宽度
+  margin: 0 auto;
+}
+
+.page > #quartz-body {
+  /* 确保移动端有足够的边距 */
+  @media (max-width: 479px) {
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 480px) and (max-width: 639px) {
+    padding: 0 2rem;
+  }
+
+  @media (min-width: 640px) and (max-width: 799px) {
+    padding: 0 2.5rem;
+  }
+
+  @media (min-width: 800px) and (max-width: 1199px) {
+    padding: 0 3rem;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 0 3.5rem;
+  }
+}
+```
+
+##### 10.2.3 左侧边栏布局优化
+**修改文件**：`quartz/styles/base.scss`
+
+```scss
+    & .sidebar.left {
+      z-index: 1;
+      grid-area: grid-sidebar-left;
+      flex-direction: column;
+      @media all and ($mobile) {
+        gap: 0;
+        align-items: center;
+        position: initial;
+        display: flex;
+        height: unset;
+        flex-direction: column; // 改为垂直排列，避免水平排列导致的布局问题
+        padding: 0;
+        padding-top: 2rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+```
+
+**优化效果**：
+- 左侧边栏在竖屏设备上垂直排列
+- 头像区卡片不再固定在顶部，会随页面滚动
+- 提供更好的移动端阅读体验
+
+##### 10.2.4 网格布局间距优化
+**修改文件**：`quartz/styles/variables.scss`
+
+```scss
+// 超小屏幕网格布局 (xs)
+$xsGrid: (
+  templateRows: "auto auto auto auto auto",
+  templateColumns: "auto",
+  rowGap: "1rem",
+  columnGap: "1rem",
+  templateAreas:
+    '"grid-sidebar-left"
+      "grid-header"
+      "grid-center"
+      "grid-sidebar-right"
+      "grid-footer"',
+);
+
+// 小屏幕网格布局 (sm)
+$smGrid: (
+  templateRows: "auto auto auto auto auto",
+  templateColumns: "auto",
+  rowGap: "1rem",
+  columnGap: "1rem",
+  templateAreas:
+    '"grid-sidebar-left"
+      "grid-header"
+      "grid-center"
+      "grid-sidebar-right"
+      "grid-footer"',
+);
+```
+
+**优化效果**：
+- 增大了移动端网格布局的间距
+- 提高了内容的可读性和美观性
+
+##### 10.2.5 搜索组件定位优化
+**修改文件**：`quartz/components/styles/explorer.scss`
+
+```scss
+// Mobile explorer styling - remove sticky positioning to allow scroll
+.sidebar.left:has(.explorer) {
+  box-sizing: border-box;
+  position: initial; // 改为初始定位，允许随页面滚动
+  background-color: var(--light);
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+}
+```
+
+**优化效果**：
+- 探索者组件在移动端不再固定在顶部
+- 允许整个侧边栏随页面内容一起滚动
+
+#### 10.3 验证方法
+1. 重新构建项目：
+   ```bash
+   npx quartz build
+   ```
+2. 预览网站：
+   ```bash
+   npx quartz build --serve
+   ```
+3. 检查移动适配效果：
+   - 调整浏览器窗口大小到不同尺寸
+   - 使用开发者工具模拟不同设备
+   - 测试竖屏和横屏显示效果
+
+#### 10.4 优化结果总结
+通过以上优化，移动端显示效果得到了显著改善：
+- 头像和简介框在竖屏设备上不再固定，随页面滚动
+- 页面边距在所有屏幕尺寸上都有适当的空间
+- 响应式设计更加完善，适应不同设备的显示需求
+- 整体布局更加美观和易于阅读
+
+这些优化确保了 Quartz 站点在移动设备上提供良好的用户体验，无论用户使用的是手机还是平板设备。
+
 
 ## 七 ⚠️ 注意事项与高级配置
 
