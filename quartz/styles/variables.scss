@@ -22,9 +22,10 @@ $md: "(min-width: #{map.get($breakpoints, sm)}) and (max-width: #{map.get($break
 $lg: "(min-width: #{map.get($breakpoints, md)}) and (max-width: #{map.get($breakpoints, xl)})";
 $xl: "(min-width: #{map.get($breakpoints, xl)})";
 
-// 简化的断点别名
-$mobile: "(max-width: #{map.get($breakpoints, md)})"; // < 800px
-$tablet: "(min-width: #{map.get($breakpoints, md)}) and (max-width: #{map.get($breakpoints, xl)})"; // 800px - 1200px
+// 简化的断点别名（基于方向的响应式设计）
+$mobile: "(orientation: portrait)"; // 所有竖屏设备（包括手机、平板竖屏）
+$landscape: "(orientation: landscape)"; // 所有横屏设备
+$tablet: "(min-width: 1025px) and (max-width: #{map.get($breakpoints, xl)})"; // 平板横屏 (1025px - 1200px)
 $desktop: $xl; // > 1200px
 
 $pageWidth: #{map.get($breakpoints, md)};

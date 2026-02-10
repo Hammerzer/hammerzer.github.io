@@ -12,10 +12,10 @@
       transition: transform 300ms ease-in-out;
     }
 
-    // Sticky top bar (stays in place when scrolling down on mobile).
+    // Mobile explorer styling - remove sticky positioning to allow scroll
     .sidebar.left:has(.explorer) {
       box-sizing: border-box;
-      position: sticky;
+      position: initial; // 改为初始定位，允许随页面滚动
       background-color: var(--light);
       padding: 1rem 0 1rem 0;
       margin: 0;
