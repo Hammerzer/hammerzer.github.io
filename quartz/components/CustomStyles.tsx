@@ -303,12 +303,12 @@ const CustomStyles: QuartzComponent = () => {
 
         /* 图片懒加载动画 */
         img:not(.loaded):not(.avatar) {
-          opacity: 1;
+          filter: blur(2px);
         }
 
         img.loaded {
-          opacity: 1;
-          transition: opacity 0.3s ease;
+          filter: blur(0);
+          transition: filter 0.3s ease;
         }
 
         /* 页脚样式优化 */

@@ -27,6 +27,7 @@ import UserProfile from "./UserProfile"
 import CustomStyles from "./CustomStyles"
 import ReadingProgress from "./ReadingProgress"
 import ReadingProgressScript from "./ReadingProgressScript"
+import ImageLazyLoad from "./ImageLazyLoad"
 
 export {
   ArticleTitle,
@@ -58,4 +59,5 @@ export {
   CustomStyles,
   ReadingProgress,
   ReadingProgressScript,
+  ImageLazyLoad,
 }

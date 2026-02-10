@@ -860,7 +860,8 @@ img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  margin: 1rem 0;
+  margin: 1rem auto;
+  display: block;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
@@ -871,7 +872,7 @@ img:hover {
 }
 
 /* 图片懒加载动画 */
-img:not(.loaded) {
+img:not(.loaded):not(.avatar) {
   filter: blur(2px);
 }
 
@@ -886,7 +887,7 @@ img.loaded {
 **新增文件**：`quartz/components/ImageLazyLoad.tsx`
 
 ```tsx
-import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import { QuartzComponent, QuartzComponentConstructor } from "./types"
 
 const ImageLazyLoad: QuartzComponent = () => {
   return (
@@ -894,20 +895,10 @@ const ImageLazyLoad: QuartzComponent = () => {
       __html: `
         document.addEventListener('DOMContentLoaded', () => {
           const images = document.querySelectorAll('img:not(.avatar)')
-          const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                const img = entry.target as HTMLImageElement
-                img.src = img.dataset.src || img.src
-                img.classList.add('loaded')
-                imageObserver.unobserve(img)
-              }
-            })
-          })
+
+          // 为所有图片添加 loaded 类，因为 CrawlLinks 插件已经添加了 loading="lazy" 属性
           images.forEach(img => {
-            img.dataset.src = img.src
-            img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjZjZmNmY2Ii8+CjxyZWN0IHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+Cjx0ZXh0IHg9IjMwIiB5PSIzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSJ3aGl0ZSI+5aSn6L+OPC90ZXh0Pgo8L3N2Zz4K'
-            imageObserver.observe(img)
+            img.classList.add('loaded')
           })
         })
       `
@@ -924,65 +915,12 @@ export default (() => ImageLazyLoad) satisfies QuartzComponentConstructor
 
 ```typescript
 import Content from "./pages/Content"
-import TagContent from "./pages/TagContent"
-import FolderContent from "./pages/FolderContent"
-import NotFound from "./pages/404"
-import ArticleTitle from "./ArticleTitle"
-import Darkmode from "./Darkmode"
-import ReaderMode from "./ReaderMode"
-import Head from "./Head"
-import PageTitle from "./PageTitle"
-import ContentMeta from "./ContentMeta"
-import Spacer from "./Spacer"
-import TableOfContents from "./TableOfContents"
-import Explorer from "./Explorer"
-import TagList from "./TagList"
-import Graph from "./Graph"
-import Backlinks from "./Backlinks"
-import Search from "./Search"
-import Footer from "./Footer"
-import DesktopOnly from "./DesktopOnly"
-import MobileOnly from "./MobileOnly"
-import RecentNotes from "./RecentNotes"
-import Breadcrumbs from "./Breadcrumbs"
-import Comments from "./Comments"
-import Flex from "./Flex"
-import ConditionalRender from "./ConditionalRender"
-import UserProfile from "./UserProfile"
-import CustomStyles from "./CustomStyles"
-import ReadingProgress from "./ReadingProgress"
-import ReadingProgressScript from "./ReadingProgressScript"
+// ......
 import ImageLazyLoad from "./ImageLazyLoad"
 
 export {
   ArticleTitle,
-  Content,
-  TagContent,
-  FolderContent,
-  Darkmode,
-  ReaderMode,
-  Head,
-  PageTitle,
-  ContentMeta,
-  Spacer,
-  TableOfContents,
-  Explorer,
-  TagList,
-  Graph,
-  Backlinks,
-  Search,
-  Footer,
-  DesktopOnly,
-  MobileOnly,
-  RecentNotes,
-  NotFound,
-  Breadcrumbs,
-  Comments,
-  Flex,
-  ConditionalRender,
-  UserProfile,
-  CustomStyles,
-  ReadingProgress,
+// ......
   ReadingProgressScript,
   ImageLazyLoad,
 }
@@ -1002,7 +940,7 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [
     Component.CustomStyles(),
     Component.ReadingProgressScript(),
-    Component.ImageLazyLoad(),
+    Component.ImageLazyLoad(), // 添加图片懒加载组件
   ],
   footer: Component.Footer({
     links: {
@@ -1014,13 +952,35 @@ export const sharedPageComponents: SharedLayout = {
 
 #### 9.3 功能实现原理
 
-1. **图片懒加载**：使用 Intersection Observer API 监听图片是否进入视口，只有当图片进入视口时才会加载实际图片。
-2. **头像特殊处理**：左上角头像（带有 `.avatar` 类）不会被懒加载，会直接显示，提升用户体验。
-3. **占位图**：图片加载前显示一个模糊的 SVG 占位图，提高用户体验。这就是为什么你会看到模糊图片的原因。
+项目实现了双重图片懒加载机制：
+
+1. **编译时懒加载**：使用 `CrawlLinks` 插件在编译时为所有图片添加 `loading="lazy"` 属性（浏览器原生支持）
+2. **运行时动画**：使用 `ImageLazyLoad` 组件在页面加载完成后为所有图片添加 `loaded` 类，触发加载动画
+3. **头像特殊处理**：左上角头像（带有 `.avatar` 类）不会被懒加载，会直接显示，提升用户体验。
 4. **加载动画**：图片加载完成后添加 `loaded` 类，触发模糊到清晰的过渡效果。
 5. **响应式设计**：图片使用 `max-width: 100%` 确保在不同设备上都能良好显示。
 6. **视觉效果**：添加了圆角、阴影和悬停效果，提升图片的视觉吸引力。
 7. **居中显示**：图片设置为块级元素并使用 `margin: 1rem auto` 实现内容区居中显示。
+
+##### 9.3.1 CrawlLinks 插件配置
+
+在 `quartz.config.ts` 文件中启用 `CrawlLinks` 插件的 `lazyLoad` 选项：
+
+```typescript
+// quartz.config.ts
+plugins: {
+  transformers: [
+    // 其他插件...
+    Plugin.CrawlLinks({
+      markdownLinkResolution: "shortest",
+      lazyLoad: true, // 启用图片懒加载
+    }),
+    // 其他插件...
+  ],
+}
+```
+
+该插件会在编译时为所有 img 标签添加 `loading="lazy"` 属性，这是浏览器原生支持的懒加载方式，兼容性好，性能优秀。
 
 #### 9.4 验证方法
 
@@ -1033,12 +993,31 @@ export const sharedPageComponents: SharedLayout = {
    npx quartz build --serve
    ```
 3. 检查图片加载：在浏览器中打开网站，观察图片是否懒加载，是否有加载动画。
+4. 检查 HTML 源码：
+   - 打开浏览器开发者工具（F12）
+   - 检查图片标签是否包含 `loading="lazy"` 属性
+   - 检查文章内容中的图片是否有模糊占位图效果
+   - 检查头像图片（带有 `.avatar` 类）是否没有懒加载属性
+
+例如，文章内容中的图片应该如下所示：
+```html
+<img src="./index/yellow_boy.gif" alt="yellow_boy" loading="lazy"/>
+```
+
+头像图片应该如下所示：
+```html
+<img src="./static/avatar.png" alt="头像" class="avatar"/>
+```
 
 #### 9.5 注意事项
 
-1. 图片懒加载需要浏览器支持 Intersection Observer API，现代浏览器都支持。
-2. 如果需要支持旧浏览器，可以添加 polyfill。
-3. 图片的加载速度还受到图片大小和网络条件的影响，可以考虑使用图片压缩和 CDN 加速。
+1. **双重懒加载机制**：项目同时使用了浏览器原生的 `loading="lazy"` 属性和 CSS 加载动画，确保了良好的兼容性和用户体验。
+2. **浏览器兼容性**：图片懒加载需要浏览器支持 `loading="lazy"` 属性，现代浏览器都支持。
+3. **图片格式和大小**：图片的加载速度还受到图片大小和网络条件的影响，可以考虑使用图片压缩和 CDN 加速。
+4. **头像特殊处理**：如果需要修改头像的懒加载行为，可以修改 `ImageLazyLoad.tsx` 组件中的选择器。
+
+### 10. 优化移动端适配
+
 
 ## 七 ⚠️ 注意事项与高级配置
 

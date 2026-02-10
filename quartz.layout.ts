@@ -9,7 +9,8 @@ export const sharedPageComponents: SharedLayout = {
   ],
   afterBody: [
     Component.CustomStyles(),
-    Component.ReadingProgressScript()
+    Component.ReadingProgressScript(),
+    Component.ImageLazyLoad(),
   ],
   footer: Component.Footer({
     links: {
