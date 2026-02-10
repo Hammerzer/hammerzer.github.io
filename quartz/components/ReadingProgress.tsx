@@ -1,4 +1,4 @@
-import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import { QuartzComponent, QuartzComponentConstructor } from "./types"
 
 const ReadingProgress: QuartzComponent = () => {
   return (
@@ -17,6 +17,10 @@ ReadingProgress.css = `
   height: 3px;
   background: var(--lightgray);
   z-index: 9999;
+
+  @media (max-width: 480px) {
+    height: 2px;
+  }
 }
 
 .progress-bar {
@@ -27,6 +31,10 @@ ReadingProgress.css = `
   height: 3px;
   background: var(--secondary);
   transition: width 0.2s ease;
+
+  @media (max-width: 480px) {
+    height: 2px;
+  }
 }
 `
 

@@ -27,9 +27,9 @@ const config: QuartzConfig = {
         // header: "Schibsted Grotesk",
         // body: "Source Sans Pro",
         // code: "IBM Plex Mono",
-        header: "Noto Sans SC",      // 思源黑体（中文标题）
-        body: "Noto Sans SC",        // 思源黑体（中文正文）
-        code: "Fira Code",           // 带连字符的等宽字体
+        header: "Noto Sans SC", // 思源黑体（中文标题）
+        body: "Noto Sans SC", // 思源黑体（中文正文）
+        code: "Fira Code", // 带连字符的等宽字体
       },
       colors: {
         lightMode: {

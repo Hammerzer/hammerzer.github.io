@@ -3,8 +3,17 @@
 .search {
   min-width: fit-content;
   max-width: 14rem;
-  @media all and ($mobile) {
+  @media all and ($md) {
     flex-grow: 0.3;
+  }
+
+  @media all and ($sm) {
+    max-width: 10rem;
+  }
+
+  @media all and ($xs) {
+    max-width: 8rem;
+    flex-grow: 0.2;
   }
 
   & > .search-button {
@@ -85,6 +94,11 @@
         color: var(--dark);
         font-size: 1.1em;
         border: 1px solid var(--lightgray);
+
+        @media all and ($xs) {
+          font-size: 1em;
+          padding: 0.4em 0.8em;
+        }
 
         &:focus {
           outline: none;
@@ -186,6 +200,10 @@
             display: block;
             box-sizing: border-box;
 
+            @media all and ($xs) {
+              padding: 0.8em;
+            }
+
             // normalize card props
             font-family: inherit;
             font-size: 100%;
@@ -204,6 +222,10 @@
 
             & > h3 {
               margin: 0;
+
+              @media all and ($xs) {
+                font-size: 0.95rem;
+              }
             }
 
             @media all and not ($mobile) {

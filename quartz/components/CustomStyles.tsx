@@ -2,8 +2,9 @@ import { QuartzComponent, QuartzComponentConstructor } from "./types"
 
 const CustomStyles: QuartzComponent = () => {
   return (
-    <style dangerouslySetInnerHTML={{
-      __html: `
+    <style
+      dangerouslySetInnerHTML={{
+        __html: `
         /* 搜索框自定义样式 */
         .search-bar {
           background: var(--light) !important;
@@ -66,7 +67,7 @@ const CustomStyles: QuartzComponent = () => {
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
         }
 
-        /* 深色模式适配 */
+        /* 深色模式适配 - 搜索组件 */
         body[data-theme="dark"] .search-bar {
           background: var(--darkgray) !important;
           border-color: var(--light) !important;
@@ -90,13 +91,6 @@ const CustomStyles: QuartzComponent = () => {
         body[data-theme="dark"] .search-layout {
           border-color: var(--light) !important;
         }
-
-        // /* 页面布局优化 */
-        // .page {
-        //   max-width: 1200px !important;
-        //   margin: 0 auto !important;
-        //   padding: 0 1rem !important;
-        // }
 
         /* 文章标题样式 */
         .article-title {
@@ -149,6 +143,7 @@ const CustomStyles: QuartzComponent = () => {
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
         }
 
+        /* 深色模式适配 - 标签 */
         body[data-theme="dark"] .tag-link {
           background: var(--darkgray) !important;
           color: var(--light) !important;
@@ -159,8 +154,8 @@ const CustomStyles: QuartzComponent = () => {
           color: var(--light) !important;
         }
 
-        /* 响应式设计 */
-        @media (max-width: 768px) {
+        /* 响应式设计 - 中等屏幕 */
+        @media (max-width: 800px) {
           .article-title {
             font-size: 2rem !important;
           }
@@ -180,6 +175,37 @@ const CustomStyles: QuartzComponent = () => {
           }
         }
 
+        /* 响应式设计 - 小屏幕 */
+        @media (max-width: 640px) {
+          .article-title {
+            font-size: 1.85rem !important;
+          }
+
+          .search-bar {
+            padding: 0.55rem 0.9rem !important;
+            font-size: 0.875rem !important;
+          }
+
+          .search-result-item {
+            padding: 0.8rem 0.9rem !important;
+          }
+
+          .content-meta {
+            font-size: 0.825rem !important;
+            gap: 0.6rem !important;
+          }
+
+          .tags {
+            gap: 0.45rem !important;
+          }
+
+          .tag-link {
+            padding: 0.375rem 0.75rem !important;
+            font-size: 0.775rem !important;
+          }
+        }
+
+        /* 响应式设计 - 超小屏幕 */
         @media (max-width: 480px) {
           .article-title {
             font-size: 1.75rem !important;
@@ -229,7 +255,7 @@ const CustomStyles: QuartzComponent = () => {
           font-size: 0.9em !important;
         }
 
-        /* blockquote 样式优化 */
+        /* 引用块样式优化 */
         blockquote {
           border-left: 4px solid var(--secondary) !important;
           padding: 1rem 1.5rem !important;
@@ -269,7 +295,9 @@ const CustomStyles: QuartzComponent = () => {
         }
 
         /* 卡片样式优化 */
-        .explorer, .graph, .toc {
+        .explorer,
+        .graph,
+        .toc {
           border-radius: 16px !important;
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
           padding: 1rem !important;
@@ -324,8 +352,69 @@ const CustomStyles: QuartzComponent = () => {
         body[data-theme="dark"] footer {
           border-color: var(--light) !important;
         }
-      `
-    }} />
+
+        /* 增强页面整体边距 */
+        .page {
+          max-width: 1600px; // 增加最大宽度
+          margin: 0 auto;
+        }
+
+        .page > #quartz-body {
+          /* 确保移动端有足够的边距 */
+          @media (max-width: 479px) {
+            padding: 0 1.5rem;
+          }
+
+          @media (min-width: 480px) and (max-width: 639px) {
+            padding: 0 2rem;
+          }
+
+          @media (min-width: 640px) and (max-width: 799px) {
+            padding: 0 2.5rem;
+          }
+
+          @media (min-width: 800px) and (max-width: 1199px) {
+            padding: 0 3rem;
+          }
+
+          @media (min-width: 1200px) {
+            padding: 0 3.5rem;
+          }
+        }
+
+        /* 优化内容区块垂直间距 */
+        .page-header {
+          margin-bottom: 2rem;
+        }
+
+        .page-footer {
+          margin-top: 3rem;
+          padding-top: 2rem;
+        }
+
+        /* 优化段落和列表间距 */
+        article p {
+          margin-bottom: 1.25rem;
+        }
+
+        article ul,
+        article ol {
+          margin-bottom: 1.25rem;
+          padding-left: 1.5rem;
+        }
+
+        /* 优化引用和代码块 */
+        blockquote {
+          margin: 1.5rem 0;
+          padding: 1rem 1.5rem;
+        }
+
+        pre {
+          margin: 1.5rem 0;
+        }
+      `,
+      }}
+    />
   )
 }
 

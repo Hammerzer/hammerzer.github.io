@@ -20,6 +20,7 @@ tags:
 [[Obsidian]] 是一款强大的本地知识管理工具，支持双向链接、Markdown 编辑和丰富的插件生态。
 
 [[Quartz]] 是一个基于 Hugo 的静态站点生成器，可以将 Obsidian 笔记转换成美观的网站，支持：
+
 - 快速构建和部署
 - 响应式设计
 - 全文搜索
@@ -32,11 +33,11 @@ tags:
 
 确保已安装以下工具：
 
-| 工具 | 用途 | 下载地址 |
-|------|------|----------|
-| Git | 版本控制 | https://git-scm.com/ |
-| Node.js | 运行环境（需要 v18+） | https://nodejs.org/ |
-| Obsidian | 笔记编辑器 | https://obsidian.md/ |
+| 工具     | 用途                  | 下载地址             |
+| -------- | --------------------- | -------------------- |
+| Git      | 版本控制              | https://git-scm.com/ |
+| Node.js  | 运行环境（需要 v18+） | https://nodejs.org/  |
+| Obsidian | 笔记编辑器            | https://obsidian.md/ |
 
 ### 2. 克隆 Quartz 项目
 
@@ -54,11 +55,11 @@ npx quartz build # 本地构建
 ```typescript
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "你的站点名称",        // 修改这里
-    baseUrl: "yourname.github.io",   // 改为你的GitHub Pages域名
-    locale: "zh-CN",                 // 设置为中文
+    pageTitle: "你的站点名称", // 修改这里
+    baseUrl: "yourname.github.io", // 改为你的GitHub Pages域名
+    locale: "zh-CN", // 设置为中文
     // ... 其他配置
-  }
+  },
 }
 ```
 
@@ -98,7 +99,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install Dependencies
         run: npm ci
@@ -131,13 +132,14 @@ jobs:
 既然要在 Github Page 中部署，那需要一个空的仓库是必备的：
 
 1. 删除 GitHub 旧仓库 + 新建同名空仓库（网页操作，已确认数据不重要）
-	1. 删旧仓库：https://github.com/Hammerzer/hammerzer.github.io → Settings → 最底部删除；
+   1. 删旧仓库：https://github.com/Hammerzer/hammerzer.github.io → Settings → 最底部删除；
 2. 新建仓库：
-	- 名称：`hammerzer.github.io`
-    - 公开（Public）
-    - ❌ 不勾选任何初始化选项（README/.gitignore/ 许可证），创建空仓库。
+   - 名称：`hammerzer.github.io`
+   - 公开（Public）
+   - ❌ 不勾选任何初始化选项（README/.gitignore/ 许可证），创建空仓库。
 3. 本地处理（重命名分支 + 推送）
-	1. 打开 PowerShell，进入 `quartz-v5` 目录：
+   1. 打开 PowerShell，进入 `quartz-v5` 目录：
+
 ```
 # 1. 进入本地quartz-v5目录
 cd D:\Work_Area\quartz-v5
@@ -160,7 +162,6 @@ git commit -m "init quartz v5"
 git push -u origin main
 ```
 
-
 ## 三 ⚙️ GitHub 仓库设置
 
 ### 1. 启用 GitHub Pages
@@ -175,9 +176,9 @@ git push -u origin main
 
 1. 在 Settings 页面，找到 "Actions" → "General"
 2. 确保以下设置：
-    - Actions permissions: "Allow all actions and reusable workflows"
-    - Workflow permissions: "Read and write permissions"
-    - 勾选 "Allow GitHub Actions to create and approve pull requests"
+   - Actions permissions: "Allow all actions and reusable workflows"
+   - Workflow permissions: "Read and write permissions"
+   - 勾选 "Allow GitHub Actions to create and approve pull requests"
 
 ## 四 🚀 部署验证
 
@@ -197,17 +198,15 @@ git push -u origin main
 
 配置完成后，你的日常工作流程：
 
-1. **编辑内容**：在 `content/` 目录下编辑 Markdown 文件
-2. **本地预览**：运行 `npx quartz build --serve` 预览效果
-3. **提交推送**：
-    
-    ```BASH
-git add .
-git commit -m "更新内容描述"
-git push github-pages main:main
+1.  **编辑内容**：在 `content/` 目录下编辑 Markdown 文件
+2.  **本地预览**：运行 `npx quartz build --serve` 预览效果
+3.  **提交推送**：
+        ```BASH
+    git add .
+    git commit -m "更新内容描述"
+    git push github-pages main:main
     ```
-    
-4. **自动部署**：GitHub Actions 自动构建并部署网站
+4.  **自动部署**：GitHub Actions 自动构建并部署网站
 
 ## 六 🔧 Quartz 配置详解与站点美化
 
@@ -217,10 +216,10 @@ git push github-pages main:main
 
 Quartz 主要有两个核心配置文件：
 
-| 文件 | 作用 | 主要内容 |
-|------|------|----------|
+| 文件               | 作用     | 主要内容                     |
+| ------------------ | -------- | ---------------------------- |
 | `quartz.config.ts` | 全局配置 | 站点信息、主题颜色、插件设置 |
-| `quartz.layout.ts` | 布局配置 | 页面组件、侧边栏、导航结构 |
+| `quartz.layout.ts` | 布局配置 | 页面组件、侧边栏、导航结构   |
 
 ### 2. quartz.config.ts 详解
 
@@ -241,7 +240,6 @@ configuration: {
   defaultDateType: "modified",         // 默认日期类型（created/modified）
 }
 ```
-
 
 #### 2.2 主题配置（Theme）
 
@@ -277,6 +275,7 @@ colors: {
 ```
 
 > **🎨 中文技术博客配色方案（极简蓝风）**
+>
 > ```typescript
 > colors: {
 >   lightMode: {
@@ -306,11 +305,11 @@ colors: {
 
 #### 2.3 插件配置（Plugins）
 
-| 类型           | 作用             | 常用插件                                   |
-| ------------ | -------------- | -------------------------------------- |
+| 类型         | 作用               | 常用插件                               |
+| ------------ | ------------------ | -------------------------------------- |
 | Transformers | 处理 Markdown 内容 | FrontMatter, SyntaxHighlighting, Latex |
-| Filters      | 控制生成哪些页面       | RemoveDrafts                           |
-| Emitters     | 生成不同类型的页面      | ContentPage, FolderPage, TagPage       |
+| Filters      | 控制生成哪些页面   | RemoveDrafts                           |
+| Emitters     | 生成不同类型的页面 | ContentPage, FolderPage, TagPage       |
 
 ### 3. quartz.layout.ts 详解
 
@@ -318,12 +317,13 @@ colors: {
 
 ```typescript
 export const sharedPageComponents: SharedLayout = {
-  head: Component.Head(),           // <head> 部分
-  header: [],                       // 顶部导航（空数组 = 无顶部栏）
-  afterBody: [],                    // 内容区域之后
-  footer: Component.Footer({        // 页脚
+  head: Component.Head(), // <head> 部分
+  header: [], // 顶部导航（空数组 = 无顶部栏）
+  afterBody: [], // 内容区域之后
+  footer: Component.Footer({
+    // 页脚
     links: {
-      "GitHub": "https://github.com/Hammerzer",
+      GitHub: "https://github.com/Hammerzer",
     },
   }),
 }
@@ -333,40 +333,44 @@ export const sharedPageComponents: SharedLayout = {
 
 ```typescript
 export const defaultContentPageLayout: PageLayout = {
-  beforeBody: [              // 内容之前
-    Component.Breadcrumbs(),  // 面包屑导航
+  beforeBody: [
+    // 内容之前
+    Component.Breadcrumbs(), // 面包屑导航
     Component.ArticleTitle(), // 文章标题
-    Component.ContentMeta(),  // 元信息（日期、阅读时间）
-    Component.TagList(),      // 标签列表
+    Component.ContentMeta(), // 元信息（日期、阅读时间）
+    Component.TagList(), // 标签列表
   ],
-  left: [                    // 左侧边栏
+  left: [
+    // 左侧边栏
     Component.PageTitle(),
-    Component.Search(),       // 搜索框
-    Component.Darkmode(),     // 深色模式切换
-    Component.Explorer(),     // 文件目录树
+    Component.Search(), // 搜索框
+    Component.Darkmode(), // 深色模式切换
+    Component.Explorer(), // 文件目录树
   ],
-  right: [                   // 右侧边栏
-    Component.Graph(),       // 双向链接图谱
-    Component.TableOfContents(),  // 目录
-    Component.Backlinks(),   // 反向链接
+  right: [
+    // 右侧边栏
+    Component.Graph(), // 双向链接图谱
+    Component.TableOfContents(), // 目录
+    Component.Backlinks(), // 反向链接
   ],
 }
 ```
 
 ### 4. 常用组件说明
 
-| 组件                  | 位置    | 作用     | 建议场景        |
-| ------------------- | ----- | ------ | ----------- |
-| `Search()`          | left  | 全文搜索框  | 强烈推荐        |
-| `Darkmode()`        | left  | 深色模式切换 | 强烈推荐        |
-| `Explorer()`        | left  | 文件目录树  | 推荐用于知识库     |
+| 组件                | 位置  | 作用         | 建议场景               |
+| ------------------- | ----- | ------------ | ---------------------- |
+| `Search()`          | left  | 全文搜索框   | 强烈推荐               |
+| `Darkmode()`        | left  | 深色模式切换 | 强烈推荐               |
+| `Explorer()`        | left  | 文件目录树   | 推荐用于知识库         |
 | `Graph()`           | right | 双向链接图谱 | 可选，大型站点建议关闭 |
-| `TableOfContents()` | right | 文章目录   | 强烈推荐        |
-| `Backlinks()`       | right | 反向链接列表 | 可选          |
+| `TableOfContents()` | right | 文章目录     | 强烈推荐               |
+| `Backlinks()`       | right | 反向链接列表 | 可选                   |
 
 ### 5. 配置应用流程
 
 1. **备份原配置**
+
 ```bash
 cp quartz.config.ts quartz.config.ts.bak
 cp quartz.layout.ts quartz.layout.ts.bak
@@ -375,11 +379,13 @@ cp quartz.layout.ts quartz.layout.ts.bak
 2. **修改配置文件**
 
 3. **本地预览效果**
+
 ```bash
 npx quartz build --serve
 ```
 
 4. **确认无误后提交**
+
 ```bash
 git add .
 git commit -m "美化站点配置"
@@ -400,29 +406,31 @@ git push
 
 **新增文件**：
 
-| 文件                                      | 说明                     |
-| ----------------------------------------- | ---------------------- |
-| `quartz/components/UserProfile.tsx`       | 用户资料组件（头像 + 微信）    |
-| `quartz/components/CustomStyles.tsx`      | 自定义搜索框样式              |
-| `quartz/static/avatar.png`                | 头像图片（需要手动放置）          |
-| `static/README.md`                        | 静态资源目录说明（已废弃，仅作参考）  |
+| 文件                                 | 说明                                 |
+| ------------------------------------ | ------------------------------------ |
+| `quartz/components/UserProfile.tsx`  | 用户资料组件（头像 + 微信）          |
+| `quartz/components/CustomStyles.tsx` | 自定义搜索框样式                     |
+| `quartz/static/avatar.png`           | 头像图片（需要手动放置）             |
+| `static/README.md`                   | 静态资源目录说明（已废弃，仅作参考） |
 
 **修改文件**：
 
-| 文件                               | 修改内容                                 |
-| -------------------------------- | ------------------------------------ |
-| `quartz/components/index.ts`       | 导出 UserProfile 和 CustomStyles 组件        |
-| `quartz/layout.ts`                 | 添加组件到布局，更新页脚链接                      |
+| 文件                         | 修改内容                              |
+| ---------------------------- | ------------------------------------- |
+| `quartz/components/index.ts` | 导出 UserProfile 和 CustomStyles 组件 |
+| `quartz/layout.ts`           | 添加组件到布局，更新页脚链接          |
 
 #### 6.3 UserProfile 组件说明
 
 **功能**：
+
 - 显示圆形头像（80x80px）
 - 显示微信图标和微信号
 - 支持深色模式
 - 头像悬停放大效果
 
 **样式特点**：
+
 - 圆角卡片背景
 - 主题色边框
 - 阴影效果
@@ -431,6 +439,7 @@ git push
 #### 6.4 CustomStyles 组件说明
 
 **功能**：
+
 - 自定义搜索框边框和圆角
 - 聚焦时高亮效果
 - 深色模式适配
@@ -439,12 +448,15 @@ git push
 #### 6.5 布局修改
 
 **sharedPageComponents**：
+
 - `afterBody` 添加 `CustomStyles()` 组件
 
 **defaultContentPageLayout**：
+
 - `left` 添加 `UserProfile()` 组件（位于 PageTitle 之前）
 
 **defaultListPageLayout**：
+
 - `left` 添加 `UserProfile()` 组件（位于 PageTitle 之前）
 
 #### 6.6 使用方法
@@ -517,6 +529,7 @@ quartz-v5/
 ```
 
 访问路径映射：
+
 - 开发环境：`http://localhost:8080/static/avatar.png`
 - 生产环境：`https://hammerzer.github.io/static/avatar.png`
 
@@ -564,56 +577,39 @@ quartz-v5/
 **日期**：2026-02-08
 
 **修改内容**：
+
 - 创建 UserProfile 组件（显示头像和微信联系方式）
 - 创建 CustomStyles 组件（自定义搜索框样式）
 - 更新布局配置，添加新组件到左侧边栏
 - 解决静态资源路径问题（头像不显示）
 
 **遇到的问题**：
+
 1. 头像文件放在了错误的位置（`static/` 而非 `quartz/static/`）
 2. 问题排查过程：检查构建输出、分析 Quartz 静态资源处理机制
 3. 解决方案：将头像文件移动到 `quartz/static/` 目录
 
 **经验总结**：
+
 - Quartz 的静态资源发射器只处理 `quartz/static/` 目录
 - 验证静态资源是否正确复制的方法：检查 `public/static/` 目录
 - 组件中使用 `/static/` 路径访问静态资源
-
-#### 6.9 效果预览
-
-**左侧边栏结构**：
-```
-┌─────────────────┐
-│    [头像]       │ ← UserProfile 组件
-│  ┌───────────┐  │
-│  │  图片    │  │
-│  └───────────┘  │
-│   💬 WeChat     │
-│  YourWeChatID   │
-├─────────────────┤
-│ 求知小新        │ ← PageTitle 组件
-├─────────────────┤
-│ [搜索框] 🌙     │ ← Flex (Search + Darkmode)
-├─────────────────┤
-│ 📁 目录树       │ ← Explorer 组件
-└─────────────────┘
-```
 
 ### 7. 页面布局调整
 
 #### 7.1 优化用户信息展示组件 (UserProfile)
 
 **修改内容**:
+
 - 新增 `pathToRoot` 导入，用于获取当前页面到根路径的相对路径
 - 添加 `baseDir` 变量，通过 `pathToRoot` 函数计算根路径
 - 为头像和网站标题添加点击跳转首页的链接功能
 - 使用内联样式确保链接无下划线和继承颜色
 
-
-
 #### 7.2 优化全局链接样式 (CustomStyles)
 
 **修改内容**:
+
 - 优化了全局链接悬停样式，删除了默认的下划线效果
 - 新增了 `.user-profile a:hover` 选择器，专门针对 UserProfile 组件中的链接进行样式设置
 - 确保 UserProfile 组件中的链接悬停时不显示下划线
@@ -621,27 +617,32 @@ quartz-v5/
 #### 7.3 页面布局调整 (quartz.layout.ts)
 
 **修改内容**:
+
 - 在左侧边栏布局中，注释掉了 PageTitle 组件的引用
 - 保留了 UserProfile 组件，实现了类似的功能但更美观的展示
 
 #### 7.4 样式变量调整 (variables.scss)
 
 **修改内容**:
+
 - 调整了侧边栏宽度变量 `$sidePanelWidth` 从 320px 增加到 350px，提供更宽敞的左侧边栏空间
 - 该调整影响了桌面端和移动端的布局计算
 
 **代码变更**:
+
 ```scss
 $sidePanelWidth: 350px; //320px;380px;侧边栏宽度
 ```
 
-#### 7.6 修复头像路径问题
+#### 7.5 修复头像路径问题
 
 **问题描述**:
+
 - 推送到 GitHub Pages 后，左侧边栏头像不显示
 - 头像路径使用硬编码的 `/static/avatar.png`，导致在某些路径下无法正确加载
 
 **问题分析**:
+
 - 在 `UserProfile.tsx` 组件中，头像路径硬编码为 `/static/avatar.png`
 - 当页面不在根路径时，这个绝对路径会导致资源找不到
 - 需要使用动态计算的根路径来构建正确的静态资源路径
@@ -661,11 +662,13 @@ $sidePanelWidth: 350px; //320px;380px;侧边栏宽度
 **完整修改过程**:
 
 1. 确保已导入 `pathToRoot` 函数：
+
    ```tsx
    import { pathToRoot } from "../util/path"
    ```
 
 2. 计算根路径：
+
    ```tsx
    const baseDir = pathToRoot(fileData.slug!)
    ```
@@ -682,12 +685,11 @@ $sidePanelWidth: 350px; //320px;380px;侧边栏宽度
 3. 对于使用不同部署方式的用户，可能需要调整 baseUrl 配置
 
 **修改日志**:
+
 - **日期**: 2026-02-09
 - **修改内容**: 修复了 UserProfile 组件中头像路径硬编码问题
 - **解决方案**: 使用 pathToRoot 函数动态计算根路径，构建正确的资源路径
 - **验证结果**: 本地构建和预览测试通过
-
-
 
 ### 8. 添加阅读进度条
 
@@ -746,16 +748,18 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 
 const ReadingProgressScript: QuartzComponent = () => {
   return (
-    <script dangerouslySetInnerHTML={{
-      __html: `
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
         window.addEventListener('scroll', () => {
           const scrollTop = document.documentElement.scrollTop
           const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight
           const progress = (scrollTop / scrollHeight) * 100
           document.querySelector('.progress-bar')?.style.setProperty('width', progress + '%')
         })
-      `
-    }} />
+      `,
+      }}
+    />
   )
 }
 
@@ -793,13 +797,8 @@ export {
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [
-    Component.ReadingProgress(),
-  ],
-  afterBody: [
-    Component.CustomStyles(),
-    Component.ReadingProgressScript(),
-  ],
+  header: [Component.ReadingProgress()],
+  afterBody: [Component.CustomStyles(), Component.ReadingProgressScript()],
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/Hammerzer",
@@ -816,7 +815,7 @@ export const sharedPageComponents: SharedLayout = {
    - `scrollTop`：页面滚动的垂直距离
    - `scrollHeight`：页面总高度
    - `clientHeight`：浏览器窗口高度
-   - 进度 = (scrollTop / (scrollHeight - clientHeight)) * 100%
+   - 进度 = (scrollTop / (scrollHeight - clientHeight)) \* 100%
 4. **样式设计**：进度条使用固定定位，始终位于页面顶部，使用主题色作为进度条颜色。
 
 #### 8.4 验证方法
@@ -837,12 +836,12 @@ export const sharedPageComponents: SharedLayout = {
 2. 确保 `ReadingProgressScript` 组件正确导入和导出，否则进度条不会更新。
 3. 进度条使用了固定定位，可能会影响页面的其他元素布局，如有需要可以调整样式。
 
-
 ### 9. 优化图片展示
 
 #### 9.1 功能描述
 
 图片展示优化包括以下功能：
+
 - 图片懒加载：提高页面加载速度，只在图片进入视口时加载
 - 图片样式优化：添加圆角、阴影和悬停效果
 - 响应式设计：确保图片在不同设备上都能良好显示
@@ -891,8 +890,9 @@ import { QuartzComponent, QuartzComponentConstructor } from "./types"
 
 const ImageLazyLoad: QuartzComponent = () => {
   return (
-    <script dangerouslySetInnerHTML={{
-      __html: `
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
         document.addEventListener('DOMContentLoaded', () => {
           const images = document.querySelectorAll('img:not(.avatar)')
 
@@ -901,8 +901,9 @@ const ImageLazyLoad: QuartzComponent = () => {
             img.classList.add('loaded')
           })
         })
-      `
-    }} />
+      `,
+      }}
+    />
   )
 }
 
@@ -920,7 +921,7 @@ import ImageLazyLoad from "./ImageLazyLoad"
 
 export {
   ArticleTitle,
-// ......
+  // ......
   ReadingProgressScript,
   ImageLazyLoad,
 }
@@ -934,9 +935,7 @@ export {
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [
-    Component.ReadingProgress(),
-  ],
+  header: [Component.ReadingProgress()],
   afterBody: [
     Component.CustomStyles(),
     Component.ReadingProgressScript(),
@@ -1000,13 +999,15 @@ plugins: {
    - 检查头像图片（带有 `.avatar` 类）是否没有懒加载属性
 
 例如，文章内容中的图片应该如下所示：
+
 ```html
-<img src="./index/yellow_boy.gif" alt="yellow_boy" loading="lazy"/>
+<img src="./index/yellow_boy.gif" alt="yellow_boy" loading="lazy" />
 ```
 
 头像图片应该如下所示：
+
 ```html
-<img src="./static/avatar.png" alt="头像" class="avatar"/>
+<img src="./static/avatar.png" alt="头像" class="avatar" />
 ```
 
 #### 9.5 注意事项
@@ -1018,7 +1019,6 @@ plugins: {
 
 ### 10. 优化移动端适配
 
-
 ## 七 ⚠️ 注意事项与高级配置
 
 ### 1. Node.js 版本
@@ -1027,6 +1027,7 @@ plugins: {
 > Quartz 需要 **Node.js v18 或更高版本**。如果使用旧版本，可能会遇到构建失败或依赖安装错误。
 
 检查版本：
+
 ```bash
 node --version  # 应该显示 v18.x.x 或更高
 ```
@@ -1082,25 +1083,27 @@ tags: [标签1, 标签2]
 ### 7. 多仓库管理（未验证）
 
 如果你想保持源码和发布分离：
+
 ```bash
 # 保持原仓库用于开发
 git push origin main
- 
+
 # 同时推送到 GitHub Pages 仓库用于发布
 git push github-pages main:main
 ```
-
 
 ## 八 🐛 常见坑点与解决方案
 
 ### 1. 构建时出现 TypeScript 错误
 
 **现象**：
+
 ```
 error TS2307: Cannot find module
 ```
 
 **解决方案**：
+
 ```bash
 rm -rf node_modules package-lock.json
 npm install
@@ -1124,9 +1127,11 @@ git push
 **现象**：修改 `quartz.config.ts` 后构建，网站没有变化。
 
 **解决方案**：
+
 ```bash
 npx quartz build --serve
 ```
+
 使用 `--serve` 参数会启用热重载，修改配置后自动重新构建。
 
 ### 4. 中文字体显示问题
@@ -1164,15 +1169,14 @@ plugins: {
 ### 6. Github Pages 部署后出现样式丢失
 
 ```html
-This XML file does not appear to have any style information associated with it. The document tree is shown below.  
-<rss version="2.0">
-<channel>
-<title>Quartz 4</title> ... ...
+This XML file does not appear to have any style information associated with it. The document tree is
+shown below.
+<rss version="2.0">
+  <channel> <title>Quartz 4</title> ... ...</channel></rss
+>
 ```
 
 一个可能的原因是：**缺少首页文件**。Quartz 必须在 `content` 文件夹根目录有 `index.md` 文件（首页入口），否则构建后的 `public` 目录不会生成根目录的 `index.html`，无论是本地预览还是部署到 GitHub Pages 都会报 404；
-
-
 
 ## 九 📝 笔记写作规范
 
@@ -1186,7 +1190,7 @@ title: 笔记标题
 description: 100字以内的简短描述
 date: 2026-02-08
 tags: [标签1, 标签2]
-draft: false  # 草稿设为 true
+draft: false # 草稿设为 true
 ---
 ```
 
@@ -1212,12 +1216,12 @@ draft: false  # 草稿设为 true
 
 ### 3. 标题层级规范
 
-| 层级 | 格式 | 示例 |
-|------|------|------|
-| 一级 | `# 标题` | `# 个人笔记知识库搭建指南` |
-| 二级 | `## 一、标题` | `## 一、什么是 Obsidian + Quartz？` |
-| 三级 | `### 1. 标题` | `### 1. 前置要求` |
-| 四级 | `#### 1.1 标题` | `#### 1.1 安装 Git` |
+| 层级 | 格式            | 示例                                |
+| ---- | --------------- | ----------------------------------- |
+| 一级 | `# 标题`        | `# 个人笔记知识库搭建指南`          |
+| 二级 | `## 一、标题`   | `## 一、什么是 Obsidian + Quartz？` |
+| 三级 | `### 1. 标题`   | `### 1. 前置要求`                   |
+| 四级 | `#### 1.1 标题` | `#### 1.1 安装 Git`                 |
 
 ## 十 🎯 下一步
 

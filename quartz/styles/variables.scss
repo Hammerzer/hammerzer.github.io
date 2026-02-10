@@ -2,28 +2,40 @@
 
 /**
  * Layout breakpoints
- * $mobile: screen width below this value will use mobile styles
- * $desktop: screen width above this value will use desktop styles
- * Screen width between $mobile and $desktop width will use the tablet layout.
- * assuming mobile < desktop
+ * $xs: 超小屏幕 (手机 portrait, < 480px)
+ * $sm: 小屏幕 (手机 landscape, 480px - 640px)
+ * $md: 中等屏幕 (平板 portrait, 640px - 800px)
+ * $lg: 大屏幕 (平板 landscape, 800px - 1200px)
+ * $xl: 超大屏幕 (桌面, > 1200px)
  */
 $breakpoints: (
-  mobile: 800px,
-  desktop: 1200px,
+  xs: 480px,
+  sm: 640px,
+  md: 800px,
+  lg: 1024px,
+  xl: 1200px,
 );
 
-$mobile: "(max-width: #{map.get($breakpoints, mobile)})";
-$tablet: "(min-width: #{map.get($breakpoints, mobile)}) and (max-width: #{map.get($breakpoints, desktop)})";
-$desktop: "(min-width: #{map.get($breakpoints, desktop)})";
+$xs: "(max-width: #{map.get($breakpoints, xs)})";
+$sm: "(min-width: #{map.get($breakpoints, xs)}) and (max-width: #{map.get($breakpoints, sm)})";
+$md: "(min-width: #{map.get($breakpoints, sm)}) and (max-width: #{map.get($breakpoints, md)})";
+$lg: "(min-width: #{map.get($breakpoints, md)}) and (max-width: #{map.get($breakpoints, xl)})";
+$xl: "(min-width: #{map.get($breakpoints, xl)})";
 
-$pageWidth: #{map.get($breakpoints, mobile)};
+// 简化的断点别名
+$mobile: "(max-width: #{map.get($breakpoints, md)})"; // < 800px
+$tablet: "(min-width: #{map.get($breakpoints, md)}) and (max-width: #{map.get($breakpoints, xl)})"; // 800px - 1200px
+$desktop: $xl; // > 1200px
+
+$pageWidth: #{map.get($breakpoints, md)};
 $sidePanelWidth: 350px; //320px;380px;侧边栏宽度
 $topSpacing: 6rem;
 $boldWeight: 700;
 $semiBoldWeight: 600;
 $normalWeight: 400;
 
-$mobileGrid: (
+// 超小屏幕网格布局 (xs)
+$xsGrid: (
   templateRows: "auto auto auto auto auto",
   templateColumns: "auto",
   rowGap: "5px",
@@ -35,7 +47,23 @@ $mobileGrid: (
       "grid-sidebar-right"\
       "grid-footer"',
 );
-$tabletGrid: (
+
+// 小屏幕网格布局 (sm)
+$smGrid: (
+  templateRows: "auto auto auto auto auto",
+  templateColumns: "auto",
+  rowGap: "5px",
+  columnGap: "5px",
+  templateAreas:
+    '"grid-sidebar-left"\
+      "grid-header"\
+      "grid-center"\
+      "grid-sidebar-right"\
+      "grid-footer"',
+);
+
+// 中等屏幕网格布局 (md)
+$mdGrid: (
   templateRows: "auto auto auto auto",
   templateColumns: "#{$sidePanelWidth} auto",
   rowGap: "5px",
@@ -46,7 +74,21 @@ $tabletGrid: (
       "grid-sidebar-left grid-sidebar-right"\
       "grid-sidebar-left grid-footer"',
 );
-$desktopGrid: (
+
+// 大屏幕网格布局 (lg)
+$lgGrid: (
+  templateRows: "auto auto auto",
+  templateColumns: "300px auto 300px",
+  rowGap: "5px",
+  columnGap: "5px",
+  templateAreas:
+    '"grid-sidebar-left grid-header grid-sidebar-right"\
+      "grid-sidebar-left grid-center grid-sidebar-right"\
+      "grid-sidebar-left grid-footer grid-sidebar-right"',
+);
+
+// 超大屏幕网格布局 (xl)
+$xlGrid: (
   templateRows: "auto auto auto",
   templateColumns: "#{$sidePanelWidth} auto #{$sidePanelWidth}",
   rowGap: "5px",

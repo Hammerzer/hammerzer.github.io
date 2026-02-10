@@ -21,7 +21,9 @@ const UserProfile: QuartzComponent = ({ cfg, fileData }: QuartzComponentProps) =
         </div>
         <div class="site-info">
           <div class="site-name">
-            <a href={baseDir} style={{ textDecoration: 'none', color: 'inherit' }}>{siteName}</a>
+            <a href={baseDir} style={{ textDecoration: "none", color: "inherit" }}>
+              {siteName}
+            </a>
           </div>
           <div class="site-tagline">{siteTagline}</div>
         </div>
@@ -178,7 +180,7 @@ body[data-theme="dark"] .bio-item::before {
   color: var(--secondary);
 }
 
-/* 移动端适配 */
+/* 超小屏幕适配 */
 @media (max-width: 480px) {
   .user-profile {
     padding: 1.25rem;
@@ -212,23 +214,47 @@ body[data-theme="dark"] .bio-item::before {
   }
 }
 
-/* 平板端适配 */
-@media (max-width: 768px) {
+/* 小屏幕适配 */
+@media (max-width: 640px) {
   .user-profile {
     padding: 1.25rem;
   }
 
   .avatar {
-    width: 55px;
-    height: 55px;
+    width: 58px;
+    height: 58px;
   }
 
   .site-name {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
   }
 
   .site-tagline {
     font-size: 0.8rem;
+  }
+
+  .profile-bio {
+    font-size: 0.8rem;
+  }
+}
+
+/* 中等屏幕适配 */
+@media (max-width: 800px) {
+  .user-profile {
+    padding: 1.35rem;
+  }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .site-name {
+    font-size: 1.5rem;
+  }
+
+  .site-tagline {
+    font-size: 0.82rem;
   }
 }
 `
