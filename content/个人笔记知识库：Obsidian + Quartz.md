@@ -1207,6 +1207,118 @@ $smGrid: (
 
 这些优化确保了 Quartz 站点在移动设备上提供良好的用户体验，无论用户使用的是手机还是平板设备。
 
+### 11. 修改网页标签栏图标
+
+#### 11.1 图标位置
+- **源文件**：`d:\Work_Area\quartz-v5\quartz\static\icon.png` - 这是原始图标文件
+- **生成的 favicon**：在构建过程中，`favicon.ts` 插件会将该图标转换为 48x48 的 .ico 格式
+
+#### 11.2 修改方法
+
+1. **替换图标文件**：
+   - 找到 `quartz/static/icon.png` 文件
+   - 用您想要的新图标替换该文件
+   - 确保新图标的尺寸合适（建议至少为 48x48 像素）
+
+2. **重新构建项目**：
+   - 停止当前服务器（按 Ctrl+C）
+   - 重新运行 `npm run docs` 命令
+   - 浏览器会自动更新并显示新图标
+
+#### 11.3 原理说明
+
+在项目中，图标处理流程如下：
+1. `favicon.ts` 插件在构建时会读取 `quartz/static/icon.png`
+2. 使用 sharp 库将其调整为 48x48 像素的尺寸
+3. 转换为 .ico 格式
+4. 输出到 `public/favicon.ico`
+
+在 `Head.tsx` 组件中，通过以下代码引用该图标：
+```tsx
+<link rel="icon" href={iconPath} />
+```
+
+其中 `iconPath` 指向 `static/icon.png` 文件。
+
+这样可以通过替换 `quartz/static/icon.png` 文件来修改网站标签处的图标了。
+
+### 12. 将 CDN 资源转换为本地静态资源
+
+#### 12.1 问题描述
+在使用 Quartz 构建网站时，某些插件（如 KaTeX 数学公式渲染）会通过 CDN 加载外部资源。这可能会导致网络连接问题或资源加载失败。
+
+#### 12.2 KaTeX 资源本地化示例
+
+**问题识别**：
+- 原 KaTeX CSS 链接：`https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css`
+- 原 KaTeX JS 链接：`https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js`
+
+**解决方案**：
+
+1. **下载资源文件**：
+   - 下载 `katex.min.css` 文件
+   - 下载 `copy-tex.min.js` 文件
+
+2. **创建本地目录**：
+   ```bash
+   cd d:\Work_Area\quartz-v5
+   mkdir -p quartz/static/katex
+   ```
+
+3. **放置文件**：
+   - 将下载的 `katex.min.css` 放置在 `quartz/static/katex/` 目录下
+   - 将下载的 `copy-tex.min.js` 放置在 `quartz/static/katex/` 目录下
+
+4. **修改配置文件**：
+   修改 `quartz/plugins/transformers/latex.ts` 文件中的 `externalResources()` 方法：
+
+   ```typescript
+   externalResources() {
+     switch (engine) {
+       case "katex":
+         return {
+           css: [{ content: "/static/katex/katex.min.css" }],
+           js: [
+             {
+               // fix copy behaviour: https://github.com/KaTeX/KaTeX/blob/main/contrib/copy-tex/README.md
+               src: "/static/katex/copy-tex.min.js",
+               loadTime: "afterDOMReady",
+               contentType: "external",
+             },
+           ],
+         }
+     }
+   },
+   ```
+
+5. **验证修改**：
+   - 重新构建项目
+   - 检查 `public/static/katex/` 目录下是否存在这两个文件
+   - 访问网站并检查浏览器开发者工具中的网络请求，确认资源是从本地加载的
+
+#### 12.3 原理说明
+
+Quartz 使用 Static 插件（`quartz/plugins/emitters/static.ts`）来管理静态资源：
+1. 它会将 `quartz/static/` 目录下的所有文件复制到输出目录的 `static/` 文件夹中
+2. 在组件中可以通过 `/static/` 路径访问这些资源
+3. 这种方式避免了对外部 CDN 的依赖，提高了网站的加载速度和可靠性
+
+#### 12.4 其他资源的本地化
+
+类似的方法可以应用于其他通过 CDN 加载的资源：
+1. 下载资源文件
+2. 放置在 `quartz/static/` 目录下
+3. 修改引用该资源的代码
+4. 重新构建并验证
+
+常见需要本地化的资源：
+- 字体文件
+- 样式表
+- JavaScript 库
+- 图片和图标
+
+
+
 
 ## 七 ⚠️ 注意事项与高级配置
 
