@@ -919,7 +919,7 @@ date: {{ date }}
 tags:  
 type: "categories"  
 categories:  
-copyright: true #新增,开启  
+copyright: true # 新增,开启  
 ---
 
 ### 6.6 添加图片

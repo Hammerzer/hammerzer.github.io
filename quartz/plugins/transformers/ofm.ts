@@ -342,6 +342,11 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
                   return false
                 }
 
+                // 过滤颜色代码（3位或6位十六进制颜色值，如 #d3d3d3, #0593d3）
+                if (/^[0-9a-f]{3}$/i.test(tag) || /^[0-9a-f]{6}$/i.test(tag)) {
+                  return false
+                }
+
                 tag = slugTag(tag)
                 if (file.data.frontmatter) {
                   const noteTags = file.data.frontmatter.tags ?? []
