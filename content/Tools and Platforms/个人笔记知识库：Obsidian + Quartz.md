@@ -7,6 +7,9 @@ tags:
   - Quartz
   - 知识管理
   - 部署
+  - 博客搭建
+urlname: Personal-Note-Knowledge-Base
+categories: Tools and Platforms
 ---
 
 # 个人笔记知识库搭建指南：Obsidian + Quartz
@@ -17,9 +20,9 @@ tags:
 
 ## 一 📖 什么是 Obsidian + Quartz？
 
-[[Obsidian]] 是一款强大的本地知识管理工具，支持双向链接、Markdown 编辑和丰富的插件生态。
+Obsidian 是一款强大的本地知识管理工具，支持双向链接、Markdown 编辑和丰富的插件生态。
 
-[[Quartz]] 是一个基于 Hugo 的静态站点生成器，可以将 Obsidian 笔记转换成美观的网站，支持：
+Quartz 是一个基于 Hugo 的静态站点生成器，可以将 Obsidian 笔记转换成美观的网站，支持：
 
 - 快速构建和部署
 - 响应式设计
@@ -208,7 +211,9 @@ git push -u origin main
 ```
 4.  **自动部署**：GitHub Actions 自动构建并部署网站
 
-## 六 🔧 Quartz 配置详解与站点美化
+
+
+## 七 🔧 Quartz 配置详解与站点美化
 
 > 本节深入解析 Quartz 的核心配置文件，帮助你打造美观且功能强大的中文技术博客。
 

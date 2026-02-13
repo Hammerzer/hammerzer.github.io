@@ -71,8 +71,10 @@ export default {
       home: "返回首页",
     },
     folderContent: {
-      folder: "文件夹",
-      itemsUnderFolder: ({ count }) => `此文件夹下有${count}条笔记。`,
+      // folder: "文件夹",
+      // itemsUnderFolder: ({ count }) => `此文件夹下有${count}条笔记。`,
+      folder: "小宇宙",
+      itemsUnderFolder: ({ count }) => `此小宇宙下有${count}条笔记。`,
     },
     tagContent: {
       tag: "标签",
