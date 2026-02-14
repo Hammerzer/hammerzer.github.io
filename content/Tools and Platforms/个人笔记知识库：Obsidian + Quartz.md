@@ -1322,7 +1322,93 @@ Quartz 使用 Static 插件（`quartz/plugins/emitters/static.ts`）来管理静
 - JavaScript 库
 - 图片和图标
 
+### 13. 加入文章字数统计显示
 
+#### 13.1 修改目标
+在 Quartz 项目中，为文章页面标题下方的元数据区域（显示日期和阅读时间的位置）添加文章总字数显示，提升用户体验。
+
+#### 13.2 修改步骤
+
+##### 13.2.1 翻译接口定义
+**文件**：`d:\Work_Area\quartz-v5\quartz\i18n\locales\definition.ts:62-65`
+
+```typescript
+// 在 contentMeta 接口中添加 wordCount 翻译方法
+contentMeta: {
+  readingTime: (variables: { minutes: number }) => string
+  wordCount: (variables: { words: number }) => string  // 新增
+}
+```
+
+##### 13.2.2 中文翻译实现
+**文件**：`d:\Work_Area\quartz-v5\quartz\i18n\locales\zh-CN.ts:59-62`
+
+```typescript
+// 为中文环境添加字数显示翻译
+contentMeta: {
+  readingTime: ({ minutes }) => `${minutes}分钟阅读`,
+  wordCount: ({ words }) => `${words}字`,  // 新增
+},
+```
+
+##### 13.2.3 组件逻辑修改
+**文件**：`d:\Work_Area\quartz-v5\quartz\components\ContentMeta.tsx:36-49`
+
+```typescript
+function ContentMetadata({ cfg, fileData, displayClass }: QuartzComponentProps) {
+  const text = fileData.text
+
+  if (text) {
+    const segments: (string | JSX.Element)[] = []
+
+    if (fileData.dates) {
+      segments.push(<Date date={getDate(cfg, fileData)!} locale={cfg.locale} />)
+    }
+
+    // 新增：显示字数统计
+    const { words } = readingTime(text)
+    const wordCountText = i18n(cfg.locale).components.contentMeta.wordCount({
+      words: words,
+    })
+    segments.push(<span>{wordCountText}</span>)
+
+    // 显示阅读时间（原代码保留）
+    if (options.showReadingTime) {
+      const { minutes } = readingTime(text)
+      const displayedTime = i18n(cfg.locale).components.contentMeta.readingTime({
+        minutes: Math.ceil(minutes),
+      })
+      segments.push(<span>{displayedTime}</span>)
+    }
+
+    return (
+      <p show-comma={options.showComma} class={classNames(displayClass, "content-meta")}>
+        {segments}
+      </p>
+    )
+  } else {
+    return null
+  }
+}
+```
+
+#### 13.3 实现原理
+
+1. **翻译系统更新**：通过 `definition.ts` 为所有语言添加字数显示的接口定义
+2. **中文支持**：在 `zh-CN.ts` 中专门实现了中文环境下的翻译，格式为 `{words}字`
+3. **组件修改**：修改了 `ContentMeta.tsx` 组件，在日期和阅读时间之间插入字数显示
+4. **数据获取**：使用 `readingTime` 函数（该函数已能返回字数信息）
+5. **样式保持**：保持原有的 `show-comma` 属性，确保多段内容之间的标点分隔正确
+
+#### 13.4 修改后的效果
+
+**之前的显示**：
+`2020年9月17日，115分钟阅读`
+
+**修改后的显示**：
+`2020年9月17日，1500字，115分钟阅读`
+
+（注：实际字数会根据文章内容自动计算）
 
 
 ## 七 ⚠️ 注意事项与高级配置
