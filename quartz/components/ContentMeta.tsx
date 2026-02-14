@@ -33,9 +33,16 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
         segments.push(<Date date={getDate(cfg, fileData)!} locale={cfg.locale} />)
       }
 
+      // Display word count
+      const { words } = readingTime(text)
+      const wordCountText = i18n(cfg.locale).components.contentMeta.wordCount({
+        words: words,
+      })
+      segments.push(<span>{wordCountText}</span>)
+
       // Display reading time if enabled
       if (options.showReadingTime) {
-        const { minutes, words: _words } = readingTime(text)
+        const { minutes } = readingTime(text)
         const displayedTime = i18n(cfg.locale).components.contentMeta.readingTime({
           minutes: Math.ceil(minutes),
         })
