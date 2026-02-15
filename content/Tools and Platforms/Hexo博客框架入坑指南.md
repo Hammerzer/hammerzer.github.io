@@ -1,12 +1,12 @@
 ---
 title: Hexo博客框架入坑指南
 urlname: A-Guide-to-the-Hexo-Blog-Framework
-date: 2020-08-18 
+date: 2020-08-18
 tags:
   - Hexo
   - 博客搭建
 categories:
-  - 工具与平台
+  - Tools and Platforms
 description: 详细介绍如何使用 Hexo + GitHub Pages 搭建个人博客网站，包括环境准备、本地配置、部署到 GitHub Pages 的完整步骤。
 ---
 
