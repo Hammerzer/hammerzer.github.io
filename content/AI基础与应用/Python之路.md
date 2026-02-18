@@ -6,7 +6,7 @@ date: 2023-07-19 11:21:49
 tags:
   - Python
 categories:
-  - AI
+  - AI基础与应用
 draft: false
 ---
 

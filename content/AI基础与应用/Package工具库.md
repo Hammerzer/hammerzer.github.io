@@ -7,7 +7,7 @@ tags:
   - Node
   - 工具
 categories:
-  - Tools and Platforms
+  - AI基础与应用
 draft:
 ---
 
@@ -232,6 +232,67 @@ import qs from 'querystring'
 const { search } = this.props.location
 const { id, title } = qs.parse(search.slice(1))
 ```
+
+## 4 Numpy
+
+`NumPy`是Python进行科学计算的基础软件包，它是Python进行数据分析的一个主要的工具，且提供了多种数据结构、算法以及大部分涉及Python数组计算所需的接口。NumPy通常与`Scipy(Scientific Python)`和`Matplotlib`(绘图库)一起使用，这种组合使用能够能够替代`MATLAB`，是一个强大的计算环境。
+
+
+> [!tip] 参考资料
+ [NumPy官方中文指南](https://www.numpy.org.cn/user/)
+> 🔺[Numpy参考手册](https://www.numpy.org.cn/reference/)
+> [Numpy中文文档](https://numpy123.com/)
+> [W3C Numpy文档](https://www.w3cschool.cn/doc_numpy_1_13/dict.html)
+> [防脱发指南](https://www.numpy.org.cn/alopecia/)
+> [numpy常用API整理汇总](https://blog.csdn.net/qq1198768105/article/details/126304306)	
+
+
+
+## 5 Pytorch
+
+
+> [!note] 关于Python学习，每遇未知即记录！
+>
+> [Pytorch官网](http://pytorch.p2hp.com/)
+>
+> [Pytorch中文教程 | 社区翻译](https://pytorch.apachecn.org/)
+>
+> [Pytorch官网英文文档](https://pytorch.org/docs/stable/index.html)
+>
+> [Pytorch中文文档](https://pytorch-cn.readthedocs.io/zh/latest/)
+>
+> [Browse State-of-the-Art ：数据集下载](https://paperswithcode.com/sota)
+
+
+> [!tip] [参考文档](https://pytorch-cn.readthedocs.io/zh/latest/) 
+
+`Pytorch`常用的包：
+
+1. `torch`：张量的有关运算。如创建、索引、链接、转置、加减乘除、切片等
+2. `torch.Storage`：跟绝大部分基于连续存储的数据结构有关
+3. `torch.nn`：包含搭建神经网络层的模块和一系列loss函数。如全连接、卷积、BN批处理、dropout、crossentryloss、mseloss等；`torch.nn.function`：常用的激活函数relu、leaky_relu、sigmoid等
+4. `torch.optim`：各种参数优化方法，例如SGW、AdaGrad、Adam、RMSProp等
+5. `torch.autogard`：提供tensor所有操作的自动求导方法
+6. `torch.utils.data`：用于加载数据。
+7. `torchvision`：是pytorch中专门用来处理图像的库。包中常用的模块有
+   - `torchvision.datasets`：用来进行数据加载的
+   - `Torchvision.models`：为我们提供已经训练好的模型，让我们加载之后可以直接使用。包括AlexNet、VGG、ResNet等网络模型
+   - `Torchvision.transforms`：为我们提供了一般的图像转换操作类
+   - `Torchvision.utils`：将给定的tensor保存成image文件
+8. `from PIL import Image`：pytorch中处理图像使用的这几种格式
+   - PIL：使用python自带图像处理库读取出来的图片格式。
+   - Numpy：使用python-onpenCV库读取出来的图片格式
+   - Tensor：pytorch中训练是所采用的向量格式（也可以说是图片）。
+     而 from PIL import Image是在进行PIL与tensor的转换，也就是图片格式的转换
+9. `matplotlib`：这是pytorch的一个绘图库，是python中常用的可视化工具之一，可以方便创建2D图标和一些基本的3D图表。基本的方法有 ：
+   - `plt.figure()`:调用figure创建一个绘图对象
+   - `Plt.plot`：调用plot函数在当前的绘图对象中绘图
+   - `Plt.xlable()/plt.ylable`：设置x/y轴的文字
+   - `Plt.title()`：设置图标的标题
+   - `Plt.xlim()/plt.ylim()`：设置变量的范围，[格式为x/y的起点，终点]
+   - `Plt.axis()`：同时设置两个变量的范围，格式为[x的起点，x的终点，y的起点，y的终点]
+   - `Plt.legend()`：显示label中标记的图示
+   - `Plt.show()`：以上参数设置完成后，必须使用该方法显示出创建的所有绘图对象
 
 
 

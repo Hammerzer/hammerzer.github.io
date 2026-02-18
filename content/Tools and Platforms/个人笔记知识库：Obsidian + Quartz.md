@@ -212,6 +212,79 @@ git push -u origin main
 4.  **自动部署**：GitHub Actions 自动构建并部署网站
 
 
+## 六 ⚠️ 注意事项与高级配置
+
+### 1. Node.js 版本
+
+> [!WARNING] 重要坑点
+> Quartz 需要 **Node.js v18 或更高版本**。如果使用旧版本，可能会遇到构建失败或依赖安装错误。
+
+检查版本：
+
+```bash
+node --version  # 应该显示 v18.x.x 或更高
+```
+
+### 2. 内容目录结构
+
+```
+content/
+├── index.md           # 首页
+├── 笔记分类/
+│   ├── 笔记1.md
+│   └── 笔记2.md
+└── .obsidian/         # Obsidian 配置（会被忽略）
+```
+
+### 3. YAML Front Matter 格式
+
+每篇笔记必须包含正确的 front matter：
+
+```yaml
+---
+title: 笔记标题
+description: 简短描述
+date: 2026-02-08
+tags: [标签1, 标签2]
+---
+```
+
+### 4. 双向链接语法
+
+使用 `[[笔记名]]` 创建双向链接：
+
+```markdown
+参考 [[编程基础]] 了解更多信息。
+```
+
+### 5. 图片处理
+
+将图片放在 `content/` 目录下的子文件夹中：
+
+```markdown
+![图片描述](./images/screenshot.png)
+```
+
+### 6. 自定义域名
+
+如果你有自己的域名：
+
+1. 在仓库根目录创建 `CNAME` 文件，内容为你的域名
+2. 在域名 DNS 设置中添加 CNAME 记录指向 `你的用户名.github.io`
+3. 在 GitHub Pages 设置中配置自定义域名
+
+### 7. 多仓库管理（未验证）
+
+如果你想保持源码和发布分离：
+
+```bash
+# 保持原仓库用于开发
+git push origin main
+
+# 同时推送到 GitHub Pages 仓库用于发布
+git push github-pages main:main
+```
+
 
 ## 七 🔧 Quartz 配置详解与站点美化
 
@@ -1408,81 +1481,187 @@ function ContentMetadata({ cfg, fileData, displayClass }: QuartzComponentProps) 
 **修改后的显示**：
 `2020年9月17日，1500字，115分钟阅读`
 
-（注：实际字数会根据文章内容自动计算）
 
 
-## 七 ⚠️ 注意事项与高级配置
+### 14 常用第三方插件
 
-### 1. Node.js 版本
+Obsidian 的强大之处在于其丰富的插件生态系统。以下是一些提升笔记效率的常用插件：
 
-> [!WARNING] 重要坑点
-> Quartz 需要 **Node.js v18 或更高版本**。如果使用旧版本，可能会遇到构建失败或依赖安装错误。
+#### 14.1 Templater - 模板引擎
 
-检查版本：
+> [!tip] [一篇搞懂 Obsidian 模板系统：模板 + Templater 完整教程](https://nanako.icu/posts/obsidian-templater-tutorial/)
 
-```bash
-node --version  # 应该显示 v18.x.x 或更高
-```
+**功能**：自动化笔记创建，支持变量、函数和条件判断。
 
-### 2. 内容目录结构
+**安装**：
+1. 打开 Obsidian → 设置 → 第三方插件
+2. 关闭安全模式
+3. 搜索 "Templater" 并安装
+4. 启用插件
 
-```
-content/
-├── index.md           # 首页
-├── 笔记分类/
-│   ├── 笔记1.md
-│   └── 笔记2.md
-└── .obsidian/         # Obsidian 配置（会被忽略）
-```
+**配置**：
+- 打开插件设置，配置模板文件夹（建议创建 `_templates` 文件夹）
+- 推荐设置：
+  - 启用 "Trigger Templater on new file creation"
+  - 配置模板语法高亮
 
-### 3. YAML Front Matter 格式
+**使用方法**：
 
-每篇笔记必须包含正确的 front matter：
-
-```yaml
----
-title: 笔记标题
-description: 简短描述
-date: 2026-02-08
-tags: [标签1, 标签2]
----
-```
-
-### 4. 双向链接语法
-
-使用 `[[笔记名]]` 创建双向链接：
-
+##### 1. 基础模板示例
+创建 `_templates/Default.md`：
 ```markdown
-参考 [[编程基础]] 了解更多信息。
+---
+title: <% tp.file.title %>
+description:
+urlname: <% tp.file.title.toLowerCase().replace(/\s+/g, "-") %>
+date: <% tp.date.now("YYYY-MM-DD HH:mm:ss") %>
+tags:
+categories:
+draft: false
+---
+
+# <% tp.file.title %>
+
+<% tp.file.cursor() %>
+	
 ```
 
-### 5. 图片处理
-
-将图片放在 `content/` 目录下的子文件夹中：
-
+##### 2. 常用变量
 ```markdown
-![图片描述](./images/screenshot.png)
+<!-- 当前日期和时间 -->
+<% tp.date.now() %> <!-- 默认格式：YYYY-MM-DD HH:mm:ss -->
+<% tp.date.now("YYYY年MM月DD日") %> <!-- 中文格式 -->
+
+<!-- 文件信息 -->
+<% tp.file.title %> <!-- 文件名 -->
+<% tp.file.folder() %> <!-- 文件所在文件夹 -->
+<% tp.file.path() %> <!-- 文件完整路径 -->
+
+<!-- 剪贴板内容 -->
+<% tp.system.clipboard() %>
+
+<!-- 随机数 -->
+<% Math.random() %>
 ```
 
-### 6. 自定义域名
+##### 3. 函数和操作
+```markdown
+<!-- 从模板文件夹插入其他模板 -->
+<% tp.file.include("[[Template Name]]") %>
 
-如果你有自己的域名：
+<!-- 获取当前时间戳 -->
+<% Date.now() %>
 
-1. 在仓库根目录创建 `CNAME` 文件，内容为你的域名
-2. 在域名 DNS 设置中添加 CNAME 记录指向 `你的用户名.github.io`
-3. 在 GitHub Pages 设置中配置自定义域名
-
-### 7. 多仓库管理（未验证）
-
-如果你想保持源码和发布分离：
-
-```bash
-# 保持原仓库用于开发
-git push origin main
-
-# 同时推送到 GitHub Pages 仓库用于发布
-git push github-pages main:main
+<!-- 数学计算 -->
+<% 2 + 3 * 4 %> <!-- 结果：14 -->
 ```
+
+##### 4. 自动应用模板
+1. 在插件设置中启用 "Automatically apply template on new file creation"
+2. 在 `_templates` 文件夹中创建 `default.md` 作为默认模板
+3. 或右键文件夹 → "New Note" 时选择特定模板
+
+#### 14.2 Dataview - 数据查询
+
+**功能**：在笔记中创建动态表格和列表，支持 SQL-like 查询。
+
+**使用方法**：
+```markdown
+<!-- 查询包含特定标签的笔记 -->
+```dataview
+TABLE title, date, tags FROM #笔记 SORT date DESC
+```
+
+<!-- 查询文件夹中的所有笔记 -->
+```dataview
+LIST FROM "学习笔记" WHERE date > "2023-01-01"
+```
+
+#### 14.3 Excalidraw - 手绘风格绘图
+
+**功能**：在 Obsidian 中创建手绘风格的流程图、思维导图。
+
+**特点**：
+- 支持手绘风格的线条和形状
+- 与 Obsidian 双向链接完美集成
+- 支持导出为图片
+
+#### 14.4 Advanced Tables - 高级表格
+
+**功能**：提供 Excel 风格的表格编辑体验。
+
+**特性**：
+- 自动格式化表格
+- 支持公式计算
+- 表格导航快捷键
+
+#### 14.5 Kanban - 看板
+
+**功能**：创建交互式看板，用于任务管理。
+
+**使用方法**：
+```markdown
+```kanban
+- [ ] 待办
+  - [ ] 完成这篇文章
+- [ ] 进行中
+  - [ ] 补充插件内容
+- [ ] 已完成
+  - [x] 搭建 Obsidian 环境
+```
+```
+
+#### 14.6 Calendar - 日历视图
+
+**功能**：在侧边栏显示日历，快速创建每日笔记。
+
+**使用方法**：
+- 点击日期直接创建当日笔记
+- 支持自定义每日笔记模板
+
+#### 14.7 Mind Map - 思维导图
+
+**功能**：直接在 Obsidian 中创建思维导图。
+
+**特点**：
+- 支持 Markdown 语法
+- 可导出为图片
+- 与笔记系统完美集成
+
+#### 14.8 Obsidian Git - 版本控制
+
+**功能**：自动将笔记同步到 Git 仓库（如 GitHub）。
+
+**配置**：
+1. 配置 Git 仓库地址
+2. 设置自动提交间隔
+3. 支持密码/Token 验证
+
+#### 14.9 Breadcrumbs - 笔记导航
+
+**功能**：可视化笔记间的层级关系，提供面包屑导航。
+
+**使用场景**：
+- 学术笔记的章节结构
+- 项目文档的层级关系
+
+#### 14.10 Search on Steroids - 增强搜索
+
+**功能**：提供更强大的搜索功能，支持正则表达式和多条件筛选。
+
+**建议的插件组合**：
+- Templater + Dataview：自动化笔记创建和数据查询
+- Excalidraw + Mind Map：绘图和思维导图
+- Kanban + Calendar：任务管理
+- Obsidian Git：版本控制
+
+**插件安装建议**：
+1. 只安装需要的插件（过多插件会影响性能）
+2. 定期更新插件
+3. 为重要插件备份设置
+
+
+
 
 ## 八 🐛 常见坑点与解决方案
 
@@ -1635,6 +1814,6 @@ draft: false # 草稿设为 true
 
 ## 十 🎯 下一步
 
-- [[Obsidian使用技巧]]
-- [[Quartz主题定制]]
-- [[GitHub Actions自动部署]]
+- [[Obsidian 使用技巧]]
+
+

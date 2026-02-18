@@ -7,7 +7,7 @@ tags:
   - 大模型
   - AI工具
 categories:
-  - Tools and Platforms
+  - AI基础与应用
 draft: false
 ---
 
