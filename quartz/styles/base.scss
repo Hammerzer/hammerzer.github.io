@@ -256,8 +256,10 @@ a {
       box-sizing: border-box;
       padding: $topSpacing 2rem 2rem 2rem;
       display: flex;
-      height: 100vh;
+      height: 100vh;// 固定高度，包含内边距
       position: sticky;
+      overflow: hidden;           // 禁止侧边栏本身滚动
+      flex-direction: column;     // 明确列方向（已在 .sidebar.right 中定义，但可在此统一）
     }
 
     & .sidebar.left {

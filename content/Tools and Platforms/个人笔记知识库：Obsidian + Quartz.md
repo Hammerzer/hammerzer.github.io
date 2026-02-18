@@ -1609,7 +1609,7 @@ LIST FROM "学习笔记" WHERE date > "2023-01-01"
 - [ ] 已完成
   - [x] 搭建 Obsidian 环境
 ```
-```
+
 
 #### 14.6 Calendar - 日历视图
 
@@ -1654,12 +1654,6 @@ LIST FROM "学习笔记" WHERE date > "2023-01-01"
 - Excalidraw + Mind Map：绘图和思维导图
 - Kanban + Calendar：任务管理
 - Obsidian Git：版本控制
-
-**插件安装建议**：
-1. 只安装需要的插件（过多插件会影响性能）
-2. 定期更新插件
-3. 为重要插件备份设置
-
 
 
 
@@ -1767,6 +1761,77 @@ if (/^[0-9a-f]{3}$/i.test(tag) || /^[0-9a-f]{6}$/i.test(tag)) {
 }
 ```
 
+
+### 8 目录的最后一小部分不显示问题
+
+#### 问题描述
+在使用 Quartz v4 静态网站生成器时，发现右侧目录导航区域的内容无法完整显示，最后一小部分内容被截断，且没有滚动条。
+
+#### 问题原因分析
+1. **侧边栏定位限制**：侧边栏使用 `position: sticky` 和 `height: 100vh` 固定定位，但内部内容溢出时没有滚动机制
+2. **目录容器约束**：`.toc` 类设置了 `overflow-y: hidden` 导致内容被隐藏
+3. **高度计算问题**：`.toc-content.overflow` 类的 `max-height` 计算方式不当，导致内容无法完整显示
+
+#### 解决方案
+
+##### 1. 修改侧边栏全局样式 (`base.scss`)
+```scss
+// 位置: quartz/styles/base.scss
+    & .sidebar {
+      gap: 1.2rem;
+      top: 0;
+      box-sizing: border-box;
+      padding: $topSpacing 2rem 2rem 2rem;
+      display: flex;
+      height: 100vh; // 固定高度，包含内边距
+      position: sticky;
+      overflow: hidden; // 禁止侧边栏本身滚动
+      flex-direction: column; // 明确列方向
+    }
+```
+
+##### 2. 修改目录组件样式 (`toc.scss`)
+```scss
+// 位置: quartz/components/styles/toc.scss
+.toc {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; // 隐藏溢出，由内部 ul 控制滚动
+  min-height: 0; // 允许 flex 子项收缩
+  flex: 1; // 占据侧边栏剩余空间
+
+  &:has(button.toc-header.collapsed) {
+    flex: 0 1 auto; // 折叠时高度自适应
+  }
+}
+
+ul.toc-content.overflow {
+  list-style: none;
+  position: relative;
+  margin: 0.5rem 0;
+  padding: 0;
+  overflow-y: auto; // 内容过多时出现滚动条
+  flex: 1; // 填满 .toc 剩余高度
+  min-height: 0; // 允许收缩
+  overscroll-behavior: contain;
+
+  // 其他样式...
+}
+```
+
+#### 修复效果
+- ✅ 侧边栏保持固定定位，随页面滚动
+- ✅ 目录内容区域可完整显示所有章节标题
+- ✅ 当内容超出容器高度时，显示滚动条
+- ✅ 目录折叠/展开功能正常
+
+#### 技术要点
+- 使用 `flex` 布局实现侧边栏和目录内容的自适应
+- `overflow: hidden` 与 `overflow-y: auto` 组合实现内部滚动
+- `min-height: 0` 允许 flex 子项在内容较少时收缩
+- `flex: 1` 确保目录占据可用空间
+
+<br>
 ## 九 📝 笔记写作规范
 
 基于本站点的配置，建议遵循以下规范：

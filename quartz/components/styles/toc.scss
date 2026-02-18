@@ -3,11 +3,15 @@
 .toc {
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
-  min-height: 1.4rem;
-  flex: 0 0.5 auto;
+  // overflow-y: hidden;
+  // min-height: 1.4rem;
+  // flex: 0 0.5 auto;
+  overflow: hidden;           // 隐藏溢出，由内部 ul 控制滚动
+  min-height: 0;              // 允许 flex 子项收缩
+  flex: 1;                    // 占据侧边栏剩余空间
   &:has(button.toc-header.collapsed) {
-    flex: 0 1 1.4rem;
+    // flex: 0 1 1.4rem;
+    flex: 0 1 auto;           // 折叠时高度自适应
   }
 }
 
@@ -43,9 +47,12 @@ ul.toc-content.overflow {
   position: relative;
   margin: 0.5rem 0;
   padding: 0;
-  max-height: calc(100% - 2rem);
+  overflow-y: auto;           // 内容过多时出现滚动条
+  flex: 1;                    // 填满 .toc 剩余高度
+  min-height: 0;              // 允许收缩
+  // max-height: calc(100vh - 6rem);
   overscroll-behavior: contain;
-  list-style: none;
+  // list-style: none;
 
   & > li > a {
     color: var(--dark);
