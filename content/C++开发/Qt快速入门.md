@@ -120,9 +120,8 @@ Qt Creator可带来两大关键益处：
 > 在命令行窗口运行qt在线安装程序，并带上镜像网址：
 >
 > >  `.\unified-windows-x64-4.5.1-online.exe --mirror http://mirrors.ustc.edu.cn/qtproject/`
->
-> 
 
+> 2026-2-24使用的[保姆级安装教程](https://blog.csdn.net/qq_62888264/article/details/132645054)
 
 
 <br>
