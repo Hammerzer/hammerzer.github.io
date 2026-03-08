@@ -3,7 +3,7 @@ import { pathToRoot } from "../util/path"
 
 const UserProfile: QuartzComponent = ({ cfg, fileData }: QuartzComponentProps) => {
   // 从配置中读取网站名
-  const siteName = cfg?.pageTitle ?? "求知小新"
+  const siteName = cfg?.pageTitle ?? "三金途"
 
   // 从 pageTitleSuffix 提取标语（去掉 " | " 前缀）
   const siteTagline = cfg?.pageTitleSuffix?.replace(/^ \| /, "") ?? "鑫果的私人知识库"
