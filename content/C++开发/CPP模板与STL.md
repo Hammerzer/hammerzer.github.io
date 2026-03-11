@@ -5914,15 +5914,17 @@ set容器进行插入数据和删除数据
 ```cpp
 // 在容器中插入元素
 // 插入单个元素，返回一个 std::pair 对象，其中：
-// 第一个元素（pair.first）是 set<int>::iterator 类型的迭代器，指向插入的元素（如果插入成功），或者指向 set 中已存在的相同元素（如果插入失败）。
+// 第一个元素（pair.first）是 set<int>::iterator 类型的迭代器，指向插入的元素
+// （如果插入成功），或者指向 set 中已存在的相同元素（如果插入失败）。
 // 第二个元素（pair.second）是 bool 类型，表示插入是否成功。
 // true：元素不存在于 set 中，插入成功。
 // false：元素已存在于 set 中，插入失败。
 pair<iterator, bool> insert(const value_type& value);//函数原型
 insert(elem); 
 
-//emplace方法：直接在容器中构造元素，避免临时对象的创建和复制，性能更优。
+// emplace方法：直接在容器中构造元素，避免临时对象的创建和复制，性能更优。
 std::set<Person> mySet;
+// emplace的参数是Person构造函数的参数，最终插入的是一个Person对象（elem）
 mySet.emplace("Alice", 30);
 
 //-------------------------------------------------------------------
