@@ -327,29 +327,9 @@ pip install package_name
 | Ctrl + Y | 删除行 |
 
 
-## 2.2 Python 代码阅读方法
+# 三 Python 基础与常用操作
 
-### 2.2.1 查看包源代码
-```python
-from d2l import torch as d2l
-with open(d2l.__file__, 'r') as f:
-    print(f.read())
-```
-
-### 2.2.2 在 Jupyter 中查看源码
-```python
-# 使用 ?? 查看函数/类的源代码
-d2l??
-```
-
-### 2.2.3 查看帮助文档
-```python
-from torch.utils.data import Dataset
-help(Dataset)
-```
-
-
-# 三、Python 基础与常用操作
+> [!note] Python的主要内容见代码实力：ai_python（Project）
 
 ## 3.1 环境变量与路径
 

@@ -89,7 +89,7 @@ Ctrl + Alt +Enter 虚拟机全屏
 
 > [参考此处](https://blog.csdn.net/junjun6022/article/details/140083298)
 
-在`VMware Workstation 17 pro`版本(个人版)的虚拟机中安装完`Ubuntu 22.04`版本后，发现VMware Tools安装选项为灰色无法安装。
+> [!bug] 在`VMware Workstation 17 pro`版本(个人版)的虚拟机中安装完`Ubuntu 22.04`版本后，发现VMware Tools安装选项为灰色无法安装。
 
 > 在版本 10.3.10(VMware Tools) 中停止提供适用于 Linux 虚拟机的 VMware Tar 工具的功能，因此 Workstation Player 中包含的 tar 工具 (linux.iso) 是 10.3.10，且不会进行更新。由于此更改， 安装/更新/重新安装 VMware Tools 菜单不可用于以下 Linux 虚拟机。
 >
@@ -108,9 +108,29 @@ Ctrl + Alt +Enter 虚拟机全屏
 
 
 
+#### 1.2.5 VM开启虚拟机报错
+
+> [!bug] 2026.3.11 VMware 启动虚拟机操作系统出错
+ 
+安装了VMware16，修改了BIOS设置，还是一直报错：
+
+```
+此平台不支持虚拟化的 Intel VT-x/EPT。  不使用虚拟化的 Intel VT-x/EPT，是否继续?
+```
+
+> [!note] 折腾了一下午没解决，花了15块请咸鱼大佬15分钟搞定。
+
+1. 他运行用了一个禁用 Windows11"基于虚拟化安全性"的bat脚本。
+	- DeepSeek提示过我这个方法，脚本内容很像，但是执行后需要重新启动，重新启动按F3确认修改，开机后启动虚拟机就黑屏。
+	- 他执行了也一样，没什么好说，我以为他要退钱了。
+2. 结果人家又下载另一个版本的VMware：VMware-workstation-full-17.5.0.exe
+	- 安装后就好了，牛皮！
+
+> [!note] 最新的Ubuntu[安装教程](https://blog.csdn.net/qq_62888264/article/details/145102532)
 
 
 <br>
+
 
 ## 2 关于Ubuntu遇到的问题
 
@@ -183,7 +203,7 @@ exit  |  Ctrl+D
 
 **问题：**新搭建的`Ubuntu`虚拟机，执行apt安装命令是报错`could not get lock /var/lib/dpkg/lock-frontend`
 
-**问题原因：**存在另外一个进程在使用这个目录：`/var/lib/dpkg/lock-frontend`，【比如，正在更新软件`Cache`】。所以先确定是否还有其他人在使用软件管理程序或者在使用`apt`进行软件的安装，如果没有的话，可以直接删除/重命名被锁定的文件。
+**问题原因：** 存在另外一个进程在使用这个目录：`/var/lib/dpkg/lock-frontend`，【比如，正在更新软件`Cache`】。所以先确定是否还有其他人在使用软件管理程序或者在使用`apt`进行软件的安装，如果没有的话，可以直接删除/重命名被锁定的文件。
 
 **解决：**
 
