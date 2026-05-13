@@ -1,9 +1,0 @@
-{
-  
-  "claudeCode.environmentVariables": [
-    { "name": "ANTHROPIC_BASE_URL", "value": "https://ark.cn-beijing.volces.com/api/compatible" },
-    { "name": "ANTHROPIC_AUTH_TOKEN", "value": "65de22d4-3c76-447e-8a8a-e1c996cd81c8" },
-    { "name": "ANTHROPIC_MODEL", "value": "doubao-seed-2.0-code-preview-latest" }
-  ],
-  "claudeCode.disableLoginPrompt": true
-}

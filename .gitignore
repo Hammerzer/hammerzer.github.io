@@ -10,3 +10,5 @@ private/
 .replit
 replit.nix
 .claude
+
+content/.vscode/
